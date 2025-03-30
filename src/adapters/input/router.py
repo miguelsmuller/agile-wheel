@@ -38,13 +38,13 @@ async def ping():
     },
     response_model=CreateActivityResponse,
 )
-def activity():
-    activity = activity_service.execute()
+async def activity():
+    response = await activity_service.execute()
     
     return CreateActivityResponse(
-        activity_id=activity.id, 
-        created_at=activity.created_at,
-        dimensions=activity.dimensions
+        activity_id=response.id, 
+        created_at=response.created_at,
+        dimensions=response.dimensions
     )
 
 
