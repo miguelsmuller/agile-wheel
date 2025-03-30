@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class ActivityPort(ABC):
+class CreateActivityPort(ABC):
     @abstractmethod
-    def create_activity(self):
+    def execute(self):
         pass

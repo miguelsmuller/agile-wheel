@@ -1,13 +1,13 @@
 from fastapi import APIRouter, status
 
 from src.adapters.input.schemas.schemas import CreateActivityResponse, PongResponse
-from src.application.usecase.create_activity_service import ActivityService
+from src.application.usecase.create_activity_service import CreateActivityService
 
 from fastapi import APIRouter, status
 
 router = APIRouter()
 
-activity_service = ActivityService()
+activity_service = CreateActivityService()
 
 @router.get("/")
 def root():
@@ -34,5 +34,5 @@ async def ping():
     response_model=CreateActivityResponse,
 )
 def activity():
-    activity = activity_service.create_activity()
+    activity = activity_service.execute()
     return CreateActivityResponse(activity_id=activity.id, created_at=activity.created_at)
