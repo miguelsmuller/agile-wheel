@@ -35,4 +35,8 @@ async def ping():
 )
 def activity():
     activity = activity_service.execute()
-    return CreateActivityResponse(activity_id=activity.id, created_at=activity.created_at)
+    return CreateActivityResponse(
+        activity_id=activity.id, 
+        created_at=activity.created_at,
+        dimensions=activity.dimensions
+    )
