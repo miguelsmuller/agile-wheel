@@ -72,7 +72,7 @@ Estrutura básica:
 .
 ├── src
 │   ├── adapters
-│   │   └── in/out
+│   │   └── input/output
 │   ├── application
 │   ├── config
 │   ├── domain
@@ -80,7 +80,7 @@ Estrutura básica:
 │   │   ├── consumer
 │   │   └── http
 │   └── ports
-│       └── in/out
+│       └── input/output
 │
 ├── tests
 │   └── ...
