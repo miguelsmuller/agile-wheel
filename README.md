@@ -29,35 +29,27 @@ Python 3.11.6
 
 ## 🚀 Iniciando o Projeto
 
-1. **Configure o Poetry para criar ambientes virtuais dentro do projeto** (útil para manter tudo isolado):
-
-```bash
+```sh
+# Configure o Poetry para criar ambientes virtuais dentro do projeto
 poetry config virtualenvs.in-project true
-```
 
-2. **Defina a versão do Python a ser utilizada**:
-
-```bash
+# Defina a versão do Python a ser utilizada
 poetry env use 3.11
-```
 
-3. **Instale as dependências do projeto**:
+# Instale o Poetry na versão adequada
+pip install "poetry==2.1.2"
 
-```bash
+# Instale as dependências do projeto
 poetry install
-```
 
-4. **Execute comandos usando o Poetry local**:
-
-```bash
+# Execute comandos usando o Poetry local
 ./poetry.sh run <comando>
+
+# Rodando o projet
+./poetry.sh run uvicorn src:app --reload
+
 ```
 
-5. **Rodando o projet**:
-
-```bash
-./poetry.sh run uvicorn src.entrypoints.http.main:app --reload
-```
 
 
 ---
@@ -68,7 +60,7 @@ O projeto segue o padrão da **Arquitetura Hexagonal (Ports and Adapters)**, com
 
 Estrutura básica:
 
-```shell
+```sh
 .
 ├── src
 │   ├── adapters
