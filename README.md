@@ -74,13 +74,12 @@ Estrutura básica:
 │   ├── adapters
 │   │   └── input/output
 │   ├── application
-│   ├── config
-│   ├── domain
-│   ├── entrypoints
-│   │   ├── consumer
-│   │   └── http
-│   └── ports
-│       └── input/output
+│   │   ├── domain
+│   │   │   └── models
+│   │   ├── ports
+│   │   │   └── input/output
+│   │   └── usecase
+│   └── config
 │
 ├── tests
 │   └── ...

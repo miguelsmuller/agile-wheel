@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 
-from src.adapters.input.http.schemas.schemas import CreateActivityResponse, PongResponse
-from src.application.create_activity_service import ActivityService
+from src.adapters.input.schemas.schemas import CreateActivityResponse, PongResponse
+from src.application.usecase.create_activity_service import ActivityService
 
 from fastapi import APIRouter, status
 
