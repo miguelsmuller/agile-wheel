@@ -1,15 +1,16 @@
 from fastapi import APIRouter, status
-from pydantic import BaseModel
 
+from src.adapters.input.http.schemas.schemas import CreateActivityResponse, PongResponse
+from src.application.create_activity_service import ActivityService
+
+from fastapi import APIRouter, status
 
 router = APIRouter()
 
-
-class PongResponse(BaseModel):
-    message: str
+activity_service = ActivityService()
 
 @router.get("/")
-def read_root():
+def root():
     return {"Hello": "World"}
 
 
@@ -22,3 +23,16 @@ def read_root():
 )
 async def ping():
     return PongResponse(message="pong")
+
+
+@router.post(
+    "/activity",
+    status_code=status.HTTP_201_CREATED,
+    responses={
+        status.HTTP_201_CREATED: {"description": "Activity created successfully."},
+    },
+    response_model=CreateActivityResponse,
+)
+def activity():
+    activity = activity_service.create_activity()
+    return CreateActivityResponse(activity_id=activity.id, created_at=activity.created_at)
