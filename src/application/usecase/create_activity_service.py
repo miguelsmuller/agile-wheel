@@ -6,10 +6,10 @@ from src.application.domain.models.activity import Activity
 
 class CreateActivityService(CreateActivityPort):
     def execute(self):
-        return Activity(
-            dimensions=[
-                Dimension(id="experimente_e_aprenda", dimension="Experimente e Aprenda"),
-                Dimension(id="seguranca", dimension="Segurança"),
-                Dimension(id="valor_a_todo_instante", dimension="Valor a todo instante"),
-            ]
-        )
+        activity = Activity()
+
+        activity.add_dimension(Dimension(id="experimente_e_aprenda", dimension="Experimente e Aprenda"))
+        activity.add_dimension(Dimension(id="seguranca", dimension="Segurança"))
+        activity.add_dimension(Dimension(id="valor_a_todo_instante", dimension="Valor a todo instante"))
+
+        return activity
