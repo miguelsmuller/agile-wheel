@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from src.application.domain.models.activity import Activity
 from typing import List
 
-class ActivityRepository(ABC):
+class ActivityRepositoryPort(ABC):
     @abstractmethod
     async def save(self, user: Activity) -> None: ...
     

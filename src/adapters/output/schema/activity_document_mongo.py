@@ -53,9 +53,6 @@ class ActivityDocument(Document):
         )
 
     def to_domain(self) -> Activity:
-        print(self)
-
-
         return Activity(
             id=self.app_id,
             created_at=self.created_at,

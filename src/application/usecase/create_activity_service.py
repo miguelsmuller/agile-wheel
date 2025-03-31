@@ -1,14 +1,17 @@
-from src.adapters.output.database.activity_repository_mongo import ActivityRepositoryMongo
+from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.domain.models.dimension import Dimension
-from src.application.ports.input.http.create_activity_port import CreateActivityPort
-
+from src.application.ports.input.create_activity_port import CreateActivityPort
 from src.application.domain.models.activity import Activity
 
 
 class CreateActivityService(CreateActivityPort):
 
     def __init__(self, repo = None):
-        self.repo = repo or ActivityRepositoryMongo()
+        self.repo = repo or ActivityRepositoryAdapter()
+
+    @staticmethod
+    def get_service() -> CreateActivityPort:
+        return CreateActivityService()
 
     async def execute(self):
         activity = Activity()

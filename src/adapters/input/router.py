@@ -1,8 +1,11 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, Depends, status
 
 from src.adapters.input.schemas.schemas import CreateActivityResponse, JoinRequest, JoinResponse, PongResponse
+
 from src.application.domain.models.participant import Participant
 from src.application.domain.models.activity import Activity
+from src.application.ports.input.create_activity_port import CreateActivityPort
+from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.application.usecase.create_activity_service import CreateActivityService
 from src.application.usecase.join_activity_service import JoinActivityService
 
@@ -11,8 +14,6 @@ from fastapi import APIRouter, status
 
 router = APIRouter()
 
-activity_service = CreateActivityService()
-join_activity_service = JoinActivityService()
 
 @router.get("/")
 def root():
@@ -38,8 +39,10 @@ async def ping():
     },
     response_model=CreateActivityResponse,
 )
-async def activity():
-    response = await activity_service.execute()
+async def activity(
+    create_activity_service: CreateActivityPort = Depends(CreateActivityService.get_service)
+):
+    response = await create_activity_service.execute()
     
     return CreateActivityResponse(
         activity_id=response.id, 
@@ -56,8 +59,9 @@ async def activity():
     },
     response_model=JoinResponse,
 )
-def activity(
-    request: JoinRequest
+def join(
+    request: JoinRequest,
+    join_activity_service: JoinActivityPort = Depends(JoinActivityService.get_service)
 ):
     # Search for the activity
     activity = Activity()

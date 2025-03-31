@@ -1,10 +1,14 @@
 from src.application.domain.models.activity import Activity
 from src.application.domain.models.participant import Participant
 from src.application.domain.models.dimension import Dimension
-from src.application.ports.input.http.join_activity_port import JoinActivityPort
+from src.application.ports.input.join_activity_port import JoinActivityPort
 
 
 class JoinActivityService(JoinActivityPort):
+    @staticmethod
+    def get_service() -> JoinActivityPort:
+        return JoinActivityService()
+    
     def execute(self, activity: Activity, participant: Participant):
         activity = Activity()
 

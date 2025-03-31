@@ -1,13 +1,13 @@
-from src.application.ports.output.database.activity_repository import ActivityRepository
-from src.application.domain.models.activity import Activity
-from .activity_document_mongo import ActivityDocument
+from src.adapters.output.schema.activity_document_mongo import ActivityDocument
 
-class ActivityRepositoryMongo(ActivityRepository):
+from src.application.domain.models.activity import Activity
+from src.application.ports.output.activity_repository import ActivityRepositoryPort
+
+class ActivityRepositoryAdapter(ActivityRepositoryPort):
     async def save(self, activity: Activity) -> None:
         doc = ActivityDocument.from_domain(activity)
         
         activity_document = await doc.insert()
-
         activity = activity_document.to_domain()
         
         return activity
