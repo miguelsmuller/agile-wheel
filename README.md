@@ -5,7 +5,23 @@ Para isso, existe um script chamado `poetry.sh` na raiz do projeto, garantindo q
 
 > ⚠️ Ainda assim, é necessário ter o **Poetry instalado globalmente** para iniciar o projeto e instalar as dependências locais corretamente.
 
----
+
+
+
+## 🧠 O que é o Agile Wheel?
+
+O **Agile Wheel** é uma abordagem visual de medição da maturidade ágil, organizada em quatro pilares:
+
+1. **Pessoas Sensacionais**
+2. **Experimente e Aprenda Rápido**
+3. **Segurança é um Pré-requisito**
+4. **Valor a Todo Instante**
+
+Cada dinâmica permite que times avaliem sua maturidade por meio de notas ou distribuição de pontos, com visualização final em um **Gráfico Radar**.
+
+
+
+
 
 ## 📦 Ambiente Local com Poetry
 
@@ -25,7 +41,8 @@ Poetry (version 2.1.2)
 Python 3.11.6
 ```
 
----
+
+
 
 ## 🚀 Iniciando o Projeto
 
@@ -52,7 +69,6 @@ poetry install
 
 
 
----
 
 ## 🧱 Estrutura do Projeto (Arquitetura Hexagonal)
 
