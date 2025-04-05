@@ -12,6 +12,7 @@ class ParticipantModel(BaseModel):
     id: UUID
     name: str
     role: str
+    email: str
 
 class DimensionModel(BaseModel):
     id: str

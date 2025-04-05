@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 
-from src.adapters.input.schemas.schemas import CreateActivityResponse, JoinRequest, JoinResponse, PongResponse
+from src.adapters.input.schemas.schemas import CreateActivityRequest, CreateActivityResponse, JoinRequest, JoinResponse, PongResponse
 
 from src.application.domain.models.participant import Participant
 from src.application.domain.models.activity import Activity
@@ -40,14 +40,21 @@ async def ping():
     response_model=CreateActivityResponse,
 )
 async def activity(
+    activity_request: CreateActivityRequest,
     create_activity_service: CreateActivityPort = Depends(CreateActivityService.get_service)
 ):
-    response = await create_activity_service.execute()
+    activity = await create_activity_service.execute(
+        owner = Participant(
+            email=activity_request.owner_email, 
+            name=activity_request.owner_name,
+            role="owner"
+        )
+    )
     
     return CreateActivityResponse(
-        activity_id=response.id, 
-        created_at=response.created_at,
-        dimensions=response.dimensions
+        activity_id=activity.id, 
+        created_at=activity.created_at,
+        dimensions=activity.dimensions
     )
 
 
