@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Path, status
 
 from src.adapters.input.schemas import JoinRequest, JoinResponse
-from src.application.domain.models.activity import Activity
-from src.application.domain.models.participant import Participant
+from src.domain.models.activity import Activity
+from src.domain.models.participant import Participant
 from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.application.usecase.join_activity_service import JoinActivityService
 

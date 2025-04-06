@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from src.application.domain.models.activity import Activity
-from src.application.domain.models.participant import Participant
+from src.domain.models.activity import Activity
+from src.domain.models.participant import Participant
 
 
 class JoinActivityPort(ABC):

@@ -1,7 +1,7 @@
 # src/ports/output/user_repository.py
 from abc import ABC, abstractmethod
 
-from src.application.domain.models.activity import Activity
+from src.domain.models.activity import Activity
 
 
 class ActivityRepositoryPort(ABC):

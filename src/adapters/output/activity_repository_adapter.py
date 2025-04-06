@@ -1,5 +1,5 @@
 from src.adapters.output.schema.activity_document_mongo import ActivityDocument
-from src.application.domain.models.activity import Activity
+from src.domain.models.activity import Activity
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 
 

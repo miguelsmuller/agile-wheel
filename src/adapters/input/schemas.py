@@ -3,7 +3,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, EmailStr, field_validator
 
-from src.application.domain.models.dimension import Dimension
+from src.domain.models.dimension import Dimension
 
 
 class PongResponse(BaseModel):

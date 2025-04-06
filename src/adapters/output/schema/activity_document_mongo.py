@@ -4,13 +4,13 @@ from uuid import UUID
 from beanie import Document
 from pydantic import BaseModel
 
-from src.application.domain.models.activity import (
+from src.domain.models.activity import (
     Activity,
     Dimension,
     Participant,
     ParticipantEvaluation,
 )
-from src.application.domain.models.evaluation import Rating
+from src.domain.models.evaluation import Rating
 
 
 class ParticipantModel(BaseModel):
