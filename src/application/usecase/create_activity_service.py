@@ -1,7 +1,7 @@
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
-from src.domain.models.activity import Activity
-from src.domain.models.dimension import Dimension
-from src.domain.models.participant import Participant
+from src.domain.entities.activity import Activity
+from src.domain.entities.dimension import Dimension
+from src.domain.entities.participant import Participant
 from src.application.ports.input.create_activity_port import CreateActivityPort
 
 
