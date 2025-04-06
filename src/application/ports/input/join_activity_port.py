@@ -6,5 +6,5 @@ from src.domain.entities.participant import Participant
 
 class JoinActivityPort(ABC):
     @abstractmethod
-    def execute(self, activity:Activity, participant: Participant) -> tuple[Activity, Participant]:
+    def execute(self, activity_id:str, participant: Participant) -> tuple[Activity, Participant]:
         pass

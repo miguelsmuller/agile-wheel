@@ -13,19 +13,15 @@ class ActivityRepositoryAdapter(ActivityRepositoryPort):
         return activity_document.to_domain()
 
     async def update(self, activity: Activity, update_callback: callable) -> Activity:
-        return await self._upsert(activity, update_callback)
-
-    async def _upsert(self, activity: Activity, update_callback: callable) -> Activity:
         activity_document = await ActivityDocument.find_one(
             ActivityDocument.app_id == str(activity.id)
         )
 
-        if activity_document:
-            update_callback(activity_document)
-            await activity_document.save()
-        else:
-            activity_document = ActivityDocument.from_domain(activity)
-            await activity_document.insert()
+        if not activity_document:
+            raise LookupError("Activity not found")
+
+        update_callback(activity_document)
+        await activity_document.save()
 
         return activity_document.to_domain()
 

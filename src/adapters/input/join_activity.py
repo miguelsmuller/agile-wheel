@@ -27,9 +27,7 @@ async def join_activity(
     join_activity_service: JoinActivityPort = Depends(lambda: service),
 ):
     activity, participant = await join_activity_service.execute(
-        activity=Activity(
-            id=activity_id
-        ),
+        activity_id=activity_id,
         participant=Participant(
             name=request.participant_name,
             email=request.participant_email,

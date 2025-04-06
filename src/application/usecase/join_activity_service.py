@@ -11,9 +11,10 @@ class JoinActivityService(JoinActivityPort):
 
     async def execute(
         self,
-        activity: Activity,
+        activity_id:str,
         participant: Participant
     ) -> tuple[Activity, Participant]:
+        activity = Activity(id=activity_id)
 
         def add_participant_callback(activity_document):
             domain_activity = activity_document.to_domain()
