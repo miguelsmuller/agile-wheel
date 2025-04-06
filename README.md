@@ -1,13 +1,5 @@
 # Agile Wheel
 
-Este projeto utiliza uma abordagem que encapsula o **Poetry** como uma dependência local do próprio repositório, evitando problemas de incompatibilidade entre versões globais diferentes do Poetry instaladas no sistema.  
-Para isso, existe um script chamado `poetry.sh` na raiz do projeto, garantindo que sempre seja utilizada a **versão local do Poetry**.
-
-> ⚠️ Ainda assim, é necessário ter o **Poetry instalado globalmente** para iniciar o projeto e instalar as dependências locais corretamente.
-
-
-
-
 ## 🧠 O que é o Agile Wheel?
 
 O **Agile Wheel** é uma abordagem visual de medição da maturidade ágil, organizada em quatro pilares:
@@ -25,48 +17,43 @@ Cada dinâmica permite que times avaliem sua maturidade por meio de notas ou dis
 
 ## 📦 Ambiente Local com Poetry
 
-Para utilizar o Poetry do próprio projeto, execute os comandos através do script:
+### 1. Instale o Python 3.12 (usando pyenv recomendado)
 
 ```bash
-./poetry.sh <comando>
-```
-
-Exemplo:
-
-```bash
-./poetry.sh --version
-Poetry (version 2.1.2)
-
-./poetry.sh run python --version
-Python 3.11.6
+pyenv install 3.12.0
 ```
 
 
+### 2. Instale o Poetry com sufixo (via pipx)
+
+```bash
+pipx install --suffix "@aw" poetry==2.1.1 --python python3.12
+# Isso criará o comando poetry@aw disponível globalmente, vinculado à versão correta do Python e do Poetry.
+```
 
 
-## 🚀 Iniciando o Projeto
+### 3. Crie e use o ambiente virtual
 
-```sh
-# Configure o Poetry para criar ambientes virtuais dentro do projeto
+```bash
 poetry config virtualenvs.in-project true
-
-# Defina a versão do Python a ser utilizada
-poetry env use 3.11
-
-# Instale o Poetry na versão adequada
-pip install "poetry==2.1.2"
-
-# Instale as dependências do projeto
-poetry install
-
-# Execute comandos usando o Poetry local
-./poetry.sh run <comando>
-
-# Rodando o projet
-./poetry.sh run uvicorn src:app --reload
-
+poetry@aw env use 3.12
+poetry@aw install
 ```
 
+
+### 4. Executando o Projeto
+
+```bash
+# Rodar aplicação localmente
+poetry poe serve
+# ou
+poetry@aw run uvicorn src:app --reload
+
+# Rodar testes, linters, etc
+poetry@aw run pytest
+poetry@aw run ruff check .
+poetry@aw run mypy src/
+```
 
 
 
