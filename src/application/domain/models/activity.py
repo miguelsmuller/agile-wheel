@@ -57,6 +57,7 @@ class Activity:
     as dimensões avaliadas e as avaliações feitas.
     """
     id: UUID = field(default_factory=uuid4)
+    opened: bool = False
     created_at: datetime = field(default_factory=datetime.utcnow)
     participants: List[Participant] = field(default_factory=list)
     dimensions: List[Dimension] = field(default_factory=list)

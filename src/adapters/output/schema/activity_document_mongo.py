@@ -30,6 +30,7 @@ class ParticipantEvaluationModel(BaseModel):
 
 class ActivityDocument(Document):
     app_id: str
+    opened: bool = False
     created_at: datetime
     participants: List[ParticipantModel]
     dimensions: List[DimensionModel]
@@ -43,6 +44,7 @@ class ActivityDocument(Document):
         return cls(
             app_id=str(activity.id),
             created_at=activity.created_at,
+            opened=activity.opened,
             participants=[
                 ParticipantModel(
                     id=str(p.id),
@@ -75,6 +77,7 @@ class ActivityDocument(Document):
         return Activity(
             id=UUID(self.app_id),
             created_at=self.created_at,
+            opened=self.opened,
             participants=[
                 Participant(
                     id=UUID(p.id),

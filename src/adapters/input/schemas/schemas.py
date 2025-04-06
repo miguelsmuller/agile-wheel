@@ -38,3 +38,6 @@ class JoinRequest(BaseModel):
 class JoinResponse(BaseModel):
     activity_id: UUID
     participant_id: UUID
+
+class CloseResponse(BaseModel):
+    activity_id: UUID
