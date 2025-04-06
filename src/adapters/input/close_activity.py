@@ -1,15 +1,12 @@
 from typing import Annotated
 from uuid import UUID
-from fastapi import APIRouter, Depends, Header, status, Path
+
+from fastapi import APIRouter, Depends, Header, Path, status
 from fastapi.responses import JSONResponse
 
 from src.adapters.input.schemas import CloseResponse
-
 from src.application.ports.input.close_activity_port import CloseActivityPort
 from src.application.usecase.close_activity_service import CloseActivityService
-
-from fastapi import APIRouter, status
-
 
 router = APIRouter()
 
@@ -30,7 +27,7 @@ async def close_activity(
 ):
     try:
         closed_activity = await close_activity_service.execute(
-            activity_id=activity_id, 
+            activity_id=activity_id,
             participant_id_requested=UUID(participant_id)
         )
     except PermissionError as e:

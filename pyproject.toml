@@ -21,19 +21,21 @@ dependencies = [
     "pdbpp (>=0.10.3,<0.11.0)"
 ]
 
-[tool.poetry]
-packages = [{ include = "src" }]
+[project.urls]
+Homepage = "https://github.com/miguelsmuller/agile-wheel"
 
-[tool.poetry.dependencies]
-poetry = "^2.1.1"
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.11.4"
-mypy = "^1.15.0"
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.11.4",
+    "mypy>=1.15.0"
+]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.ruff]
 line-length = 99
@@ -44,7 +46,6 @@ target-version = "py311"
 "tests/**/*.py" = [
     "S101", # flake8-bandit - use of assert detected
 ]
-
 [tool.ruff.lint]
 select = [
     "A",   # flake8-builtins

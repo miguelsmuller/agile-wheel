@@ -1,7 +1,7 @@
 from datetime import datetime
-from pydantic import BaseModel, EmailStr, field_validator
 from uuid import UUID
-from typing import List
+
+from pydantic import BaseModel, EmailStr, field_validator
 
 from src.application.domain.models.dimension import Dimension
 
@@ -22,7 +22,7 @@ class CreateActivityRequest(BaseModel):
 class CreateActivityResponse(BaseModel):
     activity_id: UUID
     created_at: datetime
-    dimensions: List[Dimension]
+    dimensions: list[Dimension]
 
 
 class JoinRequest(BaseModel):

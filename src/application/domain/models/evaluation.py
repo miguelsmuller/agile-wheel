@@ -1,27 +1,27 @@
 from dataclasses import dataclass, field
 from uuid import UUID, uuid4
-from typing import List, Optional
 
 from .participant import Participant
 
+
 @dataclass
 class Rating:
+    """Representa um voto individual de um participante para uma dimensão específica.
     """
-    Representa um voto individual de um participante para uma dimensão específica.
-    """
+
     dimension_id: str
     score: float
-    comments: Optional[str] = None
+    comments: str | None = None
 
 
 @dataclass
 class ParticipantEvaluation:
+    """Conjunto de votos fornecidos por um participante em uma atividade.
     """
-    Conjunto de votos fornecidos por um participante em uma atividade.
-    """
+
     participant: Participant
     id: UUID = field(default_factory=uuid4)
-    ratings: List[Rating] = field(default_factory=list)
+    ratings: list[Rating] = field(default_factory=list)
 
     def add_vote(self, vote: Rating) -> None:
         self.ratings.append(vote)

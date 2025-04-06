@@ -1,11 +1,10 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from uuid import UUID, uuid4
-from typing import List
 
-from .participant import Participant
-from .dimension import  Dimension
+from .dimension import Dimension
 from .evaluation import ParticipantEvaluation
+from .participant import Participant
 
 
 @dataclass
@@ -17,12 +16,12 @@ class DimensionResult:
 
 @dataclass
 class ActivityResult:
-    """
-    ActivityResult é um dado derivado — ele não representa algo que precisa ser
+    """ActivityResult é um dado derivado — ele não representa algo que precisa ser
     armazenado dentro de Activity, mas sim algo que é calculado a partir de seu estado atual.
     """
+
     overall_score: float = 0.0
-    dimension_scores: List[DimensionResult] = field(default_factory=list)
+    dimension_scores: list[DimensionResult] = field(default_factory=list)
 
     @classmethod
     def from_activity(cls, activity: "Activity") -> "ActivityResult":
@@ -52,16 +51,16 @@ class ActivityResult:
 
 @dataclass
 class Activity:
-    """
-    Representa uma sessão de avaliação ágil, incluindo os participantes,
+    """Representa uma sessão de avaliação ágil, incluindo os participantes,
     as dimensões avaliadas e as avaliações feitas.
     """
+
     id: UUID = field(default_factory=uuid4)
     opened: bool = False
     created_at: datetime = field(default_factory=datetime.utcnow)
-    participants: List[Participant] = field(default_factory=list)
-    dimensions: List[Dimension] = field(default_factory=list)
-    evaluations: List[ParticipantEvaluation] = field(default_factory=list)
+    participants: list[Participant] = field(default_factory=list)
+    dimensions: list[Dimension] = field(default_factory=list)
+    evaluations: list[ParticipantEvaluation] = field(default_factory=list)
 
     def generate_result(self) -> ActivityResult:
         return ActivityResult.from_activity(self)

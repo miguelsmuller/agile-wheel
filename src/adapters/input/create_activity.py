@@ -1,13 +1,9 @@
 from fastapi import APIRouter, Depends, status
 
 from src.adapters.input.schemas import CreateActivityRequest, CreateActivityResponse
-
 from src.application.domain.models.participant import Participant
 from src.application.ports.input.create_activity_port import CreateActivityPort
 from src.application.usecase.create_activity_service import CreateActivityService
-
-from fastapi import APIRouter, status
-
 
 router = APIRouter()
 
@@ -26,14 +22,14 @@ async def activity(
 ):
     activity = await create_activity_service.execute(
         owner = Participant(
-            email=activity_request.owner_email, 
+            email=activity_request.owner_email,
             name=activity_request.owner_name,
             role="owner"
         )
     )
-    
+
     return CreateActivityResponse(
-        activity_id=activity.id, 
+        activity_id=activity.id,
         created_at=activity.created_at,
         dimensions=activity.dimensions
     )

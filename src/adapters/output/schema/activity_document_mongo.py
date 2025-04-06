@@ -1,10 +1,15 @@
-from beanie import Document
-from pydantic import BaseModel
-from typing import List, Optional
 from datetime import datetime
 from uuid import UUID
 
-from src.application.domain.models.activity import Activity, Participant, Dimension, ParticipantEvaluation
+from beanie import Document
+from pydantic import BaseModel
+
+from src.application.domain.models.activity import (
+    Activity,
+    Dimension,
+    Participant,
+    ParticipantEvaluation,
+)
 from src.application.domain.models.evaluation import Rating
 
 
@@ -17,24 +22,24 @@ class ParticipantModel(BaseModel):
 class DimensionModel(BaseModel):
     id: str
     dimension: str
-    comments: Optional[str] = None
+    comments: str | None = None
 
 class RatingModel(BaseModel):
     dimension_id: str
     score: float
-    comments: Optional[str] = None
+    comments: str | None = None
 
 class ParticipantEvaluationModel(BaseModel):
     participant_id: str
-    ratings: List[RatingModel]
+    ratings: list[RatingModel]
 
 class ActivityDocument(Document):
     app_id: str
     opened: bool = False
     created_at: datetime
-    participants: List[ParticipantModel]
-    dimensions: List[DimensionModel]
-    evaluations: List[ParticipantEvaluationModel]
+    participants: list[ParticipantModel]
+    dimensions: list[DimensionModel]
+    evaluations: list[ParticipantEvaluationModel]
 
     class Settings:
         name = "activities"
