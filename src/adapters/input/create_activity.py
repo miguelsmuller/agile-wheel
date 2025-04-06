@@ -1,10 +1,14 @@
 from fastapi import APIRouter, Depends, status
 from src.adapters.input.schemas import CreateActivityRequest, CreateActivityResponse
+from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.create_activity_port import CreateActivityPort
 from src.application.usecase.create_activity_service import CreateActivityService
 from src.domain.entities.participant import Participant
 
 router = APIRouter()
+
+repository = ActivityRepositoryAdapter()
+service = CreateActivityService(repository=repository)
 
 
 @router.post(
@@ -17,18 +21,14 @@ router = APIRouter()
 )
 async def activity(
     activity_request: CreateActivityRequest,
-    create_activity_service: CreateActivityPort = Depends(CreateActivityService.get_service)
+    create_activity_service: CreateActivityPort = Depends(lambda: service),
 ):
     activity = await create_activity_service.execute(
-        owner = Participant(
-            email=activity_request.owner_email,
-            name=activity_request.owner_name,
-            role="owner"
+        owner=Participant(
+            email=activity_request.owner_email, name=activity_request.owner_name, role="owner"
         )
     )
 
     return CreateActivityResponse(
-        activity_id=activity.id,
-        created_at=activity.created_at,
-        dimensions=activity.dimensions
+        activity_id=activity.id, created_at=activity.created_at, dimensions=activity.dimensions
     )

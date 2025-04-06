@@ -1,17 +1,11 @@
-from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.close_activity_port import CloseActivityPort
-from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.domain.entities.activity import Activity
 
 
 class CloseActivityService(CloseActivityPort):
 
     def __init__(self, repository = None):
-        self.repository = repository or ActivityRepositoryAdapter()
-
-    @staticmethod
-    def get_service() -> JoinActivityPort:
-        return CloseActivityService()
+        self.repository = repository
 
     async def execute(self, activity_id:str, participant_id_requested:str) -> Activity:
         activity = Activity(id=activity_id)

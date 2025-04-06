@@ -4,10 +4,14 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Header, Path, status
 from fastapi.responses import JSONResponse
 from src.adapters.input.schemas import CloseResponse
+from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.close_activity_port import CloseActivityPort
 from src.application.usecase.close_activity_service import CloseActivityService
 
 router = APIRouter()
+
+repository = ActivityRepositoryAdapter()
+service = CloseActivityService(repository=repository)
 
 
 @router.post(
@@ -24,7 +28,7 @@ async def close_activity(
     participant_id: Annotated[
         str, Header(alias="X-Participant-Id", title="The identifier of the participant")
     ],
-    close_activity_service: CloseActivityPort = Depends(CloseActivityService.get_service),
+    close_activity_service: CloseActivityPort = Depends(lambda: service),
 ):
     try:
         closed_activity = await close_activity_service.execute(

@@ -1,4 +1,3 @@
-from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.create_activity_port import CreateActivityPort
 from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension
@@ -7,11 +6,7 @@ from src.domain.entities.participant import Participant
 
 class CreateActivityService(CreateActivityPort):
     def __init__(self, repository=None):
-        self.repository = repository or ActivityRepositoryAdapter()
-
-    @staticmethod
-    def get_service() -> CreateActivityPort:
-        return CreateActivityService()
+        self.repository = repository
 
     async def execute(self, owner: Participant) -> Activity:
         activity = Activity()

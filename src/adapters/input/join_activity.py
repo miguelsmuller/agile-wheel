@@ -2,6 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Path, status
 from src.adapters.input.schemas import JoinRequest, JoinResponse
+from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.application.usecase.join_activity_service import JoinActivityService
 from src.domain.entities.activity import Activity
@@ -9,6 +10,8 @@ from src.domain.entities.participant import Participant
 
 router = APIRouter()
 
+repository = ActivityRepositoryAdapter()
+service = JoinActivityService(repository=repository)
 
 @router.patch(
     "/activity/{activity_id}/join",
@@ -21,7 +24,7 @@ router = APIRouter()
 async def join_activity(
     activity_id: Annotated[str, Path(title="The identifier of the actvity")],
     request: JoinRequest,
-    join_activity_service: JoinActivityPort = Depends(JoinActivityService.get_service)
+    join_activity_service: JoinActivityPort = Depends(lambda: service),
 ):
     activity, participant = await join_activity_service.execute(
         activity=Activity(
