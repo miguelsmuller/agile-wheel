@@ -112,6 +112,6 @@ module = ["callee"]
 ignore_missing_imports = true
 
 [tool.poe.tasks]
-serve = "uvicorn src:app --reload"
+serve = "uvicorn src.main:app --reload"
 ruff = "ruff check --fix ."
 

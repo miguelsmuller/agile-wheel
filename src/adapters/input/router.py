@@ -1,5 +1,4 @@
 from fastapi import APIRouter, status
-
 from src.adapters.input.close_activity import router as close_activity_router
 from src.adapters.input.create_activity import router as craeate_activity_router
 from src.adapters.input.join_activity import router as join_activity_router

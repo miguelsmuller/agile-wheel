@@ -2,7 +2,6 @@ from datetime import datetime
 from uuid import UUID
 
 from pydantic import BaseModel, EmailStr, field_validator
-
 from src.domain.entities.dimension import Dimension
 
 

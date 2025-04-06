@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, status
-
 from src.adapters.input.schemas import CreateActivityRequest, CreateActivityResponse
 from src.application.ports.input.create_activity_port import CreateActivityPort
 from src.application.usecase.create_activity_service import CreateActivityService
