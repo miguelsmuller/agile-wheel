@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, status
+from typing import Annotated
+from fastapi import APIRouter, Depends, status, Path
 
 from src.adapters.input.schemas.schemas import JoinRequest, JoinResponse
 
@@ -14,32 +15,34 @@ router = APIRouter()
 
 
 @router.patch(
-    "/activity/join",
+    "/activity/{activity_id}/join",
     status_code=status.HTTP_200_OK,
     responses={
         status.HTTP_200_OK: {"description": "Join activity successfully."},
     },
     response_model=JoinResponse,
 )
-def join_activity(
+async def join_activity(
+    activity_id: Annotated[str, Path(title="The identifier of the actvity")],
     request: JoinRequest,
     join_activity_service: JoinActivityPort = Depends(JoinActivityService.get_service)
 ):
-    # Search for the activity
-    activity = Activity()
-    activity.id = request.activity_id
-
-    # Create the participant
-    participant = Participant(
-        name=request.participant_name, 
-        email=request.participant_email
+    activity = Activity(
+        id=activity_id
     )
 
-    # Join the participant to the activity
-    join_activity_service.execute(activity=activity, participant=participant)
+    participant = Participant(
+        name=request.participant_name, 
+        email=request.participant_email,
+        role="regular"
+    )
 
-    # Return the activity
+    updated_activity = await join_activity_service.execute(
+        activity=activity, 
+        participant=participant
+    )
+
     return JoinResponse(
-        activity_id=activity.id, 
+        activity_id=updated_activity.id, 
         participant_id=participant.id
     )

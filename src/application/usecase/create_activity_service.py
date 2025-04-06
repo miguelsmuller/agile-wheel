@@ -7,8 +7,8 @@ from src.application.domain.models.activity import Activity
 
 class CreateActivityService(CreateActivityPort):
 
-    def __init__(self, repo = None):
-        self.repo = repo or ActivityRepositoryAdapter()
+    def __init__(self, repository = None):
+        self.repository = repository or ActivityRepositoryAdapter()
 
     @staticmethod
     def get_service() -> CreateActivityPort:
@@ -23,6 +23,4 @@ class CreateActivityService(CreateActivityPort):
         
         activity.add_participant(owner)
 
-        activity: Activity = await self.repo.save(activity)
-
-        return activity
+        return await self.repository.save(activity)

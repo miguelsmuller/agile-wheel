@@ -1,21 +1,25 @@
+from src.adapters.output.schema.activity_document_mongo import ActivityDocument
 from src.application.domain.models.activity import Activity
+from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.domain.models.participant import Participant
 from src.application.domain.models.dimension import Dimension
 from src.application.ports.input.join_activity_port import JoinActivityPort
 
 
 class JoinActivityService(JoinActivityPort):
+
+    def __init__(self, repository = None):
+        self.repository = repository or ActivityRepositoryAdapter()
+
     @staticmethod
     def get_service() -> JoinActivityPort:
         return JoinActivityService()
     
-    def execute(self, activity: Activity, participant: Participant):
-        activity = Activity()
+    async def execute(self, activity: Activity, participant: Participant) -> Participant:
+        def add_participant_callback(activity_document):
+            domain_activity = activity_document.to_domain()
+            domain_activity.add_participant(participant)
+            updated_document = ActivityDocument.from_domain(domain_activity)
+            activity_document.participants = updated_document.participants
 
-        activity.add_dimension(Dimension(id="experimente_e_aprenda", dimension="Experimente e Aprenda"))
-        activity.add_dimension(Dimension(id="seguranca", dimension="Segurança"))
-        activity.add_dimension(Dimension(id="valor_a_todo_instante", dimension="Valor a todo instante"))
-
-        activity.add_participant(participant)
-
-        return activity
+        return await self.repository.update(activity, add_participant_callback)

@@ -9,7 +9,7 @@ from src.application.domain.models.evaluation import Rating
 
 
 class ParticipantModel(BaseModel):
-    id: UUID
+    id: str
     name: str
     role: str
     email: str
@@ -20,16 +20,16 @@ class DimensionModel(BaseModel):
     comments: Optional[str] = None
 
 class RatingModel(BaseModel):
-    dimension_id: UUID
+    dimension_id: str
     score: float
     comments: Optional[str] = None
 
 class ParticipantEvaluationModel(BaseModel):
-    participant_id: UUID
+    participant_id: str
     ratings: List[RatingModel]
 
 class ActivityDocument(Document):
-    app_id: UUID
+    app_id: str
     created_at: datetime
     participants: List[ParticipantModel]
     dimensions: List[DimensionModel]
@@ -41,28 +41,65 @@ class ActivityDocument(Document):
     @classmethod
     def from_domain(cls, activity: Activity) -> "ActivityDocument":
         return cls(
-            app_id=activity.id,
+            app_id=str(activity.id),
             created_at=activity.created_at,
-            participants=[ParticipantModel(**p.__dict__) for p in activity.participants],
-            dimensions=[DimensionModel(**d.__dict__) for d in activity.dimensions],
+            participants=[
+                ParticipantModel(
+                    id=str(p.id),
+                    name=p.name,
+                    role=p.role,
+                    email=p.email
+                ) for p in activity.participants],
+            dimensions=[
+                DimensionModel(
+                    id=str(d.id),
+                    dimension=d.dimension,
+                    comments=d.comments
+                ) for d in activity.dimensions
+            ],
             evaluations=[
                 ParticipantEvaluationModel(
                     participant_id=e.participant_id,
-                    ratings=[RatingModel(**r.__dict__) for r in e.ratings]
+                    ratings=[
+                        RatingModel(
+                            dimension_id=str(r.dimension_id),
+                            score=r.score,
+                            comments=r.comments
+                        ) for r in e.ratings
+                    ]
                 ) for e in activity.evaluations
             ]
         )
 
     def to_domain(self) -> Activity:
         return Activity(
-            id=self.app_id,
+            id=UUID(self.app_id),
             created_at=self.created_at,
-            participants=[Participant(**p.dict()) for p in self.participants],
-            dimensions=[Dimension(**d.dict()) for d in self.dimensions],
+            participants=[
+                Participant(
+                    id=UUID(p.id),
+                    name=p.name,
+                    role=p.role,
+                    email=p.email
+                ) for p in self.participants
+            ],
+            dimensions=[
+                Dimension(
+                    id=d.id,
+                    dimension=d.dimension,
+                    comments=d.comments
+                ) for d in self.dimensions
+            ],
             evaluations=[
                 ParticipantEvaluation(
                     participant_id=e.participant_id,
-                    ratings=[Rating(**r.dict()) for r in e.ratings]
+                    ratings=[
+                        Rating(
+                            dimension_id=UUID(r.dimension_id),
+                            score=r.score,
+                            comments=r.comments
+                        ) for r in e.ratings
+                    ]
                 ) for e in self.evaluations
             ]
         )
