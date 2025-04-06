@@ -32,7 +32,7 @@ def join_activity(
     # Create the participant
     participant = Participant(
         name=request.participant_name, 
-        role=request.participant_role
+        email=request.participant_email
     )
 
     # Join the participant to the activity

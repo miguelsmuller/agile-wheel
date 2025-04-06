@@ -26,9 +26,14 @@ class CreateActivityResponse(BaseModel):
 
 
 class JoinRequest(BaseModel):
-    activity_id: UUID
     participant_name: str
-    participant_role: str
+    participant_email: EmailStr
+
+    @field_validator("participant_name")
+    def validator_name(cls, value):
+        if len(value) < 3:
+            raise ValueError("Name must be at least 3 characters long")
+        return value
 
 class JoinResponse(BaseModel):
     activity_id: UUID
