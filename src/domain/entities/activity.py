@@ -39,11 +39,13 @@ class ActivityResult:
             if votes:
                 avg = sum(votes) / len(votes)
                 total_score += avg
-                dimension_scores.append(DimensionResult(
-                    dimension=dimension_map[dim_id],
-                    average_score=avg,
-                    total_ratings=len(votes)
-                ))
+                dimension_scores.append(
+                    DimensionResult(
+                        dimension=dimension_map[dim_id],
+                        average_score=avg,
+                        total_ratings=len(votes),
+                    )
+                )
 
         overall_score = total_score / len(dimension_scores) if dimension_scores else 0
         return cls(overall_score=overall_score, dimension_scores=dimension_scores)

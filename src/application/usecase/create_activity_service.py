@@ -6,8 +6,7 @@ from src.domain.entities.participant import Participant
 
 
 class CreateActivityService(CreateActivityPort):
-
-    def __init__(self, repository = None):
+    def __init__(self, repository=None):
         self.repository = repository or ActivityRepositoryAdapter()
 
     @staticmethod
@@ -17,9 +16,13 @@ class CreateActivityService(CreateActivityPort):
     async def execute(self, owner: Participant) -> Activity:
         activity = Activity()
 
-        activity.add_dimension(Dimension(id="experimente_e_aprenda", dimension="Experimente e Aprenda"))
+        activity.add_dimension(
+            Dimension(id="experimente_e_aprenda", dimension="Experimente e Aprenda")
+        )
         activity.add_dimension(Dimension(id="seguranca", dimension="Segurança"))
-        activity.add_dimension(Dimension(id="valor_a_todo_instante", dimension="Valor a todo instante"))
+        activity.add_dimension(
+            Dimension(id="valor_a_todo_instante", dimension="Valor a todo instante")
+        )
 
         activity.add_participant(owner)
 

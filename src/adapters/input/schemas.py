@@ -14,6 +14,7 @@ class CreateActivityRequest(BaseModel):
     owner_email: EmailStr
 
     @field_validator("owner_name")
+    @classmethod
     def validator_name(cls, value):
         if len(value) < 3:
             raise ValueError("Name must be at least 3 characters long")
@@ -30,6 +31,7 @@ class JoinRequest(BaseModel):
     participant_email: EmailStr
 
     @field_validator("participant_name")
+    @classmethod
     def validator_name(cls, value):
         if len(value) < 3:
             raise ValueError("Name must be at least 3 characters long")

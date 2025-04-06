@@ -4,8 +4,7 @@ from uuid import UUID, uuid4
 
 @dataclass
 class Participant:
-    """Representa um participante de uma atividade de avaliação.
-    """
+    """Representa um participante de uma atividade de avaliação."""
 
     name: str
     email: str

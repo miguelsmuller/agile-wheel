@@ -22,13 +22,14 @@ router = APIRouter()
 )
 async def close_activity(
     activity_id: Annotated[str, Path(title="The identifier of the actvity")],
-    participant_id: Annotated[str, Header(alias="X-Participant-Id", title="The identifier of the participant")],
-    close_activity_service: CloseActivityPort = Depends(CloseActivityService.get_service)
+    participant_id: Annotated[
+        str, Header(alias="X-Participant-Id", title="The identifier of the participant")
+    ],
+    close_activity_service: CloseActivityPort = Depends(CloseActivityService.get_service),
 ):
     try:
         closed_activity = await close_activity_service.execute(
-            activity_id=activity_id,
-            participant_id_requested=UUID(participant_id)
+            activity_id=activity_id, participant_id_requested=UUID(participant_id)
         )
     except PermissionError as e:
         return JSONResponse({"error": str(e)}, status.HTTP_403_FORBIDDEN)

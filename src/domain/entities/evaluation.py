@@ -6,8 +6,7 @@ from .participant import Participant
 
 @dataclass
 class Rating:
-    """Representa um voto individual de um participante para uma dimensão específica.
-    """
+    """Representa um voto individual de um participante para uma dimensão específica."""
 
     dimension_id: str
     score: float
@@ -16,8 +15,7 @@ class Rating:
 
 @dataclass
 class ParticipantEvaluation:
-    """Conjunto de votos fornecidos por um participante em uma atividade.
-    """
+    """Conjunto de votos fornecidos por um participante em uma atividade."""
 
     participant: Participant
     id: UUID = field(default_factory=uuid4)
