@@ -3,10 +3,10 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Path, status
 
 from src.adapters.input.schemas import JoinRequest, JoinResponse
-from src.domain.entities.activity import Activity
-from src.domain.entities.participant import Participant
 from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.application.usecase.join_activity_service import JoinActivityService
+from src.domain.entities.activity import Activity
+from src.domain.entities.participant import Participant
 
 router = APIRouter()
 

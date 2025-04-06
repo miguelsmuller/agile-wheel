@@ -1,8 +1,8 @@
+from src.adapters.output.activity_document_mongo import ActivityDocument
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
-from src.adapters.output.schema.activity_document_mongo import ActivityDocument
+from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.domain.entities.activity import Activity
 from src.domain.entities.participant import Participant
-from src.application.ports.input.join_activity_port import JoinActivityPort
 
 
 class JoinActivityService(JoinActivityPort):

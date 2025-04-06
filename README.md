@@ -68,9 +68,9 @@ Estrutura básica:
 ├── src
 │   ├── adapters
 │   │   └── input/output
+│   ├── domain
+│   │   └── entities
 │   ├── application
-│   │   ├── domain
-│   │   │   └── models
 │   │   ├── ports
 │   │   │   └── input/output
 │   │   └── usecase

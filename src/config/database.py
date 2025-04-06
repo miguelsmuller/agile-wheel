@@ -1,7 +1,7 @@
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from src.adapters.output.schema.activity_document_mongo import ActivityDocument
+from src.adapters.output.activity_document_mongo import ActivityDocument
 
 
 async def init_database(host, port):

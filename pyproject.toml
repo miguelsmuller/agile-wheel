@@ -8,7 +8,7 @@ authors = [
     {name = "Miguel Muller",email = "miguelsmuller@users.noreply.github.com"}
 ]
 
-requires-python = "3.12"
+requires-python = "==3.12.0"
 
 dependencies = [
     "fastapi>=0.115.12,<0.116.0",
@@ -113,4 +113,5 @@ ignore_missing_imports = true
 
 [tool.poe.tasks]
 serve = "uvicorn src:app --reload"
-envfile = ".env"
+ruff = "ruff check --fix ."
+

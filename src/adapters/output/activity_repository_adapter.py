@@ -1,6 +1,6 @@
-from src.adapters.output.schema.activity_document_mongo import ActivityDocument
-from src.domain.entities.activity import Activity
+from src.adapters.output.activity_document_mongo import ActivityDocument
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
+from src.domain.entities.activity import Activity
 
 
 class ActivityRepositoryAdapter(ActivityRepositoryPort):
