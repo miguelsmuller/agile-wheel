@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, status, Path
 
-from src.adapters.input.schemas.schemas import JoinRequest, JoinResponse
+from src.adapters.input.schemas import JoinRequest, JoinResponse
 
 from src.application.domain.models.participant import Participant
 from src.application.domain.models.activity import Activity

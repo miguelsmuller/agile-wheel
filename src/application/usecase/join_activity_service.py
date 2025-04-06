@@ -2,7 +2,6 @@ from src.adapters.output.schema.activity_document_mongo import ActivityDocument
 from src.application.domain.models.activity import Activity
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.domain.models.participant import Participant
-from src.application.domain.models.dimension import Dimension
 from src.application.ports.input.join_activity_port import JoinActivityPort
 
 

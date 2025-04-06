@@ -1,5 +1,3 @@
-from re import I
-
 from src.application.domain.models.activity import Activity
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.close_activity_port import CloseActivityPort

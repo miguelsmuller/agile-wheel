@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 
-from src.adapters.input.schemas.schemas import CreateActivityRequest, CreateActivityResponse
+from src.adapters.input.schemas import CreateActivityRequest, CreateActivityResponse
 
 from src.application.domain.models.participant import Participant
 from src.application.ports.input.create_activity_port import CreateActivityPort
