@@ -6,8 +6,11 @@ from src.domain.entities.activity import Activity
 
 
 class ActivityRepositoryAdapter(ActivityRepositoryPort):
-    async def save(self, activity: Activity) -> Activity:
-        return await self._upsert(activity, None)
+    async def create(self, activity: Activity) -> Activity:
+        activity_document = ActivityDocument.from_domain(activity)
+        await activity_document.insert()
+
+        return activity_document.to_domain()
 
     async def update(self, activity: Activity, update_callback: callable) -> Activity:
         return await self._upsert(activity, update_callback)

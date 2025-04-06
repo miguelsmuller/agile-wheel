@@ -21,4 +21,4 @@ class CreateActivityService(CreateActivityPort):
 
         activity.add_participant(owner)
 
-        return await self.repository.save(activity)
+        return await self.repository.create(activity)
