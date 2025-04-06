@@ -5,5 +5,5 @@ from src.application.domain.models.participant import Participant
 
 class JoinActivityPort(ABC):
     @abstractmethod
-    def execute(self, activity:Activity, participant: Participant) -> Activity:
+    def execute(self, activity:Activity, participant: Participant) -> tuple[Activity, Participant]:
         pass

@@ -15,11 +15,16 @@ class JoinActivityService(JoinActivityPort):
     def get_service() -> JoinActivityPort:
         return JoinActivityService()
     
-    async def execute(self, activity: Activity, participant: Participant) -> Participant:
+    async def execute(
+        self, 
+        activity: Activity, 
+        participant: Participant
+    ) -> tuple[Activity, Participant]:
+        
         def add_participant_callback(activity_document):
             domain_activity = activity_document.to_domain()
             domain_activity.add_participant(participant)
             updated_document = ActivityDocument.from_domain(domain_activity)
             activity_document.participants = updated_document.participants
 
-        return await self.repository.update(activity, add_participant_callback)
+        return await self.repository.update(activity, add_participant_callback), participant

@@ -27,22 +27,18 @@ async def join_activity(
     request: JoinRequest,
     join_activity_service: JoinActivityPort = Depends(JoinActivityService.get_service)
 ):
-    activity = Activity(
-        id=activity_id
-    )
-
-    participant = Participant(
-        name=request.participant_name, 
-        email=request.participant_email,
-        role="regular"
-    )
-
-    updated_activity = await join_activity_service.execute(
-        activity=activity, 
-        participant=participant
+    activity, participant = await join_activity_service.execute(
+        activity=Activity(
+            id=activity_id
+        ), 
+        participant=Participant(
+            name=request.participant_name, 
+            email=request.participant_email,
+            role="regular"
+        )
     )
 
     return JoinResponse(
-        activity_id=updated_activity.id, 
+        activity_id=activity.id, 
         participant_id=participant.id
     )
