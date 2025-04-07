@@ -32,7 +32,8 @@ async def close_activity(
 ):
     try:
         closed_activity = await close_activity_service.execute(
-            activity_id=activity_id, participant_id_requested=UUID(participant_id)
+            activity_id=UUID(activity_id),
+            participant_id_requested=UUID(participant_id)
         )
     except PermissionError as e:
         return JSONResponse({"error": str(e)}, status.HTTP_403_FORBIDDEN)

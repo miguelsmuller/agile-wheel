@@ -1,11 +1,11 @@
 from typing import Annotated
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, Path, status
 from src.adapters.input.schemas import JoinRequest, JoinResponse
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.application.usecase.join_activity_service import JoinActivityService
-from src.domain.entities.activity import Activity
 from src.domain.entities.participant import Participant
 
 router = APIRouter()
@@ -27,7 +27,7 @@ async def join_activity(
     join_activity_service: JoinActivityPort = Depends(lambda: service),
 ):
     activity, participant = await join_activity_service.execute(
-        activity_id=activity_id,
+        activity_id=UUID(activity_id),
         participant=Participant(
             name=request.participant_name,
             email=request.participant_email,

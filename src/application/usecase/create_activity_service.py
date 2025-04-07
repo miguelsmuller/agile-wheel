@@ -11,6 +11,7 @@ class CreateActivityService(CreateActivityPort):
     async def execute(self, owner: Participant) -> Activity:
         activity = Activity()
 
+        activity.opened = True
         activity.add_dimension(
             Dimension(id="experimente_e_aprenda", dimension="Experimente e Aprenda")
         )

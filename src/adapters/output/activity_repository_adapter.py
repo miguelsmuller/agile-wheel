@@ -6,24 +6,33 @@ from src.domain.entities.activity import Activity
 
 
 class ActivityRepositoryAdapter(ActivityRepositoryPort):
+    def __init__(self):
+        self._cache: dict[str, ActivityDocument] = {}
+
     async def create(self, activity: Activity) -> Activity:
         activity_document = ActivityDocument.from_domain(activity)
         await activity_document.insert()
 
         return activity_document.to_domain()
 
-    async def update(self, activity: Activity, update_callback: callable) -> Activity:
-        activity_document = await ActivityDocument.find_one(
-            ActivityDocument.app_id == str(activity.id)
-        )
+    async def update(self, activity: Activity) -> Activity:
+        cached_doc = self._cache.get(str(activity.id))
 
-        if not activity_document:
-            raise LookupError("Activity not found")
+        if not cached_doc:
+            # fallback caso update seja chamado isoladamente
+            cached_doc = await ActivityDocument.find_one(
+                ActivityDocument.app_id == str(activity.id)
+            )
 
-        update_callback(activity_document)
-        await activity_document.save()
+            if not cached_doc:
+                raise ValueError("Activity not found for update")
 
-        return activity_document.to_domain()
+        activity_doc = ActivityDocument.from_domain(activity)
+        activity_doc.id = cached_doc.id
+
+        await activity_doc.save()
+
+        return activity_doc.to_domain()
 
     async def find_one(self, activity_id: UUID) -> Activity | None:
         activity_document = await ActivityDocument.find_one(
@@ -31,6 +40,7 @@ class ActivityRepositoryAdapter(ActivityRepositoryPort):
         )
 
         if activity_document:
+            self._cache[str(activity_id)] = activity_document
             return activity_document.to_domain()
         return None
 
