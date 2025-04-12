@@ -2,7 +2,6 @@ from datetime import datetime
 from uuid import UUID
 
 from pydantic import BaseModel, EmailStr, field_validator
-from src.domain.entities.dimension import Dimension
 
 
 class PongResponse(BaseModel):
@@ -19,10 +18,21 @@ class CreateActivityRequest(BaseModel):
             raise ValueError("Name must be at least 3 characters long")
         return value
 
+class PrincipleResponse(BaseModel):
+    id: str
+    principle: str
+    comments: str | None = None
+
+class DimensionResponse(BaseModel):
+    id: str
+    dimension: str
+    comments: str | None = None
+    principles: list[PrincipleResponse]
+
 class CreateActivityResponse(BaseModel):
     activity_id: UUID
     created_at: datetime
-    dimensions: list[Dimension]
+    dimensions: list[DimensionResponse]
 
 
 class JoinRequest(BaseModel):

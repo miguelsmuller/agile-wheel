@@ -1,4 +1,13 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
+
+@dataclass
+class Principle:
+    """Representa um princípio pertencente a uma dimensão do Agile Wheel."""
+
+    id: str  # Identificador slug único da dimensão
+    principle: str  # Nome do princípio
+    comments: str | None = None
 
 
 @dataclass
@@ -8,3 +17,4 @@ class Dimension:
     id: str  # Identificador slug único da dimensão
     dimension: str  # Nome da dimensão
     comments: str | None = None
+    principles: list[Principle] = field(default_factory=list)

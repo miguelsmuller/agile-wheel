@@ -9,6 +9,7 @@ from src.domain.entities.activity import (
     Participant,
     ParticipantEvaluation,
 )
+from src.domain.entities.dimension import Principle
 from src.domain.entities.evaluation import Rating
 
 
@@ -18,10 +19,16 @@ class ParticipantModel(BaseModel):
     role: str
     email: str
 
+class PrincipleModel(BaseModel):
+    id: str
+    principle: str
+    comments: str | None = None
+
 class DimensionModel(BaseModel):
     id: str
     dimension: str
     comments: str | None = None
+    principles: list[PrincipleModel]
 
 class RatingModel(BaseModel):
     dimension_id: str
@@ -60,7 +67,14 @@ class ActivityDocument(Document):
                 DimensionModel(
                     id=str(d.id),
                     dimension=d.dimension,
-                    comments=d.comments
+                    comments=d.comments,
+                    principles=[
+                        PrincipleModel(
+                            id=p.id,
+                            principle=p.principle,
+                            comments=p.comments
+                        ) for p in d.principles
+                    ]
                 ) for d in activity.dimensions
             ],
             evaluations=[
@@ -94,7 +108,14 @@ class ActivityDocument(Document):
                 Dimension(
                     id=d.id,
                     dimension=d.dimension,
-                    comments=d.comments
+                    comments=d.comments,
+                    principles=[
+                        Principle(
+                            id=p.id,
+                            principle=p.principle,
+                            comments=p.comments
+                        ) for p in d.principles
+                    ]
                 ) for d in self.dimensions
             ],
             evaluations=[

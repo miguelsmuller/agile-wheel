@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from uuid import UUID, uuid4
 
+from .dimension import Principle
 from .participant import Participant
 
 
@@ -8,7 +9,7 @@ from .participant import Participant
 class Rating:
     """Representa um voto individual de um participante para uma dimensão específica."""
 
-    dimension_id: str
+    principle: Principle
     score: float
     comments: str | None = None
 
