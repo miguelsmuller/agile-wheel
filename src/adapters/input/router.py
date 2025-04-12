@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status
 from src.adapters.input.close_activity import router as close_activity_router
 from src.adapters.input.create_activity import router as craeate_activity_router
+from src.adapters.input.evaluation_activity import router as evaluation_activity_router
 from src.adapters.input.join_activity import router as join_activity_router
 from src.adapters.input.schemas import PongResponse
 
@@ -22,6 +23,7 @@ _activity_router = APIRouter(prefix="/v1")
 _activity_router.include_router(craeate_activity_router, tags=["activity"])
 _activity_router.include_router(join_activity_router, tags=["activity"])
 _activity_router.include_router(close_activity_router, tags=["activity"])
+_activity_router.include_router(evaluation_activity_router, tags=["activity"])
 
 router.include_router(_activity_router)
 

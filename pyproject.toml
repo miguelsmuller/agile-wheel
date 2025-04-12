@@ -104,7 +104,10 @@ ignore = [
     "D415",   # pydocstyle - first line should end with a period, question mark, or exclamation point
     "A003",   # flake8-builtins - class attribute {name} is shadowing a python builtin
     "B010",   # flake8-bugbear - do not call setattr with a constant attribute value
-    "RUF012", # Ruff-specific rule
+    "RUF012", # Ruff-specific rule,
+    "ERA001", # Found commented-out code
+    "BLE001", # Do not catch blind exception: `Exception`
+
 ]
 
 [[tool.mypy.overrides]]

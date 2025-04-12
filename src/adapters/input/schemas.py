@@ -112,3 +112,15 @@ class JoinResponse(BaseModel):
 
 class CloseResponse(BaseModel):
     activity: ActivityResponse
+
+class RatingRequest(BaseModel):
+    principle_id: str
+    score: float
+    comments: str | None = None
+
+class EvaluationRequest(BaseModel):
+    ratings: list[RatingRequest]
+
+class EvaluationResponse(BaseModel):
+    activity_id: str
+    evaluation_id: str
