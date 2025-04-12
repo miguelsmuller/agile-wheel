@@ -2,6 +2,7 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Path, status
+from fastapi.responses import JSONResponse
 from src.adapters.input.schemas import ActivityResponse, JoinRequest, JoinResponse
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.join_activity_port import JoinActivityPort
@@ -26,14 +27,18 @@ async def join_activity(
     request: JoinRequest,
     join_activity_service: JoinActivityPort = Depends(lambda: service),
 ):
-    activity, participant = await join_activity_service.execute(
-        activity_id=UUID(activity_id),
-        participant=Participant(
-            name=request.participant_name,
-            email=request.participant_email,
-            role="regular"
+    try:
+
+        activity, participant = await join_activity_service.execute(
+            activity_id=UUID(activity_id),
+            participant=Participant(
+                name=request.participant_name,
+                email=request.participant_email,
+                role="regular"
+            )
         )
-    )
+    except ReferenceError as e:
+        return JSONResponse({"error": str(e)}, status.HTTP_404_NOT_FOUND)
 
     return JoinResponse(
         activity=ActivityResponse.from_activity(activity=activity)

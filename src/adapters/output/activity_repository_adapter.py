@@ -25,7 +25,7 @@ class ActivityRepositoryAdapter(ActivityRepositoryPort):
             )
 
             if not cached_doc:
-                raise ValueError("Activity not found for update")
+                raise ReferenceError("Activity not found for update")
 
         activity_doc = ActivityDocument.from_domain(activity)
         activity_doc.id = cached_doc.id
