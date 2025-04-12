@@ -32,8 +32,8 @@ async def evaluation_activity(
     ],
     evaluation_activity_service: EvaluationActivityPort = Depends(lambda: service),
 ):
-    id_teste = UUID(activity_id)
-    evaluation_teste = ParticipantEvaluation(
+    activity_id = UUID(activity_id)
+    participant_evaluation = ParticipantEvaluation(
         participant_id=UUID(participant_id),
         ratings=[
             Rating(
@@ -44,13 +44,13 @@ async def evaluation_activity(
     )
 
     try:
-        evaluation = evaluation_activity_service.execute(
-            id_teste, evaluation_teste
+        evaluation = await evaluation_activity_service.execute(
+            activity_id, participant_evaluation
         )
     except Exception as e:
         return JSONResponse({"error": str(e)}, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     return EvaluationResponse(
-        activity_id=str(id_teste),
+        activity_id=str(activity_id),
         evaluation_id=str(evaluation.id),
     )

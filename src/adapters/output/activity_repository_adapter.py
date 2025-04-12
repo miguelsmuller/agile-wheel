@@ -17,7 +17,6 @@ class ActivityRepositoryAdapter(ActivityRepositoryPort):
 
     async def update(self, activity: Activity) -> Activity:
         cached_doc = self._cache.get(str(activity.id))
-
         if not cached_doc:
             # fallback caso update seja chamado isoladamente
             cached_doc = await ActivityDocument.find_one(
