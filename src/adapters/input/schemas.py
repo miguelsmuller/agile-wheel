@@ -2,10 +2,86 @@ from datetime import datetime
 from uuid import UUID
 
 from pydantic import BaseModel, EmailStr, field_validator
+from src.domain.entities.activity import Activity
+from src.domain.entities.dimension import Dimension, Principle
+from src.domain.entities.participant import Participant
 
 
 class PongResponse(BaseModel):
     message: str
+
+class ParticipantResponse(BaseModel):
+    id: str
+    name: str
+
+    @classmethod
+    def from_participant(cls, participant: Participant) -> "ParticipantResponse":
+        return cls(
+            id=str(participant.id),
+            name=participant.name
+        )
+
+class PrincipleResponse(BaseModel):
+    id: str
+    principle: str
+    comments: str | None = None
+
+    @classmethod
+    def from_principle(cls, principle: Principle) -> "PrincipleResponse":
+        return cls(
+            id=principle.id,
+            principle=principle.principle,
+            comments=principle.comments
+        )
+
+class DimensionResponse(BaseModel):
+    id: str
+    dimension: str
+    comments: str | None = None
+    principles: list[PrincipleResponse]
+
+    @classmethod
+    def from_dimension(cls, dimension: Dimension) -> "DimensionResponse":
+        return cls(
+            id=dimension.id,
+            dimension=dimension.dimension,
+            comments=dimension.comments,
+            principles=[
+                PrincipleResponse.from_principle(principle)
+                for principle in dimension.principles
+            ]
+        )
+
+class ActivityResponse(BaseModel):
+    activity_id: str
+    created_at: datetime
+    opened: bool
+    owner_name: str
+    participants: list[ParticipantResponse]
+    dimensions: list[DimensionResponse]
+
+    @classmethod
+    def from_activity(cls, activity: Activity) -> "ActivityResponse":
+        owner = next((p for p in activity.participants if p.role == "owner"), None)
+
+        return cls(
+            activity_id=str(activity.id),
+            created_at=activity.created_at,
+            opened=activity.opened,
+            owner_name=owner.name,
+            participants=[
+                ParticipantResponse.from_participant(participant)
+                for participant in activity.participants
+            ],
+            dimensions=[
+                DimensionResponse.from_dimension(dimension)
+                for dimension in activity.dimensions
+            ]
+        )
+
+# ****************************************************************
+# * Request and Response Schemas for requests and responses
+# ****************************************************************
 
 class CreateActivityRequest(BaseModel):
     owner_name: str
@@ -18,22 +94,8 @@ class CreateActivityRequest(BaseModel):
             raise ValueError("Name must be at least 3 characters long")
         return value
 
-class PrincipleResponse(BaseModel):
-    id: str
-    principle: str
-    comments: str | None = None
-
-class DimensionResponse(BaseModel):
-    id: str
-    dimension: str
-    comments: str | None = None
-    principles: list[PrincipleResponse]
-
 class CreateActivityResponse(BaseModel):
-    activity_id: UUID
-    created_at: datetime
-    dimensions: list[DimensionResponse]
-
+    activity: ActivityResponse
 
 class JoinRequest(BaseModel):
     participant_name: str
@@ -47,8 +109,7 @@ class JoinRequest(BaseModel):
         return value
 
 class JoinResponse(BaseModel):
-    activity_id: UUID
-    participant_id: UUID
+    activity: ActivityResponse
 
 class CloseResponse(BaseModel):
-    activity_id: UUID
+    activity: ActivityResponse
