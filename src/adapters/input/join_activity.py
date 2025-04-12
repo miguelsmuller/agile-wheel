@@ -2,7 +2,7 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Path, status
-from src.adapters.input.schemas import JoinRequest, JoinResponse
+from src.adapters.input.schemas import ActivityResponse, JoinRequest, JoinResponse
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.application.usecase.join_activity_service import JoinActivityService
@@ -36,6 +36,5 @@ async def join_activity(
     )
 
     return JoinResponse(
-        activity_id=activity.id,
-        participant_id=participant.id
+        activity=ActivityResponse.from_activity(activity=activity)
     )

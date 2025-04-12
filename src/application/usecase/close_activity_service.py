@@ -12,6 +12,7 @@ class CloseActivityService(CloseActivityPort):
     async def execute(self, activity_id:UUID, participant_id_requested:str) -> Activity:
 
         activity = await self.repository.find_one(activity_id)
+
         owner = next((p for p in activity.participants if p.role == "owner"), None)
 
         if not owner or owner.id != participant_id_requested:
