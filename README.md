@@ -2,17 +2,64 @@
 
 ## 🧠 O que é o Agile Wheel?
 
-O **Agile Wheel** é uma abordagem visual de medição da maturidade ágil, organizada em quatro pilares:
+O **Agile Wheel** é uma abordagem visual de medição da maturidade ágil, idealizada por **[Ana G. Soares](https://www.linkedin.com/in/anagsoares/)**, organizada em quatro pilares:
 
 1. **Pessoas Sensacionais**
+    - Colaboração e comunicação
+    - Motivação e confiança
+    - Autonomia e auto-organização
+    - Melhoria Contínua
+    - Interdisciplinaridade
+
 2. **Experimente e Aprenda Rápido**
+    - Compartilhamento de conhecimento
+    - Comprometimento com o produto
+    - Práticas Lean-Agile
+    - Ritmo das entregas
+    - Granularidade de demandas
+
 3. **Segurança é um Pré-requisito**
+    - Trabalho sustentável
+    - Métricas Ágeis
+    - Estimativas & contratos ágeis
+    - Metas/ORKs
+    - Desdobramentos estratégicos
+
 4. **Valor a Todo Instante**
+    - Discovery/Upstream Kanban
+    - User Experience (UX/UI)
+    - Entrega de valor (percebido)
+    - Relacionamento com o negócio
+    - Satisfação do cliente
 
-Cada dinâmica permite que times avaliem sua maturidade por meio de notas ou distribuição de pontos, com visualização final em um **Gráfico Radar**.
+![Agile Wheel - Roda Ágil - Exemplo](<docs/assets/Agile Wheel - Roda Ágil by Ana G. Soares - Exemplo.jpg>)
 
+## 🚀 Sobre o Projeto
 
+O objetivo deste projeto é facilitar a **avaliação da maturidade ágil de times** por meio de uma visualização clara e acessível, utilizando o modelo do **Agile Wheel**.
 
+Além disso, a aplicação foi desenvolvida para que a **dinâmica seja aplicada diretamente pela web**, tornando-se ideal para **times remotos ou distribuídos** que desejam realizar diagnósticos colaborativos de forma prática, visual e em tempo real.
+
+🔍 **Principais características:**
+
+- Permite times avaliarem sua maturidade em **quatro pilares essenciais da agilidade**.
+- Geração de **gráficos radar** para visualização do progresso.
+- Arquitetura robusta baseada em **Arquitetura Hexagonal**, promovendo desacoplamento e testabilidade.
+- Totalmente compatível com **Python 3.12**, gerenciado com **Poetry** para consistência de ambiente.
+- Pronto para uso local com comandos simples de execução, testes e linting.
+
+🧪 **Para que serve?**
+
+- Diagnóstico de times ágeis
+- Apoio em sessões de retrospectiva
+- Ferramenta de facilitação em treinamentos e workshops
+- Suporte à evolução contínua da cultura ágil
+
+📈 **Resultados esperados:**
+
+- Identificação visual de pontos fortes e áreas de melhoria
+- Estímulo à reflexão e ao alinhamento entre os membros do time
+- Evolução progressiva com base em dados coletados de forma colaborativa
 
 
 ## 📦 Ambiente Local com Poetry
