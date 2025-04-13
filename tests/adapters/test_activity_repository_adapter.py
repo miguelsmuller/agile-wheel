@@ -42,6 +42,7 @@ async def test_create_activity_insert_error(mock_insert, mock_activity_fixture):
     with pytest.raises(Exception, match="Erro na inserção do documento"):
         await adapter.create(activity_data)
 
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "missing_field, expected_error_message",

@@ -48,19 +48,6 @@ Além disso, a aplicação foi desenvolvida para que a **dinâmica seja aplicada
 - Totalmente compatível com **Python 3.12**, gerenciado com **Poetry** para consistência de ambiente.
 - Pronto para uso local com comandos simples de execução, testes e linting.
 
-🧪 **Para que serve?**
-
-- Diagnóstico de times ágeis
-- Apoio em sessões de retrospectiva
-- Ferramenta de facilitação em treinamentos e workshops
-- Suporte à evolução contínua da cultura ágil
-
-📈 **Resultados esperados:**
-
-- Identificação visual de pontos fortes e áreas de melhoria
-- Estímulo à reflexão e ao alinhamento entre os membros do time
-- Evolução progressiva com base em dados coletados de forma colaborativa
-
 
 ## 📦 Ambiente Local com Poetry
 
@@ -98,6 +85,8 @@ poetry@aw run uvicorn src:app --reload
 
 # Rodar testes, linters, etc
 poetry@aw run pytest
+poetry@aw run pytest --cov=src
+poetry@aw run pytest --cov=src --cov-report=html
 poetry@aw run ruff check .
 poetry@aw run mypy src/
 ```
