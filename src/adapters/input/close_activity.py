@@ -24,16 +24,16 @@ service = CloseActivityService(repository=repository)
     response_model=CloseResponse,
 )
 async def close_activity(
-    activity_id: Annotated[str, Path(title="The identifier of the actvity")],
+    activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
-        str, Header(alias="X-Participant-Id", title="The identifier of the participant")
+        UUID, Header(alias="X-Participant-Id", title="The identifier of the participant")
     ],
     close_activity_service: CloseActivityPort = Depends(lambda: service),
 ):
     try:
         closed_activity = await close_activity_service.execute(
-            activity_id=UUID(activity_id),
-            participant_id_requested=UUID(participant_id)
+            activity_id=activity_id,
+            participant_id_requested=participant_id
         )
     except PermissionError as e:
         return JSONResponse({"error": str(e)}, status.HTTP_403_FORBIDDEN)

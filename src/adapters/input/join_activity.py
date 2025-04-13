@@ -23,14 +23,14 @@ service = JoinActivityService(repository=repository)
     response_model=JoinResponse,
 )
 async def join_activity(
-    activity_id: Annotated[str, Path(title="The identifier of the actvity")],
+    activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     request: JoinRequest,
     join_activity_service: JoinActivityPort = Depends(lambda: service),
 ):
     try:
 
         activity, participant = await join_activity_service.execute(
-            activity_id=UUID(activity_id),
+            activity_id=activity_id,
             participant=Participant(
                 name=request.participant_name,
                 email=request.participant_email,

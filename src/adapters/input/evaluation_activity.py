@@ -26,15 +26,14 @@ service = EvaluationActivityService(repository=repository)
 )
 async def evaluation_activity(
     evaluation_request: EvaluationRequest,
-    activity_id: Annotated[str, Path(title="The identifier of the actvity")],
+    activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
-        str, Header(alias="X-Participant-Id", title="The identifier of the participant")
+        UUID, Header(alias="X-Participant-Id", title="The identifier of the participant")
     ],
     evaluation_activity_service: EvaluationActivityPort = Depends(lambda: service),
 ):
-    activity_id = UUID(activity_id)
     participant_evaluation = ParticipantEvaluation(
-        participant_id=UUID(participant_id),
+        participant_id=participant_id,
         ratings=[
             Rating(
                 principle_id=r.principle_id,
