@@ -1,13 +1,17 @@
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Header, Path, status
+from fastapi import APIRouter, Depends, Header, Path, status
 from fastapi.responses import JSONResponse
-from src.adapters.input.schemas import StatusResponse
-from src.domain.entities.activity import Activity
+from src.adapters.input.schemas import ActivityResponse, StatusResponse
+from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
+from src.application.ports.input.status_activity_port import StatusActivityPort
+from src.application.usecase.status_activity_service import StatusActivityService
 
 router = APIRouter()
 
+repository = ActivityRepositoryAdapter()
+service = StatusActivityService(repository=repository)
 
 @router.get(
     "/activity/{activity_id}",
@@ -19,18 +23,17 @@ router = APIRouter()
     response_model=StatusResponse,
 )
 async def status_activity(
-    activity_id: Annotated[str, Path(title="The identifier of the actvity")],
+    activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
-        str, Header(alias="X-Participant-Id", title="The identifier of the participant")
+        UUID, Header(alias="X-Participant-Id", title="The identifier of the participant")
     ],
+    status_activity_service: StatusActivityPort = Depends(lambda: service),
 ):
-    activity_id = UUID(activity_id)
-
     try:
-        activity = Activity()
+        activity = await status_activity_service.execute(activity_id , participant_id)
     except Exception as e:
         return JSONResponse({"error": str(e)}, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     return StatusResponse(
-        activity = activity
+        activity = ActivityResponse.from_activity(activity=activity)
     )
