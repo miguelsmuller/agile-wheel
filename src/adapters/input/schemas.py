@@ -113,6 +113,9 @@ class JoinResponse(BaseModel):
 class CloseResponse(BaseModel):
     activity: ActivityResponse
 
+class StatusResponse(BaseModel):
+    activity: ActivityResponse
+
 class RatingRequest(BaseModel):
     principle_id: str
     score: float
