@@ -18,6 +18,6 @@ class CloseActivityService(CloseActivityPort):
         if not owner or owner.id != participant_id_requested:
             raise PermissionError("Only the owner can close the activity")
 
-        activity.opened = False
+        activity.is_opened = False
 
         return await self.repository.update(activity)

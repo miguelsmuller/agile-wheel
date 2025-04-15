@@ -54,7 +54,7 @@ class DimensionResponse(BaseModel):
 class ActivityResponse(BaseModel):
     activity_id: str
     created_at: datetime
-    opened: bool
+    is_opened: bool
     owner_name: str
     participants: list[ParticipantResponse]
     dimensions: list[DimensionResponse]
@@ -66,7 +66,7 @@ class ActivityResponse(BaseModel):
         return cls(
             activity_id=str(activity.id),
             created_at=activity.created_at,
-            opened=activity.opened,
+            is_opened=activity.is_opened,
             owner_name=owner.name,
             participants=[
                 ParticipantResponse.from_participant(participant)

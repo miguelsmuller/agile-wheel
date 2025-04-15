@@ -18,7 +18,7 @@ async def test_activity_document_from_domain(mock_activity_fixture):
     # Then
     assert activity_document.app_id == str(activity_data.id)
     assert activity_document.created_at == activity_data.created_at
-    assert activity_document.opened == activity_data.opened
+    assert activity_document.is_opened == activity_data.is_opened
     assert len(activity_document.participants) == len(activity_data.participants)
     assert len(activity_document.dimensions) == len(activity_data.dimensions)
     assert len(activity_document.evaluations) == len(activity_data.evaluations)
@@ -35,7 +35,7 @@ async def test_activity_document_to_domain(mock_activity_document_fixture):
     # Then
     assert str(activity_domain.id) == str(activity_document.app_id)
     assert activity_domain.created_at == activity_document.created_at
-    assert activity_domain.opened == activity_document.opened
+    assert activity_domain.is_opened == activity_document.is_opened
     assert len(activity_domain.participants) == len(activity_document.participants)
     assert len(activity_domain.dimensions) == len(activity_document.dimensions)
     assert len(activity_domain.evaluations) == len(activity_document.evaluations)

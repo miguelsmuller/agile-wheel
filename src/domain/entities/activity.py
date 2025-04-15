@@ -58,7 +58,7 @@ class Activity:
     """
 
     id: UUID = field(default_factory=uuid4)
-    opened: bool = False
+    is_opened: bool = False
     created_at: datetime = field(default_factory=datetime.utcnow)
     participants: list[Participant] = field(default_factory=list)
     dimensions: list[Dimension] = field(default_factory=list)

@@ -11,7 +11,7 @@ class CreateActivityService(CreateActivityPort):
     async def execute(self, owner: Participant) -> Activity:
         activity = Activity()
 
-        activity.opened = True
+        activity.is_opened = True
 
         self._add_default_dimenstions(activity)
 

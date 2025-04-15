@@ -48,7 +48,7 @@ mock_activity_created = datetime(
 def mock_activity_fixture():
     return Activity(
         id=mock_activity_uuid,
-        opened=False,
+        is_opened=False,
         created_at=mock_activity_created,
         participants=[
             Participant(
@@ -211,7 +211,7 @@ def mock_activity_document_fixture():
     return ActivityDocument(
         _id=ObjectId("67fa905024b5c557a228c505"),
         app_id=mock_uuid,
-        opened=True,
+        is_opened=True,
         created_at=mock_activity_created,
         participants=[
             ParticipantModel(

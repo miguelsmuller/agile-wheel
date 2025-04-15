@@ -41,7 +41,7 @@ class ParticipantEvaluationModel(BaseModel):
 
 class ActivityDocument(Document):
     app_id: str
-    opened: bool = False
+    is_opened: bool = False
     created_at: datetime
     participants: list[ParticipantModel]
     dimensions: list[DimensionModel]
@@ -91,7 +91,7 @@ class ActivityDocument(Document):
         return cls(
             app_id=str(activity.id),
             created_at=activity.created_at,
-            opened=activity.opened,
+            is_opened=activity.is_opened,
             participants=participants,
             dimensions=dimensions,
             evaluations=evaluations
@@ -138,7 +138,7 @@ class ActivityDocument(Document):
         return Activity(
             id=UUID(self.app_id),
             created_at=self.created_at,
-            opened=self.opened,
+            is_opened=self.is_opened,
             participants=participants,
             dimensions=dimensions,
             evaluations=evaluations
