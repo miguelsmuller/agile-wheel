@@ -29,7 +29,7 @@ class PrincipleResponse(BaseModel):
     def from_principle(cls, principle: Principle) -> "PrincipleResponse":
         return cls(
             id=principle.id,
-            principle=principle.principle,
+            principle=principle.name,
             comments=principle.comments
         )
 
@@ -43,7 +43,7 @@ class DimensionResponse(BaseModel):
     def from_dimension(cls, dimension: Dimension) -> "DimensionResponse":
         return cls(
             id=dimension.id,
-            dimension=dimension.dimension,
+            dimension=dimension.name,
             comments=dimension.comments,
             principles=[
                 PrincipleResponse.from_principle(principle)

@@ -6,7 +6,7 @@ class Principle:
     """Representa um princípio pertencente a uma dimensão do Agile Wheel."""
 
     id: str  # Identificador slug único da dimensão
-    principle: str  # Nome do princípio
+    name: str  # Nome do princípio
     comments: str | None = None
 
 
@@ -15,6 +15,6 @@ class Dimension:
     """Representa uma dimensão da agilidade a ser avaliada."""
 
     id: str  # Identificador slug único da dimensão
-    dimension: str  # Nome da dimensão
+    name: str  # Nome da dimensão
     comments: str | None = None
     principles: list[Principle] = field(default_factory=list)

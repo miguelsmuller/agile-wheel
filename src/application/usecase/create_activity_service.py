@@ -23,7 +23,7 @@ class CreateActivityService(CreateActivityPort):
         dimensions = [
             Dimension(
                 id="experimente",
-                dimension="Experimente e Aprenda Rápido",
+                name="Experimente e Aprenda Rápido",
                 principles=[
                     Principle(
                         "compartilhamento_de_conhecimento",
@@ -37,7 +37,7 @@ class CreateActivityService(CreateActivityPort):
             ),
             Dimension(
                 id="pessoas",
-                dimension="Pessoas Sensacionais",
+                name="Pessoas Sensacionais",
                 principles=[
                     Principle("colaboracao_e_comunicacao", "Colaboração e comunicação"),
                     Principle("motivacao_e_confianca", "Motivação e confiança"),
@@ -48,7 +48,7 @@ class CreateActivityService(CreateActivityPort):
             ),
             Dimension(
                 id="valor",
-                dimension="Valor a Todo Instante",
+                name="Valor a Todo Instante",
                 principles=[
                     Principle("discovery_upstream_kanban", "Discovery/Upstream Kanban"),
                     Principle("user_experience_ux_ui", "User Experience (UX/UI)"),
@@ -59,7 +59,7 @@ class CreateActivityService(CreateActivityPort):
             ),
             Dimension(
                 id="seguranca",
-                dimension="Segurança é um Pré-requisito",
+                name="Segurança é um Pré-requisito",
                 principles=[
                     Principle("trabalho_sustentavel", "Trabalho sustentável"),
                     Principle("metricas_ageis", "Métricas Ágeis"),

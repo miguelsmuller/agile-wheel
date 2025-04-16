@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     enable_profiling: bool = False
 
     db_host: str = ""
-    db_port: int = ""
+    db_port: str = ""
 
     model_config = SettingsConfigDict(
         env_prefix="",

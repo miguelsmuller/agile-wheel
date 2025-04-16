@@ -25,7 +25,7 @@ class PrincipleModel(BaseModel):
 
 class DimensionModel(BaseModel):
     id: str
-    dimension: str
+    name: str
     comments: str | None = None
     principles: list[PrincipleModel]
 
@@ -63,12 +63,12 @@ class ActivityDocument(Document):
         dimensions = [
             DimensionModel(
                 id=str(d.id),
-                dimension=d.dimension,
+                name=d.name,
                 comments=d.comments,
                 principles=[
                     PrincipleModel(
                         id=p.id,
-                        principle=p.principle,
+                        principle=p.name,
                         comments=p.comments
                     ) for p in d.principles
                 ]
@@ -109,12 +109,12 @@ class ActivityDocument(Document):
         dimensions = [
             Dimension(
                 id=d.id,
-                dimension=d.dimension,
+                name=d.name,
                 comments=d.comments,
                 principles=[
                     Principle(
                         id=p.id,
-                        principle=p.principle,
+                        name=p.principle,
                         comments=p.comments
                     ) for p in d.principles
                 ]

@@ -29,7 +29,7 @@ async def join_activity(
 ):
     try:
 
-        activity, participant = await join_activity_service.execute(
+        activity, _ = await join_activity_service.execute(
             activity_id=activity_id,
             participant=Participant(
                 name=request.participant_name,
