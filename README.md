@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=miguelsmuller_agile-wheel&metric=alert_status&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=miguelsmuller_agile-wheel) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=miguelsmuller_agile-wheel&metric=reliability_rating&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=miguelsmuller_agile-wheel) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=miguelsmuller_agile-wheel&metric=coverage&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=miguelsmuller_agile-wheel) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=miguelsmuller_agile-wheel&metric=sqale_rating&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=miguelsmuller_agile-wheel)
+
 # Agile Wheel
 
 ## 🧠 O que é o Agile Wheel?
