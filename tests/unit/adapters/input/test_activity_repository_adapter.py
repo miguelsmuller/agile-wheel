@@ -27,7 +27,7 @@ async def test_create_activity(mock_insert, mock_activity_fixture):
     mock_insert.assert_awaited_once()
     assert result.id == activity_data.id
     assert result.created_at == activity_data.created_at
-    assert result.is_opened == activity_data.opened
+    assert result.is_opened == activity_data.is_opened
 
 
 @pytest.mark.asyncio
