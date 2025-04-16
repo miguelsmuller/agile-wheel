@@ -4,7 +4,7 @@ from uuid import UUID
 from src.application.ports.input.evaluation_activity_port import EvaluationActivityPort
 from src.domain.entities.evaluation import ParticipantEvaluation
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from src.application.ports.output.activity_repository import ActivityRepositoryPort
 
 
