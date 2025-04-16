@@ -4,7 +4,7 @@ from uuid import UUID
 from src.application.ports.input.status_activity_port import StatusActivityPort
 from src.domain.entities.activity import Activity
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from src.application.ports.output.activity_repository import ActivityRepositoryPort
 
 
