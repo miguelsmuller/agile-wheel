@@ -11,31 +11,6 @@ def mock_repository():
     return AsyncMock()
 
 
-# @pytest.fixture
-# def activity_data():
-#     return Activity(
-#         id=UUID("8e6587b8-b158-4068-a254-76bd0d31f4f7"),
-#         created_at="2025-04-12T16:09:52.370Z",
-#         is_opened=True,
-#         participants=[
-#             Participant(
-#                 id=UUID("7870b158-4900-466a-948c-14b462b62f5b"),
-#                 name="Miguel",
-#                 role="owner",
-#                 email="user@example.com"
-#             ),
-#             Participant(
-#                 id=UUID("3259afaa-29af-43ca-bcdd-3c52dfbfe2e7"),
-#                 name="Teste novo usuer",
-#                 role="regular",
-#                 email="user@example.com"
-#             )
-#         ],
-#         dimensions=[],
-#         evaluations=[]
-#     )
-
-
 @pytest.mark.asyncio
 async def test_close_activity_success(mock_repository, mock_activity_fixture):
     # Given
