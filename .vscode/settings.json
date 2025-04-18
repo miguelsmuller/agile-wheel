@@ -1,0 +1,7 @@
+{
+  "files.exclude": {
+    "**/.venv": true,
+    "**/node_modules": true,
+    "**/.ruff_cache": true
+  },
+}
