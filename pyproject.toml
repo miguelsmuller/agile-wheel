@@ -1,3 +1,11 @@
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+##############################################################################
+# 1. Metadados PEP 621 – Poetry em “package‑mode” lê tudo daqui
+##############################################################################
 [project]
 name = "agile-wheel"
 version = "0.1.0"
@@ -26,25 +34,35 @@ dependencies = [
 Homepage = "https://github.com/miguelsmuller/agile-wheel"
 
 
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
-
+##############################################################################
+# 2. Seção “tool.poetry” – apenas o que o Poetry ainda exige
+##############################################################################
 [tool.poetry]
 package-mode = true
-packages = [{ include = "src" }]
 
+# packages = [{ include = "src" }]
+packages = [{ include = "src", from = "backend" }]
+
+
+##############################################################################
+# 3. Dependências e configs de desenvolvimento
+##############################################################################
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
 pytest-asyncio = "^0.26.0"
-pdbpp = ">=0.10.3,<0.11.0"
+pdbpp = ">=0.11.6,<0.12.0"
 ruff = ">=0.11.4"
 mypy = ">=1.15.0"
 mongomock-motor = "^0.0.35"
 pytest-cov = "^6.1.1"
 
+
+##############################################################################
+# 4. Pytest/Ruff/Mypy – atualize paths
+##############################################################################
 [tool.pytest.ini_options]
 # pythonpath = ["src"]
+testpaths = ["backend"]
 asyncio_mode = "auto"
 # when project expands, change to "session"
 asyncio_default_fixture_loop_scope = "function"
@@ -65,11 +83,11 @@ filterwarnings = [
 
 [tool.ruff]
 line-length = 99
-src = ["app", "tests"]
-target-version = "py311"
+src = ["backend/src", "backend/tests"]
+target-version = "py312"
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**/*.py" = [
+"backend/tests/**/*.py" = [
     "S101", # flake8-bandit - use of assert detected
 ]
 [tool.ruff.lint]
@@ -138,7 +156,11 @@ ignore = [
 module = ["callee"]
 ignore_missing_imports = true
 
+
+##############################################################################
+# 5. Tarefas do Poe the Poet – rode sempre a partir da raiz
+##############################################################################
 [tool.poe.tasks]
-serve = "uvicorn src.main:app --reload"
+serve = "uvicorn backend.src.main:app --reload"
 ruff = "ruff check --fix ."
 
