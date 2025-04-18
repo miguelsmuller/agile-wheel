@@ -50,15 +50,34 @@ Além disso, a aplicação foi desenvolvida para que a **dinâmica seja aplicada
 - Totalmente compatível com **Python 3.12**, gerenciado com **Poetry** para consistência de ambiente.
 - Pronto para uso local com comandos simples de execução, testes e linting.
 
+---
 
-## 📦 Ambiente Local com Poetry
+## 🗂️ Visão Geral do Monorepo
+
+Este repositório segue o formato **monorepo**, agrupando **duas aplicações independentes** que evoluem em conjunto:
+
+| Caminho           | Tecnologia & Stack                          | Descrição                                                                                   |
+|-------------------|---------------------------------------------|---------------------------------------------------------------------------------------------|
+| `backend/`        | **Python 3.12** · FastAPI · Poetry          | API REST/GraphQL, regras de negócio, persistência e serviços externos.                      |
+| `frontend/`       | **Angular 19** · TypeScript · Vite/ESBuild  | Interface web que consome a API, renderiza dashboards e gráficos interativos em tempo real. |
+
+Ambos os diretórios possuem seus próprios **.gitignore** e scripts, mas partilham um único `pyproject.toml` e `package.json` na raiz, simplificando a instalação de dependências e a automação em CI/CD.
+
+> **Pré‑requisitos globais**  
+> • **Python 3.12+** — recomendado via `pyenv`  
+> • **Node ≥ 18.19 (LTS 20 recomendado)** — recomendado via `nvm`
+
+---
+
+# Backend
+
+## 📦 Ambiente Local com Poetry (Backend)
 
 ### 1. Instale o Python 3.12 (usando pyenv recomendado)
 
 ```bash
 pyenv install 3.12.0
 ```
-
 
 ### 2. Instale o Poetry com sufixo (via pipx)
 
@@ -67,7 +86,6 @@ pipx install --suffix "@aw" poetry==2.1.1 --python python3.12
 # Isso criará o comando poetry@aw disponível globalmente, vinculado à versão correta do Python e do Poetry.
 ```
 
-
 ### 3. Crie e use o ambiente virtual
 
 ```bash
@@ -75,7 +93,6 @@ poetry config virtualenvs.in-project true
 poetry@aw env use 3.12
 poetry@aw install
 ```
-
 
 ### 4. Executando o Projeto
 
@@ -93,7 +110,7 @@ poetry@aw run ruff check .
 poetry@aw run mypy src/
 ```
 
-
+---
 
 ## 🧱 Estrutura do Projeto (Arquitetura Hexagonal)
 
@@ -103,24 +120,56 @@ Estrutura básica:
 
 ```sh
 .
-├── src
-│   ├── adapters
-│   │   └── input/output
-│   ├── domain
-│   │   └── entities
-│   ├── application
-│   │   ├── ports
+├── backend
+│   ├── src
+│   │   ├── adapters
 │   │   │   └── input/output
-│   │   └── usecase
-│   └── config
+│   │   ├── domain
+│   │   │   └── entities
+│   │   ├── application
+│   │   │   ├── ports
+│   │   │   │   └── input/output
+│   │   │   └── usecase
+│   │   └── config
+│   └── tests
 │
-├── tests
-│   └── ...
+├── frontend
+│   ├── src
+│   └── angular.json
 │
-├── README.md
-├── poetry.sh
 ├── pyproject.toml
+├── package.json
 └── compose.yaml
 ```
 
 Essa organização facilita a escalabilidade, testabilidade e manutenção do projeto, mantendo as regras de negócio isoladas de frameworks e tecnologias externas.
+
+---
+
+# Front End
+
+## 📦 Ambiente Local com NPM (Frontend)
+
+> Todos os comandos a seguir são executados **na raiz** do repositório graças ao suporte a **npm workspaces**.
+
+```bash
+# 1. Garanta Node >= 18.19 (ou use `nvm install 20 && nvm use 20`)
+# 2. Instale dependências de todos os workspaces (frontend)
+npm install
+
+# 3. Suba o servidor de desenvolvimento Angular em http://localhost:4200
+npm run start            # alias: npm run start --workspace frontend
+
+# 4. Outros scripts úteis
+a) npm run build         # build de produção do Angular
+b) npm run test          # testes unitários Karma/Jasmine
+```
+
+**Estrutura de comandos** (definidos em `package.json` raiz):
+
+| Comando                 | Faz o quê?                               |
+|-------------------------|-------------------------------------------|
+| `npm run start`         | `ng serve` dentro de `frontend/`.         |
+| `npm run build`         | `ng build` dentro de `frontend/`.         |
+| `npm run test`          | `ng test` dentro de `frontend/`.          |
+
