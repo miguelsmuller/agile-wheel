@@ -1,0 +1,59 @@
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-5xl p-6 rounded-lg bg-white ring-1 ring-gray-900/10">
+
+    <h2 class="mb-8 text-center text-2xl font-bold tracking-tight text-gray-900">
+      Agile Wheel - Distribuir Pontos
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <ng-container *ngFor="let groupName of (groups | keyvalue)">
+        <div class="bg-gray-50 rounded-xl p-4 flex flex-col ring-1 ring-gray-900/10">
+          <h2 class="mb-2 text-lg font-semibold text-gray-900">{{ groupName.key }}</h2>
+
+          <ul class="space-y-1 flex-1">
+            <li *ngFor="let label of groupName.value" class="flex items-center justify-between">
+              <span class="text-sm">{{ label }}</span>
+              <mat-slider
+              [min]="0"
+              [max]="totalPoints"
+              discrete
+              (input)="onSliderChange(label, $event)">
+                <input matSliderThumb >
+              </mat-slider>
+            </li>
+          </ul>
+
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="mt-6 flex items-center justify-between">
+      <span class="font-medium">
+        Pontos restantes: {{ remaining }} de {{ totalPoints }}
+      </span>
+
+      <button
+        mat-flat-button 
+        color="primary"
+        [disabled]="!canSubmit()"
+        (click)="submit()"
+        [routerLink]="'/result'"
+      >
+        Enviar Respostas
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 
+class="px-6 py-3 rounded-lg text-white font-semibold transition {{ canSubmit() ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 cursor-not-allowed' }}"
+
+<span class="text-sm">{{ label }}</span>
+<input
+type="range"
+[min]="0"
+[max]="totalPoints"
+[value]="values[label]"
+(input)="onSliderChange(label, $event)"
+class="w-2/3"
+/> -->
