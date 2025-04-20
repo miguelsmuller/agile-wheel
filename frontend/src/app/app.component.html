@@ -1,4 +1,26 @@
 <main class="main">
-    <router-outlet />
-</main>
+  <router-outlet />
 
+  <button mat-fab extended color="primary" [matMenuTriggerFor]="menu" class="fab-container">
+    <mat-icon>menu</mat-icon>
+    Menu
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="'/'">
+      <mat-icon>home</mat-icon> Home
+    </button>
+    <button mat-menu-item [routerLink]="'/create-activity'">
+      <mat-icon>add</mat-icon> Criar Atividade
+    </button>
+    <button mat-menu-item [routerLink]="'/enter-activity'">
+      <mat-icon>login</mat-icon> Entrar em Atividade
+    </button>
+    <button mat-menu-item [routerLink]="'/activity'">
+      <mat-icon>group</mat-icon> Atividade
+    </button>
+    <button mat-menu-item [routerLink]="'/result'">
+      <mat-icon>assessment</mat-icon> Resultados
+    </button>
+  </mat-menu>
+</main>

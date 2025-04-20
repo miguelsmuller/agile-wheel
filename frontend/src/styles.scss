@@ -4,3 +4,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.fab-container {
+  position: fixed !important;
+  top: 50px;
+  left: 50px;
+}
