@@ -5,7 +5,7 @@ import { CreateActivityComponent } from './pages/create-activity/create-activity
 import { EnterActivityComponent } from './pages/enter-activity/enter-activity.component';
 
 export const routes: Routes = [
-    { path: '', component: CreateActivityComponent },
+    { path: '', redirectTo: 'create-activity', pathMatch: 'full' },
     { path: 'create-activity', component: CreateActivityComponent },
     { path: 'enter-activity', component: EnterActivityComponent },
     { path: 'activity', component: ActivityComponent },
