@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+import { ChartResultComponent } from "./chart-result/chart-result.component";
 
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
   standalone: true,
-  imports: [
-    RouterModule,
-    MatButtonModule,
+  imports: [ 
+    MatIconModule,
+    ChartResultComponent
   ],
 })
-export class ResultComponent {
-  // Implementar lógica de interação da dinâmica
-}
+export class ResultComponent {}
