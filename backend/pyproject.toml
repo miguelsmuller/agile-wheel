@@ -40,8 +40,7 @@ Homepage = "https://github.com/miguelsmuller/agile-wheel"
 [tool.poetry]
 package-mode = true
 
-# packages = [{ include = "src" }]
-packages = [{ include = "src", from = "backend" }]
+packages = [{ include = "src" }]
 
 
 ##############################################################################
@@ -62,7 +61,7 @@ pytest-cov = "^6.1.1"
 ##############################################################################
 [tool.pytest.ini_options]
 # pythonpath = ["src"]
-testpaths = ["backend"]
+testpaths = ["./"]
 asyncio_mode = "auto"
 # when project expands, change to "session"
 asyncio_default_fixture_loop_scope = "function"
@@ -83,11 +82,11 @@ filterwarnings = [
 
 [tool.ruff]
 line-length = 99
-src = ["backend/src", "backend/tests"]
+src = ["src", "tests"]
 target-version = "py312"
 
 [tool.ruff.lint.per-file-ignores]
-"backend/tests/**/*.py" = [
+"tests/**/*.py" = [
     "S101", # flake8-bandit - use of assert detected
 ]
 [tool.ruff.lint]
@@ -161,6 +160,6 @@ ignore_missing_imports = true
 # 5. Tarefas do Poe the Poet – rode sempre a partir da raiz
 ##############################################################################
 [tool.poe.tasks]
-serve = "uvicorn backend.src.main:app --reload"
+serve = "uvicorn src.main:app --reload"
 ruff = "ruff check --fix ."
 

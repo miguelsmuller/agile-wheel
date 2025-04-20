@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8000
+      - DB_HOST=mongo
+      - DB_PORT=27017
+    ports:
+      - "3333:8000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - PORT=80
+    ports:
+      - "4444:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
