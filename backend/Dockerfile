@@ -1,28 +1,38 @@
-# Usa uma imagem base oficial do Python
+# Use Python 3.12 slim as the base image
 FROM python:3.12.0-slim
 
-# Instala o Poetry
-RUN pip install --no-cache-dir poetry
-
-# Define o diretório de trabalho no contêiner
+# Set the working directory
 WORKDIR /app
 
-# Copia apenas os arquivos necessários para instalar as dependências
+# Copy Poetry configuration files
 COPY pyproject.toml poetry.lock ./
 
-# Copia o restante do código do projeto para o contêiner
+# Install Poetry for dependency management
+RUN pip install --no-cache-dir poetry
+
+# Copy the README file
 COPY README.md .
+
+# Copy the source code
 COPY src ./src
 
-# Instala as dependências do projeto sem criar um ambiente virtual
+# Configure Poetry to not create virtual environments
 RUN poetry config virtualenvs.create false
+
+# Install dependencies using Poetry
 RUN poetry install --no-interaction --no-ansi
 
-# Define uma variável de ambiente para a porta
-ENV PORT=8000
+# Set the internal port environment variable
+ENV INTERNAL_PORT=8000
 
-# Expõe a porta padrão do FastAPI
-EXPOSE ${PORT}
+# Expose the internal port
+EXPOSE ${INTERNAL_PORT}
 
-# Comando para iniciar o servidor FastAPI usando Uvicorn
-CMD ["sh", "-c", "poetry run uvicorn src.main:app --host 0.0.0.0 --port ${PORT}"]
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /entrypoint.sh
+
+# Set the entrypoint script
+ENTRYPOINT ["/entrypoint.sh"]

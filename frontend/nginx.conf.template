@@ -7,7 +7,7 @@ http {
     include /etc/nginx/mime.types;
 
     server {
-        listen ${PORT};
+        listen ${INTERNAL_PORT};
 
         root /usr/share/nginx/html;
 

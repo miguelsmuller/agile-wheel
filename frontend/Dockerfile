@@ -1,30 +1,41 @@
-# Etapa 1: Construção do aplicativo Angular
+# Step 1 - Build
 FROM node:22 AS build
 
+# Set the working directory
 WORKDIR /app
+
+# Copy package files for dependency installation
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
+
+# Copy the source code
 COPY . .
+
+# Build the application for production
 RUN npm run build --prod
 
-
-# Etapa 2: Configuração do servidor Nginx
+# Step 2 - Run
 FROM nginx:alpine
 
-# Copia os arquivos compilados do Angular
+# Copy the built application to the nginx directory
 COPY --from=build /app/dist/front/browser /usr/share/nginx/html
 
-# Copia o arquivo de configuração do Nginx
+# Copy the Nginx configuration template
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
-# Define uma variável de ambiente para a porta
-ENV PORT=80
+# Set the internal port environment variable
+ENV INTERNAL_PORT=80
 
-# Substitui a porta no arquivo de configuração do Nginx
-RUN sh -c "envsubst '\$PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf"
+# Expose the internal port
+EXPOSE ${INTERNAL_PORT}
 
-# Expõe a porta configurada
-EXPOSE ${PORT}
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
 
-# Comando padrão para iniciar o Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Make the entrypoint script executable
+RUN chmod +x /entrypoint.sh
+
+# Set the entrypoint script
+ENTRYPOINT ["/entrypoint.sh"]
