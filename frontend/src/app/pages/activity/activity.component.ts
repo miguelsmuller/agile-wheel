@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 
 import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
+import { ListParticipantsComponent } from './list-participants/list-participants.component';
 
 @Component({
   selector: 'app-activity',
@@ -30,7 +31,8 @@ import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrap
     MatIconModule,
     MatSliderModule,
     // App
-    EvaluationWrapperComponent
+    EvaluationWrapperComponent,
+    ListParticipantsComponent
   ],
 })
 export class ActivityComponent  implements OnInit {
@@ -64,6 +66,95 @@ export class ActivityComponent  implements OnInit {
       'Satisfação do cliente',
     ],
   };
+
+  participants = [
+    {
+      name: 'Leslie Alexander',
+      role: 'Co-Founder / CEO',
+      avatarUrl: 'https://i.pravatar.cc/100?img=1'
+    },
+    {
+      name: 'Jacob Jones',
+      role: 'Product Manager',
+      avatarUrl: 'https://i.pravatar.cc/100?img=2'
+    },
+    {
+      name: 'Cody Fisher',
+      role: 'Tech Lead',
+      avatarUrl: 'https://i.pravatar.cc/100?img=3'
+    },
+    {
+      name: 'Jenny Wilson',
+      role: 'UX Designer',
+      avatarUrl: 'https://i.pravatar.cc/100?img=4'
+    },
+    {
+      name: 'Marvin McKinney',
+      role: 'DevOps Engineer',
+      avatarUrl: 'https://i.pravatar.cc/100?img=5'
+    },
+    {
+      name: 'Jacob Jones',
+      role: 'Product Manager',
+      avatarUrl: 'https://i.pravatar.cc/100?img=2'
+    },
+    {
+      name: 'Cody Fisher',
+      role: 'Tech Lead',
+      avatarUrl: 'https://i.pravatar.cc/100?img=3'
+    },
+    {
+      name: 'Jenny Wilson',
+      role: 'UX Designer',
+      avatarUrl: 'https://i.pravatar.cc/100?img=4'
+    },
+    {
+      name: 'Marvin McKinney',
+      role: 'DevOps Engineer',
+      avatarUrl: 'https://i.pravatar.cc/100?img=5'
+    },
+    {
+      name: 'Jacob Jones',
+      role: 'Product Manager',
+      avatarUrl: 'https://i.pravatar.cc/100?img=2'
+    },
+    {
+      name: 'Cody Fisher',
+      role: 'Tech Lead',
+      avatarUrl: 'https://i.pravatar.cc/100?img=3'
+    },
+    {
+      name: 'Jenny Wilson',
+      role: 'UX Designer',
+      avatarUrl: 'https://i.pravatar.cc/100?img=4'
+    },
+    {
+      name: 'Marvin McKinney',
+      role: 'DevOps Engineer',
+      avatarUrl: 'https://i.pravatar.cc/100?img=5'
+    },
+    {
+      name: 'Jacob Jones',
+      role: 'Product Manager',
+      avatarUrl: 'https://i.pravatar.cc/100?img=2'
+    },
+    {
+      name: 'Cody Fisher',
+      role: 'Tech Lead',
+      avatarUrl: 'https://i.pravatar.cc/100?img=3'
+    },
+    {
+      name: 'Jenny Wilson',
+      role: 'UX Designer',
+      avatarUrl: 'https://i.pravatar.cc/100?img=4'
+    },
+    {
+      name: 'Marvin McKinney',
+      role: 'DevOps Engineer',
+      avatarUrl: 'https://i.pravatar.cc/100?img=5'
+    }
+  ];
+
 
   values: Record<string, number> = {};
 

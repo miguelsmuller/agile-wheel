@@ -1,35 +1,44 @@
-<div class="min-h-screen flex items-center justify-center p-4 bg-gray-50">
-  <div class="w-full max-w-5xl rounded-lg bg-white p-6 ring-1 ring-gray-900/10">
+<!-- Container que ocupa exatamente a tela inteira -->
+<div class="h-screen bg-gray-50 px-4 py-6 overflow-hidden">
+  <div class="flex h-full w-full max-w-7xl mx-auto gap-6">
 
-    <h2 class="mb-8 text-center text-2xl font-bold tracking-tight text-gray-900">
-      Agile Wheel - Distribuir Pontos
-    </h2>
+    <!-- Left Column -->
+    <div class="w-full max-w-xs flex flex-col rounded-lg bg-white p-0 ring-1 ring-gray-900/10">
 
-    <app-evaluation-wrapper [evaluationGroups]="groups"/>
+      <!-- Header -->
+      <div class="px-6 pt-5">
+        <h3 class="text-lg font-semibold mb-3">
+          Participantes
+        </h3>
+      </div>
 
-    <div class="mt-6 flex items-center justify-between">
-      <button
-        mat-flat-button
-        color="primary"
-        [disabled]="!canSubmit()"
-        (click)="submit()"
-        [routerLink]="'/result'"
-      >
-        Enviar Respostas
-      </button>
+      <!-- Content - Participante List -->
+      <div class="flex-1 min-h-0 overflow-y-auto">
+        <app-list-participants [participants]="participants"/>
+      </div>
+
+      <!-- Footer -->
+      <div class="p-6">
+        <button
+          mat-flat-button
+          color="primary"
+          class="w-full"
+          [disabled]="!canSubmit()"
+          (click)="submit()"
+          [routerLink]="'/result'"
+        >
+          Enviar Respostas
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="w-full flex-1 rounded-lg bg-white p-6 ring-1 ring-gray-900/10 overflow-y-auto">
+      <h2 class="mb-8 text-center text-2xl font-bold tracking-tight text-gray-900">
+        Agile Wheel - Distribuir Pontos
+      </h2>
+
+      <app-evaluation-wrapper [evaluationGroups]="groups" />
     </div>
   </div>
 </div>
-
-<!--
-class="px-6 py-3 rounded-lg text-white font-semibold transition {{ canSubmit() ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 cursor-not-allowed' }}"
-
-<span class="text-sm">{{ label }}</span>
-<input
-type="range"
-[min]="0"
-[max]="totalPoints"
-[value]="values[label]"
-(input)="onSliderChange(label, $event)"
-class="w-2/3"
-/> -->
