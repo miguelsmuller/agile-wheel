@@ -10,43 +10,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 
-
-const GROUPS: Record<string, string[]> = {
-  'Pessoas Sensacionais': [
-    'Colaboração e comunicação',
-    'Motivação e confiança',
-    'Autonomia e auto-organização',
-    'Melhoria Contínua',
-    'Interdisciplinaridade',
-  ],
-  'Experimente e Aprenda Rápido': [
-    'Compartilhamento de conhecimento',
-    'Comprometimento com o produto',
-    'Práticas Lean-Agile',
-    'Ritmo das entregas',
-    'Granularidade de demandas',
-  ],
-  'Segurança é um Pré-requisito': [
-    'Trabalho sustentável',
-    'Métricas Ágeis',
-    'Estimativas & contratos ágeis',
-    'Metas/OKRs',
-    'Desdobramentos estratégicos',
-  ],
-  'Valor a Todo Instante': [
-    'Discovery/Upstream Kanban',
-    'User Experience (UX/UI)',
-    'Entrega de valor (percebido)',
-    'Relacionamento com o negócio',
-    'Satisfação do cliente',
-  ],
-};
+import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
 
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   standalone: true,
   imports: [
+    // Angular Core
     RouterModule,
     CommonModule,
     FormsModule,
@@ -57,14 +28,44 @@ const GROUPS: Record<string, string[]> = {
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    // App
+    EvaluationWrapperComponent
   ],
 })
 export class ActivityComponent  implements OnInit {
-  groups = GROUPS;
-  totalPoints = 100;  
+  groups: Record<string, string[]> = {
+    'Pessoas Sensacionais': [
+      'Colaboração e comunicação',
+      'Motivação e confiança',
+      'Autonomia e auto-organização',
+      'Melhoria Contínua',
+      'Interdisciplinaridade',
+    ],
+    'Experimente e Aprenda Rápido': [
+      'Compartilhamento de conhecimento',
+      'Comprometimento com o produto',
+      'Práticas Lean-Agile',
+      'Ritmo das entregas',
+      'Granularidade de demandas',
+    ],
+    'Segurança é um Pré-requisito': [
+      'Trabalho sustentável',
+      'Métricas Ágeis',
+      'Estimativas & contratos ágeis',
+      'Metas/OKRs',
+      'Desdobramentos estratégicos',
+    ],
+    'Valor a Todo Instante': [
+      'Discovery/Upstream Kanban',
+      'User Experience (UX/UI)',
+      'Entrega de valor (percebido)',
+      'Relacionamento com o negócio',
+      'Satisfação do cliente',
+    ],
+  };
+
   values: Record<string, number> = {};
-  remaining = this.totalPoints;
 
   ngOnInit() {
     Object.values(this.groups)
@@ -81,11 +82,10 @@ export class ActivityComponent  implements OnInit {
 
   private calcRemaining() {
     const used = Object.values(this.values).reduce((sum, v) => sum + v, 0);
-    this.remaining = this.totalPoints - used;
   }
 
   canSubmit(): boolean {
-    return this.remaining === 0;
+    return true;
   }
 
   submit() {
