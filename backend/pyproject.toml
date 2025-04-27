@@ -10,7 +10,6 @@ build-backend = "poetry.core.masonry.api"
 name = "agile-wheel"
 version = "0.1.0"
 description = "Agile Wheel - real time agile assessment dynamics"
-readme = "README.md"
 
 authors = [
     {name = "Miguel Muller",email = "miguelsmuller@users.noreply.github.com"}

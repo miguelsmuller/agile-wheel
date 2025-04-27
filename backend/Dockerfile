@@ -12,9 +12,6 @@ COPY pyproject.toml poetry.lock ./
 # Install Poetry for dependency management
 RUN pip install --no-cache-dir poetry
 
-# Copy the README file
-COPY README.md .
-
 # Copy the source code
 COPY src ./src
 
