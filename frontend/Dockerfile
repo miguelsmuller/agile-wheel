@@ -34,7 +34,7 @@ RUN npm run build --prod
 # ******************
 # Step 4 - Run
 # ******************
-FROM nginx:alpine as prod
+FROM nginx:alpine AS prod
 
 # Copy the built application to the nginx directory
 COPY --from=build /app/dist/front/browser /usr/share/nginx/html

@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     env: str = "dev"
     log_level: str = "info"
     enable_profiling: bool = False
+    allowed_origins: str = ""
 
     db_host: str = ""
     db_port: str = ""
