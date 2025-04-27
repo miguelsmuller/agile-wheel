@@ -6,7 +6,7 @@ import { AgileWheelBackEndClient } from '../../client/agile-wheel-backend.client
 import { Activity, Participant } from '../../core/models/activity.model';
 
 export interface CreateActivityResponse {
-  owner: Participant;
+  participant: Participant;
   activity: Activity;
 }
 
@@ -25,7 +25,7 @@ export class CreateActivityService {
   createActivity(owner: CreateActivityRequest): void {
     this.backendClient.post<CreateActivityResponse>('v1/activity', owner).subscribe({
       next: (response) => {
-        localStorage.setItem('participant', JSON.stringify(response.owner));
+        localStorage.setItem('participant', JSON.stringify(response.participant));
         localStorage.setItem('activity', JSON.stringify(response.activity));
 
         this.router.navigate(['/activity', response.activity.activity_id]);

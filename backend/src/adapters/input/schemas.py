@@ -12,12 +12,14 @@ class PongResponse(BaseModel):
 class ParticipantResponse(BaseModel):
     id: str
     name: str
+    email: str
 
     @classmethod
     def from_participant(cls, participant: Participant) -> "ParticipantResponse":
         return cls(
             id=str(participant.id),
-            name=participant.name
+            name=participant.name,
+            email=participant.email
         )
 
 class PrincipleResponse(BaseModel):
@@ -94,7 +96,7 @@ class CreateActivityRequest(BaseModel):
         return value
 
 class CreateActivityResponse(BaseModel):
-    owner: ParticipantResponse
+    participant: ParticipantResponse
     activity: ActivityResponse
 
 class JoinRequest(BaseModel):

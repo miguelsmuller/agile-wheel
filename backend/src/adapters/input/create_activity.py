@@ -37,6 +37,6 @@ async def activity(
     activity = await create_activity_service.execute(owner=owner)
 
     return CreateActivityResponse(
-        owner=ParticipantResponse.from_participant(participant=owner),
+        participant=ParticipantResponse.from_participant(participant=owner),
         activity=ActivityResponse.from_activity(activity=activity)
     )
