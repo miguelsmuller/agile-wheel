@@ -40,22 +40,35 @@ import { Activity, Dimension, Participant } from '../../core/models/activity.mod
 export class ActivityComponent  implements OnInit {
   dimensions: Dimension[] = [];
   participants: Participant[] = [];
-  // values: Record<string, number> = {};
+  values: Record<string, number> = {};
+
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit() {
     const activity = localStorage.getItem('activity');
 
-    if (activity) {
-      const activityData:Activity = JSON.parse(activity);
-
-      this.dimensions = activityData.dimensions;
-      this.participants = activityData.participants;
+    if (!activity) {
+      this.router.navigate(['/activity']);
+      return;
     }
+
+    const activityData:Activity = JSON.parse(activity);
+
+    this.dimensions = activityData.dimensions;
+    this.participants = activityData.participants;
+
+    this.dimensions.forEach(dimension => {
+      dimension.principles.forEach(principle => {
+        this.values[principle.id] = 0;
+      });
+    });
   }
 
   onSliderChange(label: string, event: Event) {
     const input = event.target as HTMLInputElement;
-    // this.values[label] = parseInt(input.value, 10) || 0;
+    this.values[label] = parseInt(input.value, 10) || 0;
   }
 
   canSubmit(): boolean {
@@ -64,7 +77,7 @@ export class ActivityComponent  implements OnInit {
 
   submit() {
     if (!this.canSubmit()) { return; }
-    // console.log('Enviar respostas:', this.values);
+    console.log('Enviar respostas:', this.values);
   }
 
 }
