@@ -1,4 +1,6 @@
-# Use Python 3.12 slim as the base image
+# ******************
+# Step 1 - Base
+# ******************
 FROM python:3.12.0-slim
 
 # Set the working directory
@@ -28,11 +30,5 @@ ENV INTERNAL_PORT=8000
 # Expose the internal port
 EXPOSE ${INTERNAL_PORT}
 
-# Copy the entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-
-# Make the entrypoint script executable
-RUN chmod +x /entrypoint.sh
-
-# Set the entrypoint script
-ENTRYPOINT ["/entrypoint.sh"]
+# Start FastAPI server using Uvicorn
+CMD ["sh", "-c", "poetry run uvicorn src.main:app --host 0.0.0.0 --port ${INTERNAL_PORT}"]

@@ -1,5 +1,7 @@
-# Step 1 - Build
-FROM node:22 AS build
+# ******************
+# Step 1 - Base
+# ******************
+FROM node:22 AS base
 
 # Set the working directory
 WORKDIR /app
@@ -13,11 +15,26 @@ RUN npm install
 # Copy the source code
 COPY . .
 
+# ******************
+# Step 2 - Development
+# ******************
+FROM base AS dev
+
+# Set the default command for development
+CMD ["npm run start -- --port=${INTERNAL_PORT} --host=0.0.0.0"]
+
+# ******************
+# Step 3 - Build
+# ******************
+FROM base AS build
+
 # Build the application for production
 RUN npm run build --prod
 
-# Step 2 - Run
-FROM nginx:alpine
+# ******************
+# Step 4 - Run
+# ******************
+FROM nginx:alpine as prod
 
 # Copy the built application to the nginx directory
 COPY --from=build /app/dist/front/browser /usr/share/nginx/html
@@ -31,11 +48,8 @@ ENV INTERNAL_PORT=80
 # Expose the internal port
 EXPOSE ${INTERNAL_PORT}
 
-# Copy the entrypoint script
-COPY entrypoint.sh /entrypoint.sh
+# Replace environment variables in the Nginx configuration (if needed)
+RUN envsubst '${INTERNAL_PORT}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
-# Make the entrypoint script executable
-RUN chmod +x /entrypoint.sh
-
-# Set the entrypoint script
-ENTRYPOINT ["/entrypoint.sh"]
+# Use the default Nginx command to start the server
+CMD ["nginx", "-g", "daemon off;"]
