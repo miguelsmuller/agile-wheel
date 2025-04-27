@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CreateActivityService, CreateActivityRequest } from '../../core/use-cases/create-activity.usecase';
+import { Activity } from '../../core/models/activity.model';
 
 
 @Component({
@@ -28,12 +31,13 @@ import { CreateActivityService, CreateActivityRequest } from '../../core/use-cas
     MatIconModule
   ],
 })
-export class CreateActivityComponent {
+export class CreateActivityComponent implements OnInit {
   createForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private createActivityService: CreateActivityService
+    private createActivityService: CreateActivityService,
+    private router: Router
   ) {
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -42,6 +46,15 @@ export class CreateActivityComponent {
         Validators.email
       ]],
     });
+  }
+
+  ngOnInit(): void {
+    const activity = localStorage.getItem('activity');
+
+    if (activity) {
+      const activityData:Activity = JSON.parse(activity);
+      this.router.navigate(['/activity', activityData.activity_id]);
+    }
   }
 
   createActivity(): void {
