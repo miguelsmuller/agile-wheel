@@ -9,8 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CreateActivityService, CreateActivityRequest } from '../../core/use-cases/create-activity.usecase';
-import { Activity } from '../../core/models/activity.model';
+import { CreateActivityService, CreateActivityRequest } from '../../use-cases/create-activity.usecase';
+import { Activity } from '../../models/activity.model';
 
 
 @Component({

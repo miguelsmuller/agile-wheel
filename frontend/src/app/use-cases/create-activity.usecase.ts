@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AgileWheelBackEndClient } from '../../client/agile-wheel-backend.client';
-import { Activity, Participant } from '../../core/models/activity.model';
+import { AgileWheelBackEndClient } from '../client/agile-wheel-backend.client';
+import { Activity, Participant } from '../models/activity.model';
 
 export interface CreateActivityResponse {
   participant: Participant;

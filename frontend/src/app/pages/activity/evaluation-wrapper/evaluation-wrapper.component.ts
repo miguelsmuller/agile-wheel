@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 
 import { EvaluationItensComponent } from '../evaluation-itens/evaluation-itens.component';
-import { Dimension } from '../../../core/models/activity.model';
+import { Dimension } from '../../../models/activity.model';
 
 
 @Component({

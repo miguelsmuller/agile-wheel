@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
-import { Participant } from '../../../core/models/activity.model';
+import { Participant } from '../../../models/activity.model';
 
 
 @Component({

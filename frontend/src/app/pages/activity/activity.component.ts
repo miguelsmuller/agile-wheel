@@ -13,7 +13,7 @@ import { MatSliderModule } from '@angular/material/slider';
 
 import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
-import { Activity, Dimension, Participant } from '../../core/models/activity.model';
+import { Activity, Dimension, Participant } from '../../models/activity.model';
 
 @Component({
   selector: 'app-activity',
