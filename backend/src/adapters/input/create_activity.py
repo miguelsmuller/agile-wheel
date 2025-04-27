@@ -3,6 +3,7 @@ from src.adapters.input.schemas import (
     ActivityResponse,
     CreateActivityRequest,
     CreateActivityResponse,
+    ParticipantResponse,
 )
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.create_activity_port import CreateActivityPort
@@ -27,12 +28,15 @@ async def activity(
     activity_request: CreateActivityRequest,
     create_activity_service: CreateActivityPort = Depends(lambda: service),
 ):
-    activity = await create_activity_service.execute(
-        owner=Participant(
-            email=activity_request.owner_email, name=activity_request.owner_name, role="owner"
-        )
+    owner = Participant(
+        email=activity_request.owner_email,
+        name=activity_request.owner_name,
+        role="owner"
     )
 
+    activity = await create_activity_service.execute(owner=owner)
+
     return CreateActivityResponse(
+        owner=ParticipantResponse.from_participant(participant=owner),
         activity=ActivityResponse.from_activity(activity=activity)
     )

@@ -94,6 +94,7 @@ class CreateActivityRequest(BaseModel):
         return value
 
 class CreateActivityResponse(BaseModel):
+    owner: ParticipantResponse
     activity: ActivityResponse
 
 class JoinRequest(BaseModel):
