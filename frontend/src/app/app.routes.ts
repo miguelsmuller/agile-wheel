@@ -8,6 +8,6 @@ export const routes: Routes = [
     { path: '', redirectTo: 'create-activity', pathMatch: 'full' },
     { path: 'create-activity', component: CreateActivityComponent },
     { path: 'enter-activity', component: EnterActivityComponent },
-    { path: 'activity', component: ActivityComponent },
+    { path: 'activity/:id', component: ActivityComponent },
     { path: 'result', component: ResultComponent },
 ];

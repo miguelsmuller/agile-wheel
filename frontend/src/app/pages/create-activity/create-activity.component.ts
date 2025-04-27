@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
+import { CreateActivityService, CreateActivityRequest } from '../../core/use-cases/create-activity.usecase';
+
 
 @Component({
   selector: 'app-create-activity',
@@ -28,19 +30,12 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CreateActivityComponent {
   createForm: FormGroup;
-  joinForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.createForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [
-        Validators.required, 
-        Validators.email
-      ]],
-    });
-
-    this.joinForm = this.fb.group({
-      id: ['', Validators.required],
+  constructor(
+    private formBuilder: FormBuilder,
+    private createActivityService: CreateActivityService
+  ) {
+    this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [
         Validators.required, 
@@ -49,17 +44,14 @@ export class CreateActivityComponent {
     });
   }
 
-  /** Handler para gerar nova dinâmica */
-  onCreate(): void {
+  createActivity(): void {
     if (this.createForm.invalid) return;
-    console.info('Criar atividade', this.createForm.value);
-    // TODO: integrar com endpoint POST /activity/create
-  }
+    
+    const owner: CreateActivityRequest = {
+      owner_email: this.createForm.value.email,
+      owner_name: this.createForm.value.name
+    };
 
-  /** Handler para entrar em dinâmica existente */
-  onJoin(): void {
-    if (this.joinForm.invalid) return;
-    console.info('Entrar na atividade', this.joinForm.value);
-    // TODO: integrar com endpoint GET /activity/{id}
+    this.createActivityService.createActivity(owner);
   }
 }
