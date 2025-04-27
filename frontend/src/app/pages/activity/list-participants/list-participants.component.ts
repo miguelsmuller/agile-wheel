@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
+import { Participant } from '../../../core/models/activity.model';
 
 
 @Component({
@@ -31,5 +32,5 @@ import { MatSliderModule } from '@angular/material/slider';
   ],
 })
 export class ListParticipantsComponent{
-  @Input() participants!: { name: string; role: string; avatarUrl: string }[];
+  @Input() participants!: Participant[];
 }

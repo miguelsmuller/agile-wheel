@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <ng-container *ngFor="let evaluationGroup of (evaluationGroups | keyvalue)">
-    <app-evaluation-itens [evaluationGroup]="evaluationGroup"/>
-  </ng-container>
+    <app-evaluation-itens 
+    *ngFor="let dimension of dimensions"
+    [dimension]="dimension"/>
 </div>

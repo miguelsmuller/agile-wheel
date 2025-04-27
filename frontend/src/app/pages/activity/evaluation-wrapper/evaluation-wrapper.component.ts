@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 
 import { EvaluationItensComponent } from '../evaluation-itens/evaluation-itens.component';
+import { Dimension } from '../../../core/models/activity.model';
 
 
 @Component({
@@ -35,5 +36,5 @@ import { EvaluationItensComponent } from '../evaluation-itens/evaluation-itens.c
   ],
 })
 export class EvaluationWrapperComponent{
-  @Input() evaluationGroups!: Record<string, string[]>;
+  @Input() dimensions!: Dimension[];
 }
