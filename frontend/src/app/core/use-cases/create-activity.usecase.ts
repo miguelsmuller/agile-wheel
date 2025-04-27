@@ -25,6 +25,9 @@ export class CreateActivityService {
   createActivity(owner: CreateActivityRequest): void {
     this.backendClient.post<CreateActivityResponse>('v1/activity', owner).subscribe({
       next: (response) => {
+        localStorage.setItem('participant', JSON.stringify(response.owner));
+        localStorage.setItem('activity', JSON.stringify(response.activity));
+
         this.router.navigate(['/activity', response.activity.activity_id]);
       },
       error: (error) => {
