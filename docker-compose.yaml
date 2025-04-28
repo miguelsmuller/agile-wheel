@@ -1,11 +1,4 @@
 services:
-  mongo:
-    image: mongo:8.0.8
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-
   backend:
     build:
       context: ./backend
@@ -40,6 +33,23 @@ services:
       - ./frontend:/app
       - /app/node_modules
     command: npm run start -- --port=${INTERNAL_FRONTEND_PORT:-80} --host=0.0.0.0
+
+  mongo:
+    image: mongo:8.0.8
+    ports:
+      - "27017:${INTERNAL_DB_PORT:-27017}"
+    volumes:
+      - mongo-data:/data/db
+
+  docs:
+    image: squidfunk/mkdocs-material:9.5.10
+    ports:
+      - "8009:${INTERNAL_DOCS_PORT:-8000}"
+    volumes:
+      - ./docs:/app/docs
+      - ./mkdocs.yml:/app/mkdocs.yml
+    working_dir: /app
+    command: serve -a 0.0.0.0:${INTERNAL_DOCS_PORT:-8000}
 
 volumes:
   mongo-data:
