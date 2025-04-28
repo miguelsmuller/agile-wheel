@@ -20,6 +20,9 @@ COPY . .
 # ******************
 FROM base AS dev
 
+# Set the internal port environment variable
+ENV NG_CLI_ANALYTICS=false
+
 # Set the default command for development
 CMD ["npm run start -- --port=${INTERNAL_PORT} --host=0.0.0.0"]
 
