@@ -48,6 +48,8 @@ export class ValidateActivityService {
       this.redirectToCreateActivity('Activity ID from backend does not match');
     }
 
+    localStorage.setItem('activity', JSON.stringify(activityFromBackEnd));
+
     return activityFromLocalStorage
   }
 
