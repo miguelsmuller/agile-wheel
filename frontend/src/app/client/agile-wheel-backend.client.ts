@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,19 +10,23 @@ export class AgileWheelBackEndClient {
 
   constructor(private http: HttpClient) {}
 
-  get<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/${endpoint}`);
+  private createHeaders(headers?: Record<string, string>): HttpHeaders | undefined {
+    return headers ? new HttpHeaders(headers) : undefined;
   }
 
-  post<T>(endpoint: string, body: any): Observable<T> {
-    return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body);
+  get<T>(endpoint: string, headers?: Record<string, string>): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}/${endpoint}`, { headers: this.createHeaders(headers) });
   }
 
-  put<T>(endpoint: string, body: any): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body);
+  post<T>(endpoint: string, body: any, headers?: Record<string, string>): Observable<T> {
+    return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body, { headers: this.createHeaders(headers) });
   }
 
-  delete<T>(endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.baseUrl}/${endpoint}`);
+  put<T>(endpoint: string, body: any, headers?: Record<string, string>): Observable<T> {
+    return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body, { headers: this.createHeaders(headers) });
+  }
+
+  delete<T>(endpoint: string, headers?: Record<string, string>): Observable<T> {
+    return this.http.delete<T>(`${this.baseUrl}/${endpoint}`, { headers: this.createHeaders(headers) });
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +13,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
 import { Activity, Dimension, Participant } from '../../models/activity.model';
+import { ValidateActivityService } from '../../use-cases/validate-activity.usecase';
 
 @Component({
   selector: 'app-activity',
@@ -38,27 +38,22 @@ import { Activity, Dimension, Participant } from '../../models/activity.model';
   ],
 })
 export class ActivityComponent  implements OnInit {
+  activity: Activity | null = null;
   dimensions: Dimension[] = [];
   participants: Participant[] = [];
   values: Record<string, number> = {};
 
   constructor(
-    private router: Router
+    private activatedRoute: ActivatedRoute,
+    private validateActivityService: ValidateActivityService,
   ) {}
 
-  ngOnInit() {
-    const activity = localStorage.getItem('activity');
+  async ngOnInit() {
+    const activityIdFromURL = this.activatedRoute.snapshot.paramMap.get('id');
+    this.activity = await this.validateActivityService.validate(activityIdFromURL as string)
 
-    if (!activity) {
-      this.router.navigate(['/activity']);
-      return;
-    }
-
-    const activityData:Activity = JSON.parse(activity);
-
-    this.dimensions = activityData.dimensions;
-    this.participants = activityData.participants;
-
+    this.dimensions = this.activity.dimensions; 
+    this.participants = this.activity.participants;
     this.dimensions.forEach(dimension => {
       dimension.principles.forEach(principle => {
         this.values[principle.id] = 0;
@@ -71,13 +66,7 @@ export class ActivityComponent  implements OnInit {
     this.values[label] = parseInt(input.value, 10) || 0;
   }
 
-  canSubmit(): boolean {
-    return true;
-  }
-
   submit() {
-    if (!this.canSubmit()) { return; }
     console.log('Enviar respostas:', this.values);
-  }
-
+  }  
 }
