@@ -46,7 +46,7 @@ services:
     ports:
       - "8009:${INTERNAL_DOCS_PORT:-8000}"
     volumes:
-      - ./docs:/app/docs
+      - .:/app
       - ./mkdocs.yml:/app/mkdocs.yml
     working_dir: /app
     command: serve -a 0.0.0.0:${INTERNAL_DOCS_PORT:-8000}

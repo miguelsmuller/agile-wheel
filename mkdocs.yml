@@ -1,18 +1,69 @@
 site_name: Agile Wheel Documentation
-site_url: http://localhost:8009
 
 docs_dir: docs
 
+repo_url: https://github.com/miguelsmuller/agile-wheel
+
 nav:
-  - Home: index.md
-  - Backend: backend/index.md
-  - Frontend: frontend/index.md
+  - Agile Wheel App: index.md
+  - Agile Wheel Framework: agile-wheel-framework.md
+  - Arquitetura do Sistema: 
+    - 1-architecture/index.md
+    - Arquitetura do Front-End: 1-architecture/frontend-architecture.md
+    - Arquitetura do Back-End: 1-architecture/backend-architecture.md
+    - Modelo de Dados: 1-architecture/data-model.md
+  - Backend: 
+    - 2-backend/index.md
+    - Contexto - Activity: 2-backend/context-activity.md
+    - Configuração do Backend: 2-backend/backend-configuration.md
+  - Frontend: 
+    - 3-frontend/index.md
+    - Componente - Activity: 3-frontend/component-activity.md
+    - Componente - Evaluation: 3-frontend/component-evaluation.md
+    - Activity - Criação e entrada: 3-frontend/activity-creation-entry.md
+    - Participantes: 3-frontend/participants.md
+    - Frontend Services and Data Flow: 3-frontend/frontend-services-data-flow.md
+    - UI Styling and Theming: 3-frontend/ui-styling-theming.md
+  - Development and Deployment:
+    - 4-development-deployment/index.md
+    - Docker Setup: 4-development-deployment/docker-setup.md
+    - Continuous Integration: 4-development-deployment/continuous-integration.md
+
+theme:
+  name: material
+  palette:
+    scheme: default
+    primary: black
+    accent: indigo
+  features:
+    - navigation.top
+    - navigation.path
+    - navigation.indexes
+    - navigation.sections
+    - content.code.copy
+    - navigation.footer
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  social:
+    - icon: fontawesome/solid/earth-americas
+      link: https://github.com/miguelsmuller/
+    - icon: fontawesome/brands/github
+      link: https://github.com/miguelsmuller/
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/miguelsmuller/
 
 markdown_extensions:
   - admonition
   - codehilite
   - toc:
       permalink: true
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path: [.] 
+      restrict_base_path: false 
+      check_paths: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid

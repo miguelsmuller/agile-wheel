@@ -2,43 +2,33 @@
 
 # 🌟 Agile Wheel
 
-1. [Sobre o Projeto](docs/index.md#sobre-o-projeto)
-2. [Visão Geral](docs/index.md#visão-geral-do-monorepo)
-3. [Rodando o projeto](docs/index.md#rodando-o-projeto)
-4. Componentes
-    - [Backend](docs/backend/index.md)
-    - [Frontend](docs/frontend/index.md)
+## 📘 Documentação do Agile Wheel
 
-## O que é Agile Wheel?
+- Agile Wheel
+    - [App Overview](docs/index.md)
+    - [Agile Wheel Framework](docs/agile-wheel-framework.md)
 
-O **Agile Wheel** é uma abordagem visual de medição da maturidade ágil, idealizada por **[Ana G. Soares](https://www.linkedin.com/in/anagsoares/)**, organizada em quatro pilares:
+- Arquitetura do Sistema
+    - [Visão Geral da Arquitetura](docs/1-architecture/index.md)
+    - [Arquitetura do Front-End](docs/1-architecture/frontend-architecture.md)
+    - [Arquitetura do Back-End](docs/1-architecture/backend-architecture.md)
+    - [Modelo de Dados](docs/1-architecture/data-model.md)
 
-1. **Pessoas Sensacionais**
-    - Colaboração e comunicação
-    - Motivação e confiança
-    - Autonomia e auto-organização
-    - Melhoria Contínua
-    - Interdisciplinaridade
+-  Backend
+    - [Visão Geral](docs/2-backend/index.md)
+    - [Contexto - Activity](docs/2-backend/context-activity.md)
+    - [Configuração do Backend](docs/2-backend/backend-configuration.md)
 
-2. **Experimente e Aprenda Rápido**
-    - Compartilhamento de conhecimento
-    - Comprometimento com o produto
-    - Práticas Lean-Agile
-    - Ritmo das entregas
-    - Granularidade de demandas
+- Frontend
+    - [Visão Geral](docs/3-frontend/index.md)
+    - [Componente - Activity](docs/3-frontend/component-activity.md)
+    - [Componente - Evaluation](docs/3-frontend/component-evaluation.md)
+    - [Activity - Criação e Entrada](docs/3-frontend/activity-creation-entry.md)
+    - [Participantes](docs/3-frontend/participants.md)
+    - [Frontend Services and Data Flow](docs/3-frontend/frontend-services-data-flow.md)
+    - [UI Styling and Theming](docs/3-frontend/ui-styling-theming.md)
 
-3. **Segurança é um Pré-requisito**
-    - Trabalho sustentável
-    - Métricas Ágeis
-    - Estimativas & contratos ágeis
-    - Metas/ORKs
-    - Desdobramentos estratégicos
-
-4. **Valor a Todo Instante**
-    - Discovery/Upstream Kanban
-    - User Experience (UX/UI)
-    - Entrega de valor (percebido)
-    - Relacionamento com o negócio
-    - Satisfação do cliente
-
-![Agile Wheel - Roda Ágil - Exemplo](<docs/assets/Agile Wheel - Roda Ágil by Ana G. Soares - Exemplo.jpg>)
+- Desenvolvimento e Deploy
+    - [Visão Geral](docs/4-development-deployment/index.md)
+    - [Configuração com Docker](docs/4-development-deployment/docker-setup.md)
+    - [Integração Contínua (CI)](docs/4-development-deployment/continuous-integration.md)
