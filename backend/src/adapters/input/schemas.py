@@ -6,9 +6,6 @@ from src.domain.entities.dimension import Dimension, Principle
 from src.domain.entities.participant import Participant
 
 
-class PongResponse(BaseModel):
-    message: str
-
 class ParticipantResponse(BaseModel):
     id: str
     name: str

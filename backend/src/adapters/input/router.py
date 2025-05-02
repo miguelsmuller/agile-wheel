@@ -1,31 +1,27 @@
 from fastapi import APIRouter, status
+from fastapi.responses import JSONResponse
+
 from src.adapters.input.close_activity import router as close_activity_router
 from src.adapters.input.create_activity import router as craeate_activity_router
 from src.adapters.input.evaluation_activity import router as evaluation_activity_router
 from src.adapters.input.join_activity import router as join_activity_router
-from src.adapters.input.schemas import PongResponse
 from src.adapters.input.status_activity import router as status_activity_router
 
 router = APIRouter()
 
-@router.get("/")
-def root():
-    return {"Hello": "World"}
-
-@router.get(
-    "/ping",
-    responses={status.HTTP_200_OK: {"description": "Return a pong message"}},
-    response_model=PongResponse
-)
+@router.get("/ping")
 def ping():
-    return PongResponse(message="pong")
+    return JSONResponse(
+        content={"message": "pong"}, 
+        status_code=status.HTTP_200_OK
+    )
 
 _activity_router = APIRouter(prefix="/v1")
 _activity_router.include_router(craeate_activity_router, tags=["activity"])
 _activity_router.include_router(status_activity_router, tags=["activity"])
 _activity_router.include_router(join_activity_router, tags=["activity"])
 _activity_router.include_router(close_activity_router, tags=["activity"])
-_activity_router.include_router(evaluation_activity_router, tags=["activity"])
+_activity_router.include_router(evaluation_activity_router, tags=["acti2vity"])
 
 router.include_router(_activity_router)
 
