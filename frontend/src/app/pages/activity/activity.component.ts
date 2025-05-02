@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,11 +9,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
+import { Subscription } from 'rxjs';
 
 import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
 import { Activity, Dimension, Participant } from '../../models/activity.model';
 import { ValidateActivityService } from '../../use-cases/validate-activity.usecase';
+import { ActivityStreamUseCase } from '../../use-cases/activity-stream';
 
 @Component({
   selector: 'app-activity',
@@ -38,6 +40,8 @@ import { ValidateActivityService } from '../../use-cases/validate-activity.useca
   ],
 })
 export class ActivityComponent  implements OnInit {
+  private sub!: Subscription;
+
   activity: Activity | null = null;
   dimensions: Dimension[] = [];
   participants: Participant[] = [];
@@ -45,12 +49,14 @@ export class ActivityComponent  implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private validateActivityService: ValidateActivityService,
+    private validateActivity: ValidateActivityService,
+    private activityStatus: ActivityStreamUseCase
+    
   ) {}
 
   async ngOnInit() {
     const activityIdFromURL = this.activatedRoute.snapshot.paramMap.get('id');
-    this.activity = await this.validateActivityService.validate(activityIdFromURL as string)
+    this.activity = await this.validateActivity.validate(activityIdFromURL as string)
 
     this.dimensions = this.activity.dimensions; 
     this.participants = this.activity.participants;
@@ -59,6 +65,17 @@ export class ActivityComponent  implements OnInit {
         this.values[principle.id] = 0;
       });
     });
+
+    this.sub = this.activityStatus.observeStatus().subscribe({
+      next: (msg) => console.log('Recebido:', msg.value),
+      error: (err) => console.error('Erro:', err),
+      complete: () => console.log('Finalizado')
+    });
+  }
+
+  ngOnDestroy() {
+    this.activityStatus.stopObserving();
+    this.sub.unsubscribe();
   }
 
   onSliderChange(label: string, event: Event) {

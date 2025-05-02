@@ -6,6 +6,7 @@ from src.adapters.input.create_activity import router as craeate_activity_router
 from src.adapters.input.evaluation_activity import router as evaluation_activity_router
 from src.adapters.input.join_activity import router as join_activity_router
 from src.adapters.input.status_activity import router as status_activity_router
+from src.adapters.input.websocket.activity_stream import router as ws_activity_status_router
 
 router = APIRouter()
 
@@ -21,7 +22,9 @@ _activity_router.include_router(craeate_activity_router, tags=["activity"])
 _activity_router.include_router(status_activity_router, tags=["activity"])
 _activity_router.include_router(join_activity_router, tags=["activity"])
 _activity_router.include_router(close_activity_router, tags=["activity"])
-_activity_router.include_router(evaluation_activity_router, tags=["acti2vity"])
+_activity_router.include_router(evaluation_activity_router, tags=["activity"])
+
+_activity_router.include_router(ws_activity_status_router)
 
 router.include_router(_activity_router)
 
