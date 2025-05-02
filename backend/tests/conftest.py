@@ -235,27 +235,27 @@ def mock_activity_document_fixture():
                 principles=[
                     PrincipleModel(
                         id="compartilhamento_de_conhecimento",
-                        principle="Compartilhamento de conhecimento",
+                        name="Compartilhamento de conhecimento",
                         comments=None
                     ),
                     PrincipleModel(
                         id="comprometimento_com_o_produto",
-                        principle="Comprometimento com o produto",
+                        name="Comprometimento com o produto",
                         comments=None
                     ),
                     PrincipleModel(
                         id="praticas_lean_agile",
-                        principle="Práticas Lean-Agile",
+                        name="Práticas Lean-Agile",
                         comments=None
                     ),
                     PrincipleModel(
                         id="ritmo_das_entregas",
-                        principle="Ritmo das entregas",
+                        name="Ritmo das entregas",
                         comments=None
                     ),
                     PrincipleModel(
                         id="granularidade_de_demandas",
-                        principle="Granularidade de demandas",
+                        name="Granularidade de demandas",
                         comments=None
                     )
                 ]
@@ -267,27 +267,27 @@ def mock_activity_document_fixture():
                 principles=[
                     PrincipleModel(
                         id="colaboracao_e_comunicacao",
-                        principle="Colaboração e comunicação",
+                        name="Colaboração e comunicação",
                         comments=None
                     ),
                     PrincipleModel(
                         id="motivacao_e_confianca",
-                        principle="Motivação e confiança",
+                        name="Motivação e confiança",
                         comments=None
                     ),
                     PrincipleModel(
                         id="autonomia_e_auto_organizacao",
-                        principle="Autonomia e auto-organização",
+                        name="Autonomia e auto-organização",
                         comments=None
                     ),
                     PrincipleModel(
                         id="melhoria_continua",
-                        principle="Melhoria Contínua",
+                        name="Melhoria Contínua",
                         comments=None
                     ),
                     PrincipleModel(
                         id="interdisciplinaridade",
-                        principle="Interdisciplinaridade",
+                        name="Interdisciplinaridade",
                         comments=None
                     )
                 ]
@@ -299,27 +299,27 @@ def mock_activity_document_fixture():
                 principles=[
                     PrincipleModel(
                         id="discovery_upstream_kanban",
-                        principle="Discovery/Upstream Kanban",
+                        name="Discovery/Upstream Kanban",
                         comments=None
                     ),
                     PrincipleModel(
                         id="user_experience_ux_ui",
-                        principle="User Experience (UX/UI)",
+                        name="User Experience (UX/UI)",
                         comments=None
                     ),
                     PrincipleModel(
                         id="entrega_de_valor_percebido",
-                        principle="Entrega de valor (percebido)",
+                        name="Entrega de valor (percebido)",
                         comments=None
                     ),
                     PrincipleModel(
                         id="relacionamento_com_o_negocio",
-                        principle="Relacionamento com o negócio",
+                        name="Relacionamento com o negócio",
                         comments=None
                     ),
                     PrincipleModel(
                         id="satisfacao_do_cliente",
-                        principle="Satisfação do cliente",
+                        name="Satisfação do cliente",
                         comments=None
                     )
                 ]
@@ -331,27 +331,27 @@ def mock_activity_document_fixture():
                 principles=[
                     PrincipleModel(
                         id="trabalho_sustentavel",
-                        principle="Trabalho sustentável",
+                        name="Trabalho sustentável",
                         comments=None
                     ),
                     PrincipleModel(
                         id="metricas_ageis",
-                        principle="Métricas Ágeis",
+                        name="Métricas Ágeis",
                         comments=None
                     ),
                     PrincipleModel(
                         id="estimativas_e_contratos_ageis",
-                        principle="Estimativas & contratos ágeis",
+                        name="Estimativas & contratos ágeis",
                         comments=None
                     ),
                     PrincipleModel(
                         id="metas_orks",
-                        principle="Metas/ORKs",
+                        name="Metas/ORKs",
                         comments=None
                     ),
                     PrincipleModel(
                         id="desdobramentos_estrategicos",
-                        principle="Desdobramentos estratégicos",
+                        name="Desdobramentos estratégicos",
                         comments=None
                     )
                 ]

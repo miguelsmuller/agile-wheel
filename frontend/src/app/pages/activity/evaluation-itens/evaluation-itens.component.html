@@ -1,11 +1,11 @@
 <div class="bg-gray-50 rounded-xl p-4 flex flex-col ring-1 ring-gray-900/10">
   <h2 class="mb-2 text-lg font-semibold text-gray-900">
-    {{ dimension.dimension }}
+    {{ dimension.name }}
   </h2>
 
   <ul class="space-y-1 flex-1">
-    <li *ngFor="let label of dimension.principles" class="flex items-center justify-between">
-      <span class="text-sm">{{ label.principle }}</span>
+    <li *ngFor="let principle of dimension.principles" class="flex items-center justify-between">
+      <span class="text-sm">{{ principle.name }}</span>
       <mat-slider
       [min]="0"
       [max]="5"

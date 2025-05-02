@@ -11,8 +11,8 @@ export interface CreateActivityResponse {
 }
 
 export interface CreateActivityRequest {
-  owner_name: string;
-  owner_email: string;
+  name: string;
+  email: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -23,7 +23,9 @@ export class CreateActivityService {
   ) {}
 
   createActivity(owner: CreateActivityRequest): void {
-    this.backendClient.post<CreateActivityResponse>('v1/activity', owner).subscribe({
+    this.backendClient.post<CreateActivityResponse>('v1/activity', {
+      owner: owner
+    }).subscribe({
       next: (response) => {
         localStorage.setItem('participant', JSON.stringify(response.participant));
         localStorage.setItem('activity', JSON.stringify(response.activity));

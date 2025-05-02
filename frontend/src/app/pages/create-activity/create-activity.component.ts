@@ -60,8 +60,8 @@ export class CreateActivityComponent implements OnInit {
     if (this.createForm.invalid) return;
     
     const owner: CreateActivityRequest = {
-      owner_email: this.createForm.value.email,
-      owner_name: this.createForm.value.name
+      email: this.createForm.value.email,
+      name: this.createForm.value.name
     };
 
     this.createActivityService.createActivity(owner);

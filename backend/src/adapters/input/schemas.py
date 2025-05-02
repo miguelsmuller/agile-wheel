@@ -24,20 +24,20 @@ class ParticipantResponse(BaseModel):
 
 class PrincipleResponse(BaseModel):
     id: str
-    principle: str
+    name: str
     comments: str | None = None
 
     @classmethod
     def from_principle(cls, principle: Principle) -> "PrincipleResponse":
         return cls(
             id=principle.id,
-            principle=principle.name,
+            name=principle.name,
             comments=principle.comments
         )
 
 class DimensionResponse(BaseModel):
     id: str
-    dimension: str
+    name: str
     comments: str | None = None
     principles: list[PrincipleResponse]
 
@@ -45,7 +45,7 @@ class DimensionResponse(BaseModel):
     def from_dimension(cls, dimension: Dimension) -> "DimensionResponse":
         return cls(
             id=dimension.id,
-            dimension=dimension.name,
+            name=dimension.name,
             comments=dimension.comments,
             principles=[
                 PrincipleResponse.from_principle(principle)
@@ -57,7 +57,7 @@ class ActivityResponse(BaseModel):
     activity_id: str
     created_at: datetime
     is_opened: bool
-    owner_name: str
+    owner: ParticipantResponse
     participants: list[ParticipantResponse]
     dimensions: list[DimensionResponse]
 
@@ -69,7 +69,7 @@ class ActivityResponse(BaseModel):
             activity_id=str(activity.id),
             created_at=activity.created_at,
             is_opened=activity.is_opened,
-            owner_name=owner.name,
+            owner=ParticipantResponse.from_participant(owner),
             participants=[
                 ParticipantResponse.from_participant(participant)
                 for participant in activity.participants
@@ -80,37 +80,33 @@ class ActivityResponse(BaseModel):
             ]
         )
 
-# ****************************************************************
-# * Request and Response Schemas for requests and responses
-# ****************************************************************
+class ParticipantRequest(BaseModel):
+    name: str
+    email: EmailStr
 
-class CreateActivityRequest(BaseModel):
-    owner_name: str
-    owner_email: EmailStr
-
-    @field_validator("owner_name")
+    @field_validator("name")
     @classmethod
     def validator_name(cls, value):
         if len(value) < 3:
             raise ValueError("Name must be at least 3 characters long")
         return value
+
+# ****************************************************************
+# * Request and Response Schemas for requests and responses
+# ****************************************************************
+
+class CreateActivityRequest(BaseModel):
+    owner: ParticipantRequest
 
 class CreateActivityResponse(BaseModel):
     participant: ParticipantResponse
     activity: ActivityResponse
 
 class JoinRequest(BaseModel):
-    participant_name: str
-    participant_email: EmailStr
-
-    @field_validator("participant_name")
-    @classmethod
-    def validator_name(cls, value):
-        if len(value) < 3:
-            raise ValueError("Name must be at least 3 characters long")
-        return value
+    participant: ParticipantRequest
 
 class JoinResponse(BaseModel):
+    participant: ParticipantResponse
     activity: ActivityResponse
 
 class CloseResponse(BaseModel):

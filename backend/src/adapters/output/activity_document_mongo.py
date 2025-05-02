@@ -20,7 +20,7 @@ class ParticipantModel(BaseModel):
 
 class PrincipleModel(BaseModel):
     id: str
-    principle: str
+    name: str
     comments: str | None = None
 
 class DimensionModel(BaseModel):
@@ -68,7 +68,7 @@ class ActivityDocument(Document):
                 principles=[
                     PrincipleModel(
                         id=p.id,
-                        principle=p.name,
+                        name=p.name,
                         comments=p.comments
                     ) for p in d.principles
                 ]
@@ -114,7 +114,7 @@ class ActivityDocument(Document):
                 principles=[
                     Principle(
                         id=p.id,
-                        name=p.principle,
+                        name=p.name,
                         comments=p.comments
                     ) for p in d.principles
                 ]

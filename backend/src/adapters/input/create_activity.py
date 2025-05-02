@@ -29,8 +29,8 @@ async def activity(
     create_activity_service: CreateActivityPort = Depends(lambda: service),
 ):
     owner = Participant(
-        email=activity_request.owner_email,
-        name=activity_request.owner_name,
+        email=activity_request.owner.email,
+        name=activity_request.owner.name,
         role="owner"
     )
 

@@ -3,7 +3,12 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Path, status
 from fastapi.responses import JSONResponse
-from src.adapters.input.schemas import ActivityResponse, JoinRequest, JoinResponse
+from src.adapters.input.schemas import (
+    ActivityResponse, 
+    JoinRequest, 
+    JoinResponse,
+    ParticipantResponse,
+)
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.application.usecase.join_activity_service import JoinActivityService
@@ -29,11 +34,11 @@ async def join_activity(
 ):
     try:
 
-        activity, _ = await join_activity_service.execute(
+        activity, participant = await join_activity_service.execute(
             activity_id=activity_id,
             participant=Participant(
-                name=request.participant_name,
-                email=request.participant_email,
+                name=request.participant.name,
+                email=request.participant.email,
                 role="regular"
             )
         )
@@ -41,5 +46,6 @@ async def join_activity(
         return JSONResponse({"error": str(e)}, status.HTTP_404_NOT_FOUND)
 
     return JoinResponse(
+        participant=ParticipantResponse.from_participant(participant=participant),
         activity=ActivityResponse.from_activity(activity=activity)
     )
