@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, status
-from src.adapters.input.schemas import (
+from src.adapters.input.http.schemas import (
     ActivityResponse,
     CreateActivityRequest,
     CreateActivityResponse,

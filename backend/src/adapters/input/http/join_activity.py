@@ -3,9 +3,9 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Path, status
 from fastapi.responses import JSONResponse
-from src.adapters.input.schemas import (
-    ActivityResponse, 
-    JoinRequest, 
+from src.adapters.input.http.schemas import (
+    ActivityResponse,
+    JoinRequest,
     JoinResponse,
     ParticipantResponse,
 )

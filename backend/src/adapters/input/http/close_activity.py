@@ -3,7 +3,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, Path, status
 from fastapi.responses import JSONResponse
-from src.adapters.input.schemas import ActivityResponse, CloseResponse
+from src.adapters.input.http.schemas import ActivityResponse, CloseResponse
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.close_activity_port import CloseActivityPort
 from src.application.usecase.close_activity_service import CloseActivityService

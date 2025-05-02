@@ -1,11 +1,10 @@
 from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
-
-from src.adapters.input.close_activity import router as close_activity_router
-from src.adapters.input.create_activity import router as craeate_activity_router
-from src.adapters.input.evaluation_activity import router as evaluation_activity_router
-from src.adapters.input.join_activity import router as join_activity_router
-from src.adapters.input.status_activity import router as status_activity_router
+from src.adapters.input.http.close_activity import router as close_activity_router
+from src.adapters.input.http.create_activity import router as craeate_activity_router
+from src.adapters.input.http.evaluation_activity import router as evaluation_activity_router
+from src.adapters.input.http.join_activity import router as join_activity_router
+from src.adapters.input.http.status_activity import router as status_activity_router
 from src.adapters.input.websocket.activity_stream import router as ws_activity_status_router
 
 router = APIRouter()
@@ -13,7 +12,7 @@ router = APIRouter()
 @router.get("/ping")
 def ping():
     return JSONResponse(
-        content={"message": "pong"}, 
+        content={"message": "pong"},
         status_code=status.HTTP_200_OK
     )
 

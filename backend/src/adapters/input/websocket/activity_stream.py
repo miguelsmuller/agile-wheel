@@ -1,8 +1,8 @@
-from fastapi import APIRouter, WebSocket
 import asyncio
-import random
 import json
+import random
 
+from fastapi import APIRouter, WebSocket
 
 router = APIRouter()
 
@@ -13,9 +13,9 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             await websocket.send_text(
                 json.dumps({
-                    "value": random.randint(1, 100),
+                    "value": random.randint(1, 100),  # noqa: S311
                 })
             )
             await asyncio.sleep(1)
-    except Exception as e:
+    except Exception:  # noqa: S110
         pass
