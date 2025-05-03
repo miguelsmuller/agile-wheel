@@ -24,9 +24,8 @@
           color="primary"
           class="w-full"
           (click)="submit()"
-          [routerLink]="'/result'"
-        >
-          Enviar Respostas
+          [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Enviando...' : 'Enviar Respostas' }}
         </button>
       </div>
     </div>

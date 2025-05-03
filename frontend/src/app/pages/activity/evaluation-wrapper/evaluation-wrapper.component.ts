@@ -10,8 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 
+import { DimensionWithScores } from '@models/activity.model';
+
 import { EvaluationItensComponent } from '../evaluation-itens/evaluation-itens.component';
-import { Dimension } from '../../../models/activity.model';
 
 
 @Component({
@@ -19,11 +20,9 @@ import { Dimension } from '../../../models/activity.model';
   templateUrl: './evaluation-wrapper.component.html',
   standalone: true,
   imports: [
-    // Angular Core
     RouterModule,
     CommonModule,
     FormsModule,
-    // Angular Material
     MatCardModule,
     MatTabsModule,
     MatFormFieldModule,
@@ -36,5 +35,5 @@ import { Dimension } from '../../../models/activity.model';
   ],
 })
 export class EvaluationWrapperComponent{
-  @Input() dimensions!: Dimension[];
+  @Input() dimensions!: DimensionWithScores[];
 }

@@ -10,11 +10,19 @@ export interface Principle {
   comments?: string;
 }
 
+export interface PrincipleWithScore extends Principle {
+  score?: number;
+}
+
 export interface Dimension {
   id: string;
   name: string;
   comments?: string;
   principles: Principle[];
+}
+
+export interface DimensionWithScores extends Omit<Dimension, 'principles'> {
+  principles: PrincipleWithScore[];
 }
 
 export interface Rating {

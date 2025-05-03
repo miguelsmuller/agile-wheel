@@ -13,9 +13,10 @@ import { distinctUntilChanged, map, Subscription } from 'rxjs';
 import { isEqual } from 'lodash';
 
 
-import { Activity, Dimension, Participant } from '@models/activity.model';
+import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
 import { ActivityStateService } from '@services/activity-state.service';
 import { ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
+import { SubmitEvaluationService } from '@use-cases/submit-evaluation.usecase';
 
 import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
@@ -41,17 +42,20 @@ import { ListParticipantsComponent } from './list-participants/list-participants
 })
 export class ActivityComponent  implements OnInit {
   private sub!: Subscription;
+  
+  isSubmitting: boolean = false;
 
   activity: Activity | null = null;
   currentParticipant: Participant | null = null;
-  dimensions: Dimension[] = [];
+  dimensions: DimensionWithScores[] = [];
   participants: Participant[] = [];
-  values: Record<string, number> = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private activityStateService: ActivityStateService,
-    private activityStreamService: ActivityStreamUseCase
+    private activityStreamService: ActivityStreamUseCase,
+    private submitEvaluationService: SubmitEvaluationService,
+
   ) {}
 
   async ngOnInit() {
@@ -62,19 +66,24 @@ export class ActivityComponent  implements OnInit {
     this.activity = activity;
     this.currentParticipant = currentParticipant;
 
-    this.dimensions = activity.dimensions;
-    this.dimensions.forEach(dimension => {
-      dimension.principles.forEach(principle => {
-        this.values[principle.id] = 0;
-      });
-    });
+    this.dimensions = activity.dimensions.map(dimension => ({
+      ...dimension,
+      principles: dimension.principles.map(principle => ({
+        ...principle,
+        score: 0
+      }))
+    }));
 
     this.sub = this.activityStreamService.startObserving(
       activity.activity_id,
       currentParticipant.id
     ).pipe(
-      map((msg: any) => msg.participants),
-      distinctUntilChanged((prev, curr) => isEqual(prev, curr))
+      map(
+        (msg: any) => msg.participants
+      ),
+      distinctUntilChanged(
+        (prev, curr) => isEqual(prev, curr)
+      )
     ).subscribe({
       next: (msg: Participant[]) => {
         this.participants = msg;
@@ -89,12 +98,20 @@ export class ActivityComponent  implements OnInit {
     this.sub.unsubscribe();
   }
 
-  onSliderChange(label: string, event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.values[label] = parseInt(input.value, 10) || 0;
-  }
+  async submit(): Promise<void> {
+    this.isSubmitting = true;
 
-  submit() {
-    console.log('Enviar respostas:', this.values);
+    try {
+      await this.submitEvaluationService.submitEvaluation(
+        this.activity?.activity_id as string,
+        this.currentParticipant?.id as string,
+        this.dimensions
+      );
+    } catch (error) {
+      console.error('[ActivityComponent]', error);
+      this.isSubmitting = false;
+    }
+
+    console.log(this.dimensions);
   }  
 }
