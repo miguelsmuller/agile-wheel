@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AgileWheelBackEndClient } from '../client/agile-wheel-backend.client';
+import { AgileWheelBackEndHTTP } from '../client/agile-wheel-backend.http';
 import { Activity, Participant } from '../models/activity.model';
 
 export interface CreateActivityResponse {
@@ -18,7 +18,7 @@ export interface CreateActivityRequest {
 @Injectable({ providedIn: 'root' })
 export class CreateActivityService {
   constructor(
-    private backendClient: AgileWheelBackEndClient,
+    private backendClient: AgileWheelBackEndHTTP,
     private router: Router
   ) {}
 

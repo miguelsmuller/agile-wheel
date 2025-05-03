@@ -16,7 +16,7 @@ import { isEqual } from 'lodash';
 import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
 import { Activity, Dimension, Participant } from '../../models/activity.model';
-import { ActivityStateService } from '../../use-cases/validate-activity.usecase';
+import { ActivityStateService } from '../../services/activity-state.service';
 import { ActivityStreamUseCase } from '../../use-cases/activity-stream.usecase';
 
 @Component({

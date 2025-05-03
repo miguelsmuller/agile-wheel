@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AgileWheelBackEndClient {
+export class AgileWheelBackEndHTTP {
   private readonly baseUrl = 'http://localhost:3333';
 
   constructor(private http: HttpClient) {}
