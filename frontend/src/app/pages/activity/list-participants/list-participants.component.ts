@@ -33,4 +33,8 @@ import { Participant } from '../../../models/activity.model';
 })
 export class ListParticipantsComponent{
   @Input() participants!: Participant[];
+
+  trackById(index: number, participant: Participant): string {
+    return participant.id;
+  }
 }

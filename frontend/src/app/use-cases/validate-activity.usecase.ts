@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 import { AgileWheelBackEndClient } from '../client/agile-wheel-backend.client';
 import { Activity, Participant } from '../models/activity.model';
@@ -11,56 +11,62 @@ export interface GetActivityResponse {
 }
 
 @Injectable({ providedIn: 'root' })
-export class ValidateActivityService {
+export class ActivityStateService {
+  private activitySubject = new BehaviorSubject<Activity | null>(null);
+  private participantSubject = new BehaviorSubject<Participant | null>(null);
+
+  activity$ = this.activitySubject.asObservable();
+  participant$ = this.participantSubject.asObservable();
+
   constructor(
     private backendClient: AgileWheelBackEndClient,
     private router: Router
   ) {}
 
-  async validate(activityId: string): Promise<Activity> {
-    if (!activityId) {
-      this.redirectToCreateActivity('No activity ID found given');
-    }
-    
-    const activityStringFromLocalStorage = localStorage.getItem('activity');
-    const participantStringFromLocalStorage = localStorage.getItem('participant');
+  async initialize(activityId: string): Promise<{ activity: Activity, currentParticipant: Participant }> {
+    if (!activityId) this.redirectToCreateActivity('Missing activity ID');
 
-    if (!activityStringFromLocalStorage || !participantStringFromLocalStorage) {
-      this.redirectToCreateActivity('No data found in localStorage');
+    const activity = this.getActivityFromLocalStorage();
+    const participant = this.getParticipantFromLocalStorage();
+
+    if (!activity || !participant) {
+      this.redirectToCreateActivity('Missing data in localStorage');
     }
 
-    const activityFromLocalStorage = parseJSON<Activity>(activityStringFromLocalStorage);
-    const participantFromLocalStorage = parseJSON<Participant>(participantStringFromLocalStorage);
-
-    if (activityId !== activityFromLocalStorage.activity_id) {
-      this.redirectToCreateActivity('Activity ID from URL does not match');
+    if (activityId !== activity.activity_id) {
+      this.redirectToCreateActivity('Activity ID mismatch');
     }
 
-    const activityFromBackEnd = await this.getActivityFromBackEnd(
-      activityId, participantFromLocalStorage.id
-    );
+    const backendActivity = await this.fetchActivityFromBackend(activityId, participant.id);
 
-    if (!activityFromBackEnd) {
-      this.redirectToCreateActivity('Activity not found in backend');
+    if (!backendActivity || backendActivity.activity_id !== activity.activity_id) {
+      this.redirectToCreateActivity('Activity not valid from backend');
     }
 
-    if (activityFromBackEnd.activity_id !== activityFromLocalStorage.activity_id) {
-      this.redirectToCreateActivity('Activity ID from backend does not match');
-    }
+    localStorage.setItem('activity', JSON.stringify(backendActivity));
 
-    localStorage.setItem('activity', JSON.stringify(activityFromBackEnd));
+    this.activitySubject.next(backendActivity);
+    this.participantSubject.next(participant);
 
-    return activityFromLocalStorage
+    return { activity: backendActivity, currentParticipant: participant };
   }
 
-  private async getActivityFromBackEnd(
-    activityID: string, participantID: string
-  ): Promise<Activity | null> {
+  private getActivityFromLocalStorage(): Activity | null {
+    const raw = localStorage.getItem('activity');
+    return raw ? parseJSON<Activity>(raw) : null;
+  }
+
+  private getParticipantFromLocalStorage(): Participant | null {
+    const raw = localStorage.getItem('participant');
+    return raw ? parseJSON<Participant>(raw) : null;
+  }
+
+  private async fetchActivityFromBackend(activityId: string, participantId: string): Promise<Activity | null> {
     try {
       const response = await firstValueFrom(
         this.backendClient.get<GetActivityResponse>(
-          `v1/activity/${activityID}`,
-          { 'X-Participant-Id': participantID }
+          `v1/activity/${activityId}`,
+          { 'X-Participant-Id': participantId }
         )
       );
       return response.activity;

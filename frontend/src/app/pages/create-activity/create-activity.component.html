@@ -28,8 +28,8 @@
         color="primary" 
         class="w-full" 
         type="submit" 
-        [disabled]="createForm.invalid">
-        Criar atividade
+        [disabled]="createForm.invalid || isSubmitting">
+        {{ isSubmitting ? 'Criando...' : 'Criar atividade' }}
       </button>
 
     </form>

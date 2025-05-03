@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,24 +9,24 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
-import { Subscription } from 'rxjs';
+import { distinctUntilChanged, map, Subscription, tap } from 'rxjs';
+import { isEqual } from 'lodash';
+
 
 import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
 import { Activity, Dimension, Participant } from '../../models/activity.model';
-import { ValidateActivityService } from '../../use-cases/validate-activity.usecase';
-import { ActivityStreamUseCase } from '../../use-cases/activity-stream';
+import { ActivityStateService } from '../../use-cases/validate-activity.usecase';
+import { ActivityStreamUseCase } from '../../use-cases/activity-stream.usecase';
 
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   standalone: true,
   imports: [
-    // Angular Core
     RouterModule,
     CommonModule,
     FormsModule,
-    // Angular Material
     MatCardModule,
     MatTabsModule,
     MatFormFieldModule,
@@ -34,7 +34,6 @@ import { ActivityStreamUseCase } from '../../use-cases/activity-stream';
     MatButtonModule,
     MatIconModule,
     MatSliderModule,
-    // App
     EvaluationWrapperComponent,
     ListParticipantsComponent
   ],
@@ -43,38 +42,49 @@ export class ActivityComponent  implements OnInit {
   private sub!: Subscription;
 
   activity: Activity | null = null;
+  currentParticipant: Participant | null = null;
   dimensions: Dimension[] = [];
   participants: Participant[] = [];
   values: Record<string, number> = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private validateActivity: ValidateActivityService,
-    private activityStatus: ActivityStreamUseCase
-    
+    private activityStateService: ActivityStateService,
+    private activityStreamService: ActivityStreamUseCase
   ) {}
 
   async ngOnInit() {
-    const activityIdFromURL = this.activatedRoute.snapshot.paramMap.get('id');
-    this.activity = await this.validateActivity.validate(activityIdFromURL as string)
+    const activityId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (!activityId) return;
 
-    this.dimensions = this.activity.dimensions; 
-    this.participants = this.activity.participants;
+    const { activity, currentParticipant } = await this.activityStateService.initialize(activityId);
+    this.activity = activity;
+    this.currentParticipant = currentParticipant;
+
+    this.dimensions = activity.dimensions;
     this.dimensions.forEach(dimension => {
       dimension.principles.forEach(principle => {
         this.values[principle.id] = 0;
       });
     });
 
-    this.sub = this.activityStatus.observeStatus().subscribe({
-      next: (msg) => console.log('Recebido:', msg.value),
-      error: (err) => console.error('Erro:', err),
-      complete: () => console.log('Finalizado')
+    this.sub = this.activityStreamService.startObserving(
+      activity.activity_id,
+      currentParticipant.id
+    ).pipe(
+      map((msg: any) => msg.participants),
+      distinctUntilChanged((prev, curr) => isEqual(prev, curr))
+    ).subscribe({
+      next: (msg: Participant[]) => {
+        this.participants = msg;
+      },
+      error: (err: any) => console.error(err),
+      complete: () => console.debug('activity stream finished')
     });
   }
 
   ngOnDestroy() {
-    this.activityStatus.stopObserving();
+    this.activityStreamService.stopObserving();
     this.sub.unsubscribe();
   }
 

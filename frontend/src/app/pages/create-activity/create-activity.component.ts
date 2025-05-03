@@ -32,6 +32,7 @@ import { Activity } from '../../models/activity.model';
 })
 export class CreateActivityComponent implements OnInit {
   createForm: FormGroup;
+  isSubmitting: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,14 +57,21 @@ export class CreateActivityComponent implements OnInit {
     }
   }
 
-  createActivity(): void {
+  async createActivity(): Promise<void> {
     if (this.createForm.invalid) return;
+
+    this.isSubmitting = true;
     
     const owner: CreateActivityRequest = {
       email: this.createForm.value.email,
       name: this.createForm.value.name
     };
 
-    this.createActivityService.createActivity(owner);
+    try {
+      await this.createActivityService.createActivity(owner);
+    } catch (error) {
+      console.error('[createActivity]', error);
+      this.isSubmitting = false;
+    }
   }
 }

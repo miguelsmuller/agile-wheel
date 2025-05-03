@@ -1,10 +1,10 @@
 <div
-  *ngFor="let participant of participants"
+  *ngFor="let participant of participants; trackBy: trackById"
   class="flex items-center space-x-4 py-3 px-4 ring-1 ring-gray-200 bg-white cursor-pointer"
 >
   <img
     class="h-10 w-10 rounded-full object-cover"
-    [src]="participant.name"
+    [src]="'https://i.pravatar.cc/300?u=' + participant.id"
     [alt]="participant.name"
   />
   <div>
