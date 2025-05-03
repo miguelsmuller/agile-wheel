@@ -9,15 +9,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
-import { distinctUntilChanged, map, Subscription, tap } from 'rxjs';
+import { distinctUntilChanged, map, Subscription } from 'rxjs';
 import { isEqual } from 'lodash';
 
 
+import { Activity, Dimension, Participant } from '@models/activity.model';
+import { ActivityStateService } from '@services/activity-state.service';
+import { ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
+
 import { EvaluationWrapperComponent } from "./evaluation-wrapper/evaluation-wrapper.component";
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
-import { Activity, Dimension, Participant } from '../../models/activity.model';
-import { ActivityStateService } from '../../services/activity-state.service';
-import { ActivityStreamUseCase } from '../../use-cases/activity-stream.usecase';
 
 @Component({
   selector: 'app-activity',

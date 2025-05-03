@@ -9,8 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CreateActivityService, CreateActivityRequest } from '../../use-cases/create-activity.usecase';
-import { Activity } from '../../models/activity.model';
+import { CreateActivityService, CreateActivityRequest } from '@use-cases/create-activity.usecase';
+import { getActivityFromLocalStorage } from '@utils/utils';
 
 
 @Component({
@@ -18,10 +18,8 @@ import { Activity } from '../../models/activity.model';
   templateUrl: './create-activity.component.html',
   standalone: true,
   imports: [
-    // Angular
     ReactiveFormsModule,
     RouterModule,
-    // Angular Material
     MatCardModule,
     MatTabsModule,
     MatFormFieldModule,
@@ -49,11 +47,10 @@ export class CreateActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const activity = localStorage.getItem('activity');
+    const activity = getActivityFromLocalStorage()
 
     if (activity) {
-      const activityData:Activity = JSON.parse(activity);
-      this.router.navigate(['/activity', activityData.activity_id]);
+      this.router.navigate(['/activity', activity.activity_id])
     }
   }
 

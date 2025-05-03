@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
-import { AgileWheelBackEndHTTP } from '../client/agile-wheel-backend.http';
-import { Activity, Participant } from '../models/activity.model';
+import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
+import { Activity, Participant } from '@models/activity.model';
+import { setActivityToLocalStorage, setParticipantToLocalStorage } from '@utils/utils';
+
 
 export interface CreateActivityResponse {
   participant: Participant;
@@ -27,8 +28,9 @@ export class CreateActivityService {
       owner: owner
     }).subscribe({
       next: (response) => {
-        localStorage.setItem('participant', JSON.stringify(response.participant));
-        localStorage.setItem('activity', JSON.stringify(response.activity));
+
+        setParticipantToLocalStorage(response.participant)
+        setActivityToLocalStorage(response.activity)
 
         this.router.navigate(['/activity', response.activity.activity_id]);
       },

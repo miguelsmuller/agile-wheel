@@ -4,7 +4,7 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
 import { Activity, Participant } from '@models/activity.model';
-import { parseJSON } from '@utils/utils';
+import { getActivityFromLocalStorage, setActivityToLocalStorage, getParticipantFromLocalStorage } from '@utils/utils';
 
 export interface GetActivityResponse {
   activity: Activity;
@@ -26,8 +26,8 @@ export class ActivityStateService {
   async initialize(activityId: string): Promise<{ activity: Activity, currentParticipant: Participant }> {
     if (!activityId) this.redirectToCreateActivity('Missing activity ID');
 
-    const Localactivity = this.getActivityFromLocalStorage();
-    const currentParticipant = this.getParticipantFromLocalStorage();
+    const Localactivity = getActivityFromLocalStorage();
+    const currentParticipant = getParticipantFromLocalStorage();
 
     const hasLocalStorageData = (!Localactivity || !currentParticipant)
     if (hasLocalStorageData) {
@@ -50,7 +50,7 @@ export class ActivityStateService {
       this.redirectToCreateActivity('Activity invalid');
     }
 
-    localStorage.setItem('activity', JSON.stringify(remoteActivity));
+    setActivityToLocalStorage(remoteActivity)
 
     this.activitySubject.next(remoteActivity);
     this.participantSubject.next(currentParticipant);
@@ -59,16 +59,6 @@ export class ActivityStateService {
       activity: remoteActivity, 
       currentParticipant: currentParticipant 
     };
-  }
-
-  private getActivityFromLocalStorage(): Activity | null {
-    const raw = localStorage.getItem('activity');
-    return (raw) ? parseJSON<Activity>(raw) : null;
-  }
-
-  private getParticipantFromLocalStorage(): Participant | null {
-    const raw = localStorage.getItem('participant');
-    return (raw) ? parseJSON<Participant>(raw) : null;
   }
 
   private async fetchActivityFromBackend(
