@@ -5,29 +5,62 @@ docs_dir: docs
 repo_url: https://github.com/miguelsmuller/agile-wheel
 
 nav:
-  - Agile Wheel App: index.md
-  - Agile Wheel Framework: agile-wheel-framework.md
-  - Arquitetura do Sistema: 
-    - 1-architecture/index.md
-    - Arquitetura do Front-End: 1-architecture/frontend-architecture.md
-    - Arquitetura do Back-End: 1-architecture/backend-architecture.md
+  - Introdução:
+    - Visão Geral: index.md
+    - Framework Agile Wheel: agile-wheel-framework.md
+    - Execução Local: local-run.md
+  
+  - Architecture:
+    - Architecture Overview: 1-architecture/index.md
     - Modelo de Dados: 1-architecture/data-model.md
-  - Backend: 
-    - 2-backend/index.md
-    - Contexto - Activity: 2-backend/context-activity.md
-    - Configuração do Backend: 2-backend/backend-configuration.md
-  - Frontend: 
-    - 3-frontend/index.md
-    - Componente - Activity: 3-frontend/component-activity.md
-    - Componente - Evaluation: 3-frontend/component-evaluation.md
-    - Activity - Criação e entrada: 3-frontend/activity-creation-entry.md
-    - Participantes: 3-frontend/participants.md
-    - Frontend Services and Data Flow: 3-frontend/frontend-services-data-flow.md
-    - UI Styling and Theming: 3-frontend/ui-styling-theming.md
-  - Development and Deployment:
-    - 4-development-deployment/index.md
-    - Docker Setup: 4-development-deployment/docker-setup.md
-    - Continuous Integration: 4-development-deployment/continuous-integration.md
+
+  - Backend:
+    - Backend Overview: 2-backend/index.md
+    - Configuração: 2-backend/configuration.md
+    - Domain - Activity:
+      - Endpoints HTTP: 2-backend/domain-activity-http.md
+      - Endpoints WS: 2-backend/domain-activity-ws.md 
+
+  - Frontend:
+    - Frontend Overview: 3-frontend/index.md
+    - UI & Temas: 3-frontend/ui-styling-theming.md
+    - Componentes de Páginas:
+      - Create Activity: 3-frontend/component-activity-creation-entry.md
+      - Join Activity: 3-frontend/component-activity-creation-join.md
+      - Activity: 3-frontend/component-activity.md
+      - Result: 3-frontend/component-result.md
+    - Serviços e Fluxo de Dados: 3-frontend/frontend-services-data-flow.md
+
+  - Deployment:
+    - Deployment Overview: 4-development-deployment/index.md
+    - Configuração Docker: 4-development-deployment/docker-setup.md
+    - Integração Contínua (CI): 4-development-deployment/continuous-integration.md
+
+  - Docs AI Generated: 
+    - Agile Wheel App: _ai-generated/index.md
+    - Agile Wheel Framework: _ai-generated/agile-wheel-framework.md
+    - Arquitetura do Sistema: 
+      - Overview: _ai-generated/1-architecture/index.md
+      - Arquitetura do Front-End: _ai-generated/1-architecture/frontend-architecture.md
+      - Arquitetura do Back-End: _ai-generated/1-architecture/backend-architecture.md
+      - Modelo de Dados: _ai-generated/1-architecture/data-model.md
+    - Backend: 
+      - Overview: _ai-generated/2-backend/index.md
+      - Contexto - Activity: _ai-generated/2-backend/context-activity.md
+      - Configuração do Backend: _ai-generated/2-backend/backend-configuration.md
+    - Frontend: 
+      - Overview: _ai-generated/3-frontend/index.md
+      - Componente - Activity: _ai-generated/3-frontend/component-activity.md
+      - Componente - Evaluation: _ai-generated/3-frontend/component-evaluation.md
+      - Activity - Criação e entrada: _ai-generated/3-frontend/activity-creation-entry.md
+      - Participantes: _ai-generated/3-frontend/participants.md
+      - Frontend Services and Data Flow: _ai-generated/3-frontend/frontend-services-data-flow.md
+      - UI Styling and Theming: _ai-generated/3-frontend/ui-styling-theming.md
+    - Development and Deployment:
+      - Overview: _ai-generated/4-development-deployment/index.md
+      - Docker Setup: _ai-generated/4-development-deployment/docker-setup.md
+      - Continuous Integration: _ai-generated/4-development-deployment/continuous-integration.md
+
 
 theme:
   name: material
@@ -36,10 +69,11 @@ theme:
     primary: black
     accent: indigo
   features:
+    - navigation.tabs
     - navigation.top
-    - navigation.path
-    - navigation.indexes
     - navigation.sections
+    - navigation.path # Dosen't work
+    - navigation.expand
     - content.code.copy
     - navigation.footer
   icon:

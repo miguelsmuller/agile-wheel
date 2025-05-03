@@ -174,8 +174,8 @@ A API transforma entidades de domínio em DTOs de resposta usando métodos de ma
 
 ??? "backend/src/adapters/input/schemas.py"
 
-    ```python title="backend/src/adapters/input/schemas.py"
-    --8<-- "./backend/src/adapters/input/schemas.py"
+    ```python title="backend/src/adapters/input/http/schemas.py"
+    --8<-- "./backend/src/adapters/input/http/schemas.py"
     ```
 
 ## 4. Application Configuration and Startup
