@@ -3,10 +3,7 @@ import { Router } from '@angular/router';
 
 import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
 import { Activity, Participant } from '@models/activity.model';
-import {
-  setActivityToLocalStorage,
-  setParticipantToLocalStorage,
-} from '@utils/utils';
+import { setActivityToLocalStorage, setParticipantToLocalStorage } from '@utils/utils';
 
 export interface CreateActivityResponse {
   participant: Participant;
@@ -21,8 +18,8 @@ export interface CreateActivityRequest {
 @Injectable({ providedIn: 'root' })
 export class CreateActivityService {
   constructor(
-    private backendClient: AgileWheelBackEndHTTP,
-    private router: Router
+    private readonly backendClient: AgileWheelBackEndHTTP,
+    private readonly router: Router
   ) {}
 
   createActivity(owner: CreateActivityRequest): void {

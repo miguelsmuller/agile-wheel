@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,10 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './enter-activity.component.html',
   standalone: true,
   imports: [
-    // Angular
     ReactiveFormsModule,
     RouterModule,
-    // Angular Material
     MatCardModule,
     MatTabsModule,
     MatFormFieldModule,
@@ -34,7 +27,7 @@ export class EnterActivityComponent {
   createForm: FormGroup;
   joinForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder) {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -47,17 +40,13 @@ export class EnterActivityComponent {
     });
   }
 
-  /** Handler para gerar nova dinâmica */
   onCreate(): void {
     if (this.createForm.invalid) return;
     console.info('Criar atividade', this.createForm.value);
-    // TODO: integrar com endpoint POST /activity/create
   }
 
-  /** Handler para entrar em dinâmica existente */
   onJoin(): void {
     if (this.joinForm.invalid) return;
     console.info('Entrar na atividade', this.joinForm.value);
-    // TODO: integrar com endpoint GET /activity/{id}
   }
 }

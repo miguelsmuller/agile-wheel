@@ -8,11 +8,9 @@ import { Observable } from 'rxjs';
 export class AgileWheelBackEndHTTP {
   private readonly baseUrl = 'http://localhost:3333';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
-  private createHeaders(
-    headers?: Record<string, string>
-  ): HttpHeaders | undefined {
+  private createHeaders(headers?: Record<string, string>): HttpHeaders | undefined {
     return headers ? new HttpHeaders(headers) : undefined;
   }
 
@@ -22,21 +20,13 @@ export class AgileWheelBackEndHTTP {
     });
   }
 
-  post<T>(
-    endpoint: string,
-    body: unknown,
-    headers?: Record<string, string>
-  ): Observable<T> {
+  post<T>(endpoint: string, body: unknown, headers?: Record<string, string>): Observable<T> {
     return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body, {
       headers: this.createHeaders(headers),
     });
   }
 
-  put<T>(
-    endpoint: string,
-    body: unknown,
-    headers?: Record<string, string>
-  ): Observable<T> {
+  put<T>(endpoint: string, body: unknown, headers?: Record<string, string>): Observable<T> {
     return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body, {
       headers: this.createHeaders(headers),
     });
