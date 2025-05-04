@@ -1,6 +1,13 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=miguelsmuller_agile-wheel&metric=alert_status&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=miguelsmuller_agile-wheel) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=miguelsmuller_agile-wheel&metric=reliability_rating&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=miguelsmuller_agile-wheel) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=miguelsmuller_agile-wheel&metric=coverage&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=miguelsmuller_agile-wheel) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=miguelsmuller_agile-wheel&metric=sqale_rating&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=miguelsmuller_agile-wheel)
-
 # 🌟 Agile Wheel
+
+##### Backend
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=agile-wheel-backend&metric=alert_status&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=agile-wheel-backend) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=agile-wheel-backend&metric=reliability_rating&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=agile-wheel-backend) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=agile-wheel-backend&metric=coverage&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=agile-wheel-backend) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=agile-wheel-backend&metric=sqale_rating&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=agile-wheel-backend)
+
+##### Frontend
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=agile-wheel-frontend&metric=alert_status&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=agile-wheel-frontend) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=agile-wheel-frontend&metric=reliability_rating&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=agile-wheel-frontend) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=agile-wheel-frontend&metric=coverage&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=agile-wheel-frontend) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=agile-wheel-frontend&metric=sqale_rating&token=38a3a1ccb5d8516794cdfb557cd8c292ce57cc71)](https://sonarcloud.io/summary/new_code?id=agile-wheel-frontend)
+
 
 ## 📘 Documentação do Agile Wheel
 
