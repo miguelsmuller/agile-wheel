@@ -28,7 +28,7 @@ export class ActivityStreamUseCase {
     const path = `/v1/activities/${activityID}/stream?participant_id=${participantID}`;
 
     return this.socketClient
-      .connect(path)
+      .connect<ActivityStreamMessage>(path)
       .pipe(map((msg: ActivityStreamMessage) => msg));
   }
 
