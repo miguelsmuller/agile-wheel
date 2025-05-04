@@ -12,7 +12,6 @@ import { MatSliderModule } from '@angular/material/slider';
 
 import { DimensionWithScores } from '@models/activity.model';
 
-
 @Component({
   selector: 'app-evaluation-itens',
   templateUrl: './evaluation-itens.component.html',
@@ -27,9 +26,9 @@ import { DimensionWithScores } from '@models/activity.model';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
   ],
 })
-export class EvaluationItensComponent{
+export class EvaluationItensComponent {
   @Input() dimension!: DimensionWithScores;
 }

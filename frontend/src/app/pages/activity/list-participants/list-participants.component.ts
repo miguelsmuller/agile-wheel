@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { Participant } from '../../../models/activity.model';
 
-
 @Component({
   selector: 'app-list-participants',
   templateUrl: './list-participants.component.html',
@@ -28,10 +27,10 @@ import { Participant } from '../../../models/activity.model';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
   ],
 })
-export class ListParticipantsComponent{
+export class ListParticipantsComponent {
   @Input() participants!: Participant[];
 
   trackById(index: number, participant: Participant): string {

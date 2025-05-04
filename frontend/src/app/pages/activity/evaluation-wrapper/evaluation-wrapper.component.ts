@@ -14,7 +14,6 @@ import { DimensionWithScores } from '@models/activity.model';
 
 import { EvaluationItensComponent } from '../evaluation-itens/evaluation-itens.component';
 
-
 @Component({
   selector: 'app-evaluation-wrapper',
   templateUrl: './evaluation-wrapper.component.html',
@@ -30,10 +29,9 @@ import { EvaluationItensComponent } from '../evaluation-itens/evaluation-itens.c
     MatButtonModule,
     MatIconModule,
     MatSliderModule,
-    // App
-    EvaluationItensComponent
+    EvaluationItensComponent,
   ],
 })
-export class EvaluationWrapperComponent{
+export class EvaluationWrapperComponent {
   @Input() dimensions!: DimensionWithScores[];
 }

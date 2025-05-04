@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-enter-activity',
@@ -33,19 +37,13 @@ export class EnterActivityComponent {
   constructor(private fb: FormBuilder) {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [
-        Validators.required, 
-        Validators.email
-      ]],
+      email: ['', [Validators.required, Validators.email]],
     });
 
     this.joinForm = this.fb.group({
       id: ['', Validators.required],
       name: ['', Validators.required],
-      email: ['', [
-        Validators.required, 
-        Validators.email
-      ]],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 

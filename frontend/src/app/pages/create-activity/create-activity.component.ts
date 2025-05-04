@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -9,9 +14,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CreateActivityService, CreateActivityRequest } from '@use-cases/create-activity.usecase';
+import {
+  CreateActivityService,
+  CreateActivityRequest,
+} from '@use-cases/create-activity.usecase';
 import { getActivityFromLocalStorage } from '@utils/utils';
-
 
 @Component({
   selector: 'app-create-activity',
@@ -25,12 +32,12 @@ import { getActivityFromLocalStorage } from '@utils/utils';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
 })
 export class CreateActivityComponent implements OnInit {
   createForm: FormGroup;
-  isSubmitting: boolean = false;
+  isSubmitting = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,18 +46,15 @@ export class CreateActivityComponent implements OnInit {
   ) {
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
-      email: ['', [
-        Validators.required, 
-        Validators.email
-      ]],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
   ngOnInit(): void {
-    const activity = getActivityFromLocalStorage()
+    const activity = getActivityFromLocalStorage();
 
     if (activity) {
-      this.router.navigate(['/activity', activity.activity_id])
+      this.router.navigate(['/activity', activity.activity_id]);
     }
   }
 
@@ -58,10 +62,10 @@ export class CreateActivityComponent implements OnInit {
     if (this.createForm.invalid) return;
 
     this.isSubmitting = true;
-    
+
     const owner: CreateActivityRequest = {
       email: this.createForm.value.email,
-      name: this.createForm.value.name
+      name: this.createForm.value.name,
     };
 
     try {
