@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
 import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
+import { clearDataFromLocalStorage } from '@utils/utils';
 
 
 export interface SubmitEvaluationResponse {
@@ -32,16 +33,17 @@ export class SubmitEvaluationService {
     participantId: string,
     dimensions: DimensionWithScores[]
   ): void {
-    const payload = this.buildSubmitEvaluationPayload(dimensions);
+    const apiEndPoint = `v1/activity/${activityId}/evaluation`
+    const payload = this.buildSubmitEvaluationPayload(dimensions)
+    const headers = { "X-Participant-Id": participantId }
     
     this.backendClient.post<SubmitEvaluationResponse>(
-      `v1/activity/${activityId}/evaluation`, 
-      payload, 
-      { "X-Participant-Id": participantId }
+      apiEndPoint, payload, headers
     ).subscribe({
-      next: (response) => {
-        console.log(response)
-        this.router.navigate(['/result']);
+      next: () => {
+        const redirectTo = `activity/${activityId}/result`
+        clearDataFromLocalStorage();
+        this.router.navigate([redirectTo]);
       },
       error: (error) => {
         console.error('Erro ao criar atividade:', error);

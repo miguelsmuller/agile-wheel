@@ -25,3 +25,8 @@ export function getParticipantFromLocalStorage(): Participant | null {
 export function setParticipantToLocalStorage(participant: Participant): void {
   localStorage.setItem('participant', JSON.stringify(participant));
 }
+
+export function clearDataFromLocalStorage(): void {
+  localStorage.removeItem('activity');
+  localStorage.removeItem('participant');
+}

@@ -95,7 +95,9 @@ export class ActivityComponent  implements OnInit {
 
   ngOnDestroy() {
     this.activityStreamService.stopObserving();
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   async submit(): Promise<void> {
@@ -111,7 +113,5 @@ export class ActivityComponent  implements OnInit {
       console.error('[ActivityComponent]', error);
       this.isSubmitting = false;
     }
-
-    console.log(this.dimensions);
   }  
 }

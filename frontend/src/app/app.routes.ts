@@ -9,6 +9,6 @@ export const routes: Routes = [
     { path: 'create-activity', component: CreateActivityComponent },
     { path: 'enter-activity', component: EnterActivityComponent },
     { path: 'activity/:id', component: ActivityComponent },
-    { path: 'result', component: ResultComponent },
+    { path: 'activity/:id/result', component: ResultComponent },
     { path: '**', redirectTo: 'create-activity' },
 ];
