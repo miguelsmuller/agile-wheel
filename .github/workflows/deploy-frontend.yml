@@ -1,0 +1,36 @@
+name: Deploy Frontend
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  backend-deploy:
+    name: Lint, Test & Deploy Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Instalar dependências
+        working-directory: frontend
+        run: |
+          npm ci
+
+      - name: Lint
+        working-directory: frontend
+        run: |
+          npm run lint
+
+      - name: Deploy do Frontend
+        working-directory: frontend
+        run: |
+          echo "🚀 Iniciando deploy do Frontend"
