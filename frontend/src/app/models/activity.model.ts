@@ -44,5 +44,5 @@ export interface Activity {
   owner: Participant;
   participants: Participant[];
   dimensions: Dimension[];
-  evaluations: ParticipantEvaluation[]
+  evaluations: ParticipantEvaluation[];
 }

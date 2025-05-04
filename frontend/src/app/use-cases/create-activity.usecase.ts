@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 
 import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
 import { Activity, Participant } from '@models/activity.model';
-import { setActivityToLocalStorage, setParticipantToLocalStorage } from '@utils/utils';
-
+import {
+  setActivityToLocalStorage,
+  setParticipantToLocalStorage,
+} from '@utils/utils';
 
 export interface CreateActivityResponse {
   participant: Participant;
@@ -24,19 +26,20 @@ export class CreateActivityService {
   ) {}
 
   createActivity(owner: CreateActivityRequest): void {
-    this.backendClient.post<CreateActivityResponse>('v1/activity', {
-      owner: owner
-    }).subscribe({
-      next: (response) => {
+    this.backendClient
+      .post<CreateActivityResponse>('v1/activity', {
+        owner: owner,
+      })
+      .subscribe({
+        next: response => {
+          setParticipantToLocalStorage(response.participant);
+          setActivityToLocalStorage(response.activity);
 
-        setParticipantToLocalStorage(response.participant)
-        setActivityToLocalStorage(response.activity)
-
-        this.router.navigate(['/activity', response.activity.activity_id]);
-      },
-      error: (error) => {
-        console.error('Erro ao criar atividade:', error);
-      }
-    });
+          this.router.navigate(['/activity', response.activity.activity_id]);
+        },
+        error: error => {
+          console.error('Erro ao criar atividade:', error);
+        },
+      });
   }
 }

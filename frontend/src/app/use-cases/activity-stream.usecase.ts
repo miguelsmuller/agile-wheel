@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AgileWheelBackEndWS } from '../client/agile-wheel-backend.ws';
@@ -21,12 +21,15 @@ export interface Participant {
 export class ActivityStreamUseCase {
   constructor(private socketClient: AgileWheelBackEndWS) {}
 
-  startObserving(activityID: string, participantID: string): Observable<ActivityStreamMessage> {
+  startObserving(
+    activityID: string,
+    participantID: string
+  ): Observable<ActivityStreamMessage> {
     const path = `/v1/activities/${activityID}/stream?participant_id=${participantID}`;
 
-    return this.socketClient.connect(path).pipe(
-      map((msg: ActivityStreamMessage) => msg)
-    );
+    return this.socketClient
+      .connect(path)
+      .pipe(map((msg: ActivityStreamMessage) => msg));
   }
 
   stopObserving() {

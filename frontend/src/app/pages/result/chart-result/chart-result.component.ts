@@ -6,7 +6,7 @@ import {
   TooltipComponent,
   GridComponent,
   PolarComponent,
-  GraphicComponent
+  GraphicComponent,
 } from 'echarts/components';
 import { BarChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -21,16 +21,14 @@ echarts.use([
   CanvasRenderer,
 ]);
 
-
 @Component({
   selector: 'app-chart-result',
   imports: [],
   templateUrl: './chart-result.component.html',
 })
 export class ChartResultComponent implements AfterViewInit {
-  
-  maxValue = 15
-  
+  maxValue = 15;
+
   data = [
     {
       name: 'Pessoas Sensacionais',
@@ -40,7 +38,7 @@ export class ChartResultComponent implements AfterViewInit {
         { name: 'Autonomia e auto-organização', value: 7 },
         { name: 'Melhoria Contínua', value: 11 },
         { name: 'Interdisciplinaridade', value: 13 },
-      ]
+      ],
     },
     {
       name: 'Experimente e Aprenda Rápido',
@@ -50,7 +48,7 @@ export class ChartResultComponent implements AfterViewInit {
         { name: 'Práticas Lean-Agile', value: 14 },
         { name: 'Ritmo das entregas', value: 9 },
         { name: 'Granularidade de demandas', value: 12 },
-      ]
+      ],
     },
     {
       name: 'Segurança é um Pré-requisito',
@@ -60,7 +58,7 @@ export class ChartResultComponent implements AfterViewInit {
         { name: 'Estimativas & contratos ágeis', value: 6 },
         { name: 'Metas/ORKs', value: 11 },
         { name: 'Desdobramentos estratégicos', value: 8 },
-      ]
+      ],
     },
     {
       name: 'Valor a Todo Instante',
@@ -70,18 +68,18 @@ export class ChartResultComponent implements AfterViewInit {
         { name: 'Entrega de valor (percebido)', value: 4 },
         { name: 'Relacionamento com o negócio', value: 6 },
         { name: 'Satisfação do cliente', value: 10 },
-      ]
+      ],
     },
   ];
 
-  flatData =  this.data.flatMap(group => group.itens);
-  
+  flatData = this.data.flatMap(group => group.itens);
+
   labelMap: Record<string, string> = {
     'Colaboração e comunicação': 'Colaboração\ne comunicação',
     'Motivação e confiança': 'Motivação\ne confiança',
     'Autonomia e auto-organização': 'Autonomia\ne auto-organização',
     'Melhoria Contínua': 'Melhoria\nContínua',
-    'Interdisciplinaridade': 'Interdisciplinaridade',
+    Interdisciplinaridade: 'Interdisciplinaridade',
     'Compartilhamento de conhecimento': 'Compartilhamento\nde conhecimento',
     'Comprometimento com o produto': 'Comprometimento\ncom o produto',
     'Práticas Lean-Agile': 'Práticas\nLean-Agile',
@@ -96,7 +94,7 @@ export class ChartResultComponent implements AfterViewInit {
     'User Experience (UX/UI)': 'User Experience\n(UX/UI)',
     'Entrega de valor (percebido)': 'Entrega de valor\n(percebido)',
     'Relacionamento com o negócio': 'Relacionamento\ncom o negócio',
-    'Satisfação do cliente': 'Satisfação\ndo cliente'
+    'Satisfação do cliente': 'Satisfação\ndo cliente',
   };
 
   option = {
@@ -108,12 +106,12 @@ export class ChartResultComponent implements AfterViewInit {
       z: 0,
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { 
-        interval: 0, 
-        fontSize: 12, 
+      axisLabel: {
+        interval: 0,
+        fontSize: 12,
         margin: 10,
         align: 'center',
-        formatter: (value: string) => this.labelMap[value] || value
+        formatter: (value: string) => this.labelMap[value] || value,
       },
     },
     // Eixo dos valores - de dentro pra fora
@@ -159,10 +157,10 @@ export class ChartResultComponent implements AfterViewInit {
           formatter: '{c}',
         },
         itemStyle: {
-          color: (params: any) => {
+          color: (params: { value: number }) => {
             const val = params.value;
             const percent = val / this.maxValue;
-            
+
             if (percent >= 0.9) return '#2a9d8f';
             if (percent >= 0.7) return '#1f4e5f';
             if (percent >= 0.5) return '#e9c46a';
@@ -183,7 +181,7 @@ export class ChartResultComponent implements AfterViewInit {
           fill: '#444',
           font: 'bold 22px sans-serif',
           textAlign: 'right',
-        }
+        },
       },
       {
         type: 'text',
@@ -194,7 +192,7 @@ export class ChartResultComponent implements AfterViewInit {
           fill: '#444',
           font: 'bold 22px sans-serif',
           textAlign: 'right',
-        }
+        },
       },
       {
         type: 'text',
@@ -205,7 +203,7 @@ export class ChartResultComponent implements AfterViewInit {
           fill: '#444',
           font: 'bold 22px sans-serif',
           textAlign: 'left',
-        }
+        },
       },
       {
         type: 'text',
@@ -216,29 +214,30 @@ export class ChartResultComponent implements AfterViewInit {
           fill: '#444',
           font: 'bold 22px sans-serif',
           textAlign: 'left',
-        }
+        },
       },
-      
+
       /* --- LINHA HORIZONTAL --- */
       {
         type: 'line',
-        shape: { x1: 0,   y1: '50%',  x2: '100%', y2: '50%' },
+        shape: { x1: 0, y1: '50%', x2: '100%', y2: '50%' },
         style: { stroke: '#bbb', lineWidth: 2 },
         silent: true,
-        z: 100
+        z: 100,
       },
       /* --- LINHA VERTICAL --- */
       {
         type: 'line',
-        shape: { x1: '50%', y1: 0,     x2: '50%',  y2: '100%' },
+        shape: { x1: '50%', y1: 0, x2: '50%', y2: '100%' },
         style: { stroke: '#bbb', lineWidth: 2 },
         silent: true,
-        z: 100
-      }
-    ]
+        z: 100,
+      },
+    ],
   };
 
-  @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('chartContainer', { static: true })
+  chartContainer!: ElementRef<HTMLDivElement>;
 
   ngAfterViewInit() {
     const chart = echarts.init(this.chartContainer.nativeElement);
