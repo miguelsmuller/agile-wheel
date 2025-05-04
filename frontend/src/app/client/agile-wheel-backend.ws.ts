@@ -9,12 +9,10 @@ const WS_HOST = 'ws://localhost:3333';
   providedIn: 'root',
 })
 export class AgileWheelBackEndWS {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private socket$: WebSocketSubject<any> | null = null;
+  private socket$: WebSocketSubject<unknown> | null = null;
   private currentEndpoint: string | null = null;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  connect(path: string): Observable<any> {
+  connect<T>(path: string): Observable<T> {
     const fullEndpoint = `${WS_HOST}${path}`;
 
     if (
@@ -30,7 +28,9 @@ export class AgileWheelBackEndWS {
       });
     }
 
-    return this.socket$.pipe(
+    const typedSocket$ = this.socket$ as WebSocketSubject<T>;
+
+    return typedSocket$.pipe(
       retry({
         count: Infinity,
         delay: (error, retryCount) => {
@@ -44,10 +44,9 @@ export class AgileWheelBackEndWS {
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sendMessage(message: any): void {
+  sendMessage<T>(message: T): void {
     if (this.isConnected()) {
-      this.socket$?.next(message);
+      (this.socket$ as WebSocketSubject<T>)?.next(message);
     }
   }
 

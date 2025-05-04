@@ -18,7 +18,10 @@ import {
   Participant,
 } from '@models/activity.model';
 import { ActivityStateService } from '@services/activity-state.service';
-import { ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
+import {
+  ActivityStreamMessage,
+  ActivityStreamUseCase,
+} from '@use-cases/activity-stream.usecase';
 import { SubmitEvaluationService } from '@use-cases/submit-evaluation.usecase';
 
 import { EvaluationWrapperComponent } from './evaluation-wrapper/evaluation-wrapper.component';
@@ -80,7 +83,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.sub = this.activityStreamService
       .startObserving(activity.activity_id, currentParticipant.id)
       .pipe(
-        map((msg: unknown) => msg.participants),
+        map((msg: ActivityStreamMessage) => msg.participants),
         distinctUntilChanged((prev, curr) => isEqual(prev, curr))
       )
       .subscribe({
