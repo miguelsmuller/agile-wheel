@@ -7,8 +7,8 @@ on:
       - main
 
 jobs:
-  backend-deploy:
-    name: Lint, Test & Deploy Frontend
+  run-tests:
+    name: Lint and Test
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +30,28 @@ jobs:
         run: |
           npm run lint
 
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    needs: run-tests
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud - Frontend
+        uses: SonarSource/sonarqube-scan-action@v5
+        with:
+          projectBaseDir: frontend
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONTEND }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: sonarcloud
+    steps:
       - name: Deploy do Frontend
         working-directory: frontend
         run: |
