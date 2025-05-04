@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -14,10 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import {
-  CreateActivityService,
-  CreateActivityRequest,
-} from '@use-cases/create-activity.usecase';
+import { CreateActivityService, CreateActivityRequest } from '@use-cases/create-activity.usecase';
 import { getActivityFromLocalStorage } from '@utils/utils';
 
 @Component({
@@ -40,9 +32,9 @@ export class CreateActivityComponent implements OnInit {
   isSubmitting = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private createActivityService: CreateActivityService,
-    private router: Router
+    private readonly formBuilder: FormBuilder,
+    private readonly createActivityService: CreateActivityService,
+    private readonly router: Router
   ) {
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -69,7 +61,7 @@ export class CreateActivityComponent implements OnInit {
     };
 
     try {
-      await this.createActivityService.createActivity(owner);
+      this.createActivityService.createActivity(owner);
     } catch (error) {
       console.error('[createActivity]', error);
       this.isSubmitting = false;

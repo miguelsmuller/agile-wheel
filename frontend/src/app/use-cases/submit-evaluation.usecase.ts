@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
-import {
-  Activity,
-  DimensionWithScores,
-  Participant,
-} from '@models/activity.model';
+import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
 import { clearDataFromLocalStorage } from '@utils/utils';
 
 export interface SubmitEvaluationResponse {
@@ -27,8 +23,8 @@ export interface SubmitEvaluationRequest {
 @Injectable({ providedIn: 'root' })
 export class SubmitEvaluationService {
   constructor(
-    private backendClient: AgileWheelBackEndHTTP,
-    private router: Router
+    private readonly backendClient: AgileWheelBackEndHTTP,
+    private readonly router: Router
   ) {}
 
   submitEvaluation(
@@ -40,18 +36,16 @@ export class SubmitEvaluationService {
     const payload = this.buildSubmitEvaluationPayload(dimensions);
     const headers = { 'X-Participant-Id': participantId };
 
-    this.backendClient
-      .post<SubmitEvaluationResponse>(apiEndPoint, payload, headers)
-      .subscribe({
-        next: () => {
-          const redirectTo = `activity/${activityId}/result`;
-          clearDataFromLocalStorage();
-          this.router.navigate([redirectTo]);
-        },
-        error: error => {
-          console.error('Erro ao criar atividade:', error);
-        },
-      });
+    this.backendClient.post<SubmitEvaluationResponse>(apiEndPoint, payload, headers).subscribe({
+      next: () => {
+        const redirectTo = `activity/${activityId}/result`;
+        clearDataFromLocalStorage();
+        this.router.navigate([redirectTo]);
+      },
+      error: error => {
+        console.error('Erro ao criar atividade:', error);
+      },
+    });
   }
 
   private buildSubmitEvaluationPayload(
@@ -59,7 +53,7 @@ export class SubmitEvaluationService {
   ): SubmitEvaluationRequest {
     const ratings = dimensions.flatMap(dimension =>
       dimension.principles.map(principle => ({
-        principle_id: principle.id as string,
+        principle_id: principle.id,
         score: principle.score || 0,
         comments: principle.comments || '',
       }))

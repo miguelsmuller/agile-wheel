@@ -16,15 +16,15 @@ export interface GetActivityResponse {
 
 @Injectable({ providedIn: 'root' })
 export class ActivityStateService {
-  private activitySubject = new BehaviorSubject<Activity | null>(null);
-  private participantSubject = new BehaviorSubject<Participant | null>(null);
+  private readonly activitySubject = new BehaviorSubject<Activity | null>(null);
+  private readonly participantSubject = new BehaviorSubject<Participant | null>(null);
 
   activity$ = this.activitySubject.asObservable();
   participant$ = this.participantSubject.asObservable();
 
   constructor(
-    private awClient: AgileWheelBackEndHTTP,
-    private router: Router
+    private readonly awClient: AgileWheelBackEndHTTP,
+    private readonly router: Router
   ) {}
 
   async initialize(
@@ -45,14 +45,10 @@ export class ActivityStateService {
       this.redirectToCreateActivity('Activity mismatch');
     }
 
-    const remoteActivity = await this.fetchActivityFromBackend(
-      activityId,
-      currentParticipant.id
-    );
+    const remoteActivity = await this.fetchActivityFromBackend(activityId, currentParticipant.id);
 
     const isLocalActivityInvalid =
-      !remoteActivity ||
-      remoteActivity.activity_id !== Localactivity.activity_id;
+      !remoteActivity || remoteActivity.activity_id !== Localactivity.activity_id;
     if (isLocalActivityInvalid) {
       this.redirectToCreateActivity('Activity invalid');
     }

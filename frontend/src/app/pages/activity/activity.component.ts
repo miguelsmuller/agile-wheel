@@ -12,16 +12,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { distinctUntilChanged, map, Subscription } from 'rxjs';
 import { isEqual } from 'lodash';
 
-import {
-  Activity,
-  DimensionWithScores,
-  Participant,
-} from '@models/activity.model';
+import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
 import { ActivityStateService } from '@services/activity-state.service';
-import {
-  ActivityStreamMessage,
-  ActivityStreamUseCase,
-} from '@use-cases/activity-stream.usecase';
+import { ActivityStreamMessage, ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
 import { SubmitEvaluationService } from '@use-cases/submit-evaluation.usecase';
 
 import { EvaluationWrapperComponent } from './evaluation-wrapper/evaluation-wrapper.component';
@@ -57,10 +50,10 @@ export class ActivityComponent implements OnInit, OnDestroy {
   participants: Participant[] = [];
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private activityStateService: ActivityStateService,
-    private activityStreamService: ActivityStreamUseCase,
-    private submitEvaluationService: SubmitEvaluationService
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly activityStateService: ActivityStateService,
+    private readonly activityStreamService: ActivityStreamUseCase,
+    private readonly submitEvaluationService: SubmitEvaluationService
   ) {}
 
   async ngOnInit() {
@@ -106,7 +99,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.isSubmitting = true;
 
     try {
-      await this.submitEvaluationService.submitEvaluation(
+      this.submitEvaluationService.submitEvaluation(
         this.activity?.activity_id as string,
         this.currentParticipant?.id as string,
         this.dimensions

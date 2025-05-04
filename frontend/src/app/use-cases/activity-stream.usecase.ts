@@ -19,12 +19,9 @@ export interface Participant {
 
 @Injectable({ providedIn: 'root' })
 export class ActivityStreamUseCase {
-  constructor(private socketClient: AgileWheelBackEndWS) {}
+  constructor(private readonly socketClient: AgileWheelBackEndWS) {}
 
-  startObserving(
-    activityID: string,
-    participantID: string
-  ): Observable<ActivityStreamMessage> {
+  startObserving(activityID: string, participantID: string): Observable<ActivityStreamMessage> {
     const path = `/v1/activities/${activityID}/stream?participant_id=${participantID}`;
 
     return this.socketClient

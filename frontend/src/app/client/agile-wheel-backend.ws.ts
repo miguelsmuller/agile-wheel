@@ -15,11 +15,7 @@ export class AgileWheelBackEndWS {
   connect<T>(path: string): Observable<T> {
     const fullEndpoint = `${WS_HOST}${path}`;
 
-    if (
-      !this.socket$ ||
-      this.socket$.closed ||
-      this.currentEndpoint !== fullEndpoint
-    ) {
+    if (!this.socket$ || this.socket$.closed || this.currentEndpoint !== fullEndpoint) {
       this.currentEndpoint = fullEndpoint;
       this.socket$ = webSocket({
         url: fullEndpoint,
@@ -34,10 +30,7 @@ export class AgileWheelBackEndWS {
       retry({
         count: Infinity,
         delay: (error, retryCount) => {
-          console.warn(
-            `[WS] Error, attempt #${retryCount}, retrying in 3s...`,
-            error
-          );
+          console.warn(`[WS] Error, attempt #${retryCount}, retrying in 3s...`, error);
           return timer(3000);
         },
       })
