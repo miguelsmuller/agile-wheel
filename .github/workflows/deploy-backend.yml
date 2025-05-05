@@ -130,4 +130,4 @@ jobs:
           image: 'docker.io/miguelsmuller/agile-wheel-backend:latest'
 
       - name: Show API Root URL
-        run: 'curl "${{ steps.deploy.outputs.url }}"'
+        run: 'curl "${{ steps.deploy.outputs.url }}/ping"'
