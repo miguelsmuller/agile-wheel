@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 logger = logging.getLogger(__name__)
 
 class Settings(BaseSettings):
+    logger.debug("[get_settings] Settings the database")
 
     env: str = "dev"
     log_level: str = "info"
@@ -21,13 +22,9 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore"
     )
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        logger.debug("[get_settings] Settings initialized")
+    logger.debug("[get_settings] Settings initialized")
 
 
 @lru_cache
 def get_settings() -> Settings:
-    logger.debug("[get_settings] Initializing settings")
     return Settings()
