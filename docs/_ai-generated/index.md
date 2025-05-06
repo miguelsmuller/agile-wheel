@@ -240,118 +240,18 @@ flowchart TD
 
 Esses componentes trabalham juntos para fornecer uma experiência de usuário coesa para criar, participar e participar de atividades de avaliação do Agile Wheel.
 
-## 9. Executando o Conjunto de Componentes
-
-O aplicativo pode ser executado localmente usando o Docker Compose:
 
 ```sh
-docker compose up -d --force-recreate --build
-```
+cd frontend
 
-Este comando inicia todos os serviços necessários em contêineres com a configuração default.
-
-Para desenvolvimento de componentes individuais:
-
-## 10. Executando apenas backend
-
-Ainda vai ser necessário ter um banco de dados para executar o backend
-
-```sh
-docker run -d \
---name mongo \
--p 27017:27017 \
--v mongo-data:/data/db \
-mongo:latest
-```
-
-1. Instale o Python 3.12 (usando pyenv recomendado)
-
-```sh
-cd backend  # Dentro do diretório do backend
-
-poetry install
-poetry run uvicorn src:app --reload
-```
-
-```sh
-pyenv install 3.12.0
-```
-
-2. Instale o Poetry com sufixo (via pipx)
-
-```sh
-pipx install --suffix "@aw" poetry==2.1.1 --python python3.12
-# Isso criará o comando poetry@aw disponível globalmente
-# O comando está vinculado à versão correta do Python e do Poetry.
-```
-
-3. Crie e use o ambiente virtual
-
-```sh
-poetry config virtualenvs.in-project true
-poetry@aw env use 3.12
-poetry@aw install
-```
-
-4. Executando o Projeto
-
-```sh
-# Rodar aplicação localmente
-poetry poe serve
-# ou
-poetry@aw run uvicorn src:app --reload
-
-# Rodar testes, linters, etc
-poetry@aw run pytest
-poetry@aw run pytest --cov=src
-poetry@aw run pytest --cov=src --cov-report=html
-poetry@aw run ruff check .
-poetry@aw run mypy src/
-```
-
-### Backend Local com Docker
-
-1. Gere a imagem atualizada do backend
-
-```sh
-docker build -t agile-whell-backend .
-```
-
-2. Execute a imagem
-
-```sh
-docker run  -d \
--e INTERNAL_PORT=8080 \
--e DB_HOST=host.docker.internal \
--e DB_PORT=27017 \
--p 3333:8080 \
---name agile-whell-backend \
-agile-whell-backend
-```
-
-3. Para realizar algum debug pode executar
-
-```sh
-docker run -it agile-whell-backend sh
-apt update && apt install -y iputils-ping curl dnsutils telnet
-```
-
-## 11. Exceutando apenas frontend
-
-```sh
-cd frontend  # Dentro do diretório do frontend
-
-# 1. Garanta Node >= 18.19 (ou use `nvm install 20 && nvm use 20`)
-# 2. Instale dependências de todos os workspaces (frontend)
+nvm install 22
+nvm use 22
 npm install
 
-# 3. Suba o servidor de desenvolvimento Angular em http://localhost:4200
-npm run start            # alias: npm run start --workspace frontend
-
-# 4. Outros scripts úteis
-a) npm run build         # build de produção do Angular
-b) npm run test          # testes unitários Karma/Jasmine
+npm run
 ```
+
+Acesso na porta padrão 4200 do angular: http://localhost:4200
 
 ### Frontend Local com Docker
 
@@ -359,7 +259,6 @@ b) npm run test          # testes unitários Karma/Jasmine
 
 ```sh
 docker build --target prod -t agile-whell-frontend .
-docker build -t agile-whell-frontend .
 ```
 
 2. Execute a imagem
@@ -367,7 +266,12 @@ docker build -t agile-whell-frontend .
 ```sh
 docker run  -d \
 -e INTERNAL_PORT=80 \
+-e PRODUCTION=false \
+-e API_AGILEWHEEL_URL=http://localhost \
+-e WS_AGILEWHEEL_URL=ws://localhost \
 -p 4444:80 \
 --name agile-whell-frontend \
 agile-whell-frontend
 ``` 
+
+Acesso na porta exposta pelo docker: http://localhost:4444

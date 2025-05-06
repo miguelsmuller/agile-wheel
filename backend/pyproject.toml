@@ -159,7 +159,7 @@ ignore_missing_imports = true
 # 5. Tarefas do Poe the Poet – rode sempre a partir da raiz
 ##############################################################################
 [tool.poe.tasks]
-serve = "uvicorn src.main:app --reload"
+serve = "uvicorn src.main:app --port 3333 --reload"
 ruff = "ruff check --fix ."
 tests = "pytest --cov=src --cov-report=term --cov-report=html"
 
