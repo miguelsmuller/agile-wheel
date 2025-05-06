@@ -3,7 +3,7 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { Observable, timer } from 'rxjs';
 import { retry } from 'rxjs/operators';
 
-const WS_HOST = 'ws://localhost:3333';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +11,10 @@ const WS_HOST = 'ws://localhost:3333';
 export class AgileWheelBackEndWS {
   private socket$: WebSocketSubject<unknown> | null = null;
   private currentEndpoint: string | null = null;
+  private readonly baseUrl = environment.wsAgileWheelUrl;
 
   connect<T>(path: string): Observable<T> {
-    const fullEndpoint = `${WS_HOST}${path}`;
+    const fullEndpoint = `${this.baseUrl}${path}`;
 
     if (!this.socket$ || this.socket$.closed || this.currentEndpoint !== fullEndpoint) {
       this.currentEndpoint = fullEndpoint;
