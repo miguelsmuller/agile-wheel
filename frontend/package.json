@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "prebuild": "node scripts/generate-env.mjs",
+    "ng": "npm run prebuild && ng",
+    "start": "npm run prebuild && ng serve",
+    "build": "npm run prebuild && ng build",
+    "watch": "npm run prebuild && ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
   },
