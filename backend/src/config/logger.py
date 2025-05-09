@@ -2,7 +2,7 @@ import logging
 import os
 
 
-def init_logger():
+def initialize_logger():
     log_level_env = os.getenv("LOG_LEVEL", "info").upper()
     log_level = getattr(logging, log_level_env, logging.INFO)
 
