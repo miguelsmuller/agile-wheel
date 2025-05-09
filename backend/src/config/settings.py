@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     env: str = "LOCAL"
     log_level: str = "INFO"
     enable_profiling: bool = False
+    enable_docs: bool = False
     allowed_origins: str = ""
 
     db_host: str = ""
