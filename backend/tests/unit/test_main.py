@@ -8,8 +8,8 @@ from src.main import create_app
 @pytest.fixture
 def mock_dependencies():
     with (
-        patch("src.main.init_logger") as mock_logger,
-        patch("src.main.init_database", new_callable=AsyncMock) as mock_init_db,
+        patch("src.main.initialize_logger") as mock_logger,
+        patch("src.main.initialize_database", new_callable=AsyncMock) as mock_init_db,
     ):
         yield mock_logger, mock_init_db
 

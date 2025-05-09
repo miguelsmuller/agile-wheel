@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 from src.adapters.output.activity_document_mongo import ActivityDocument
-from src.config.database import init_database
+from src.config.database import initialize_database
 
 
 @pytest.fixture
@@ -35,7 +35,7 @@ async def test_init_database_success(mock_dependencies):
     mock_client, mock_init_beanie, mock_motor_client = mock_dependencies
 
     # When
-    await init_database(host="localhost", port=27017)
+    await initialize_database(host="localhost", port=27017)
 
     # Then
     mock_motor_client.assert_called_once_with("mongodb://localhost:27017")
@@ -52,7 +52,7 @@ async def test_init_database_failure(mock_dependencies, mock_logger):
     mock_init_beanie.side_effect = Exception("Database initialization failed")
 
     # When
-    await init_database(host="localhost", port=27017)
+    await initialize_database(host="localhost", port=27017)
 
     # Then
     mock_motor_client.assert_called_once_with("mongodb://localhost:27017")

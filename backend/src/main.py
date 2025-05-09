@@ -4,18 +4,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.adapters.input.router import router
-from src.config.database import init_database
-from src.config.logger import init_logger
+from src.config.database import initialize_database
+from src.config.logger import initialize_logger
 from src.config.settings import get_settings
 
-init_logger()
+initialize_logger()
 settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.settings = settings
 
-    await init_database(settings.db_host, settings.db_port)
+    await initialize_database(settings.db_host, settings.db_port)
 
     yield
 

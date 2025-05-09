@@ -3,7 +3,7 @@ import os
 from unittest.mock import patch
 
 import pytest
-from src.config.logger import init_logger
+from src.config.logger import initialize_logger
 
 
 @pytest.fixture
@@ -26,7 +26,7 @@ def test_init_logging_sets_correct_level(log_level_env, expected_level, mock_dep
     mock_basic_config, mock_debug = mock_dependencies
 
     with patch.dict(os.environ, {"LOG_LEVEL": log_level_env}):
-        init_logger()
+        initialize_logger()
 
         mock_basic_config.assert_called_once_with(level=expected_level)
         mock_debug.assert_called_once_with(

@@ -6,7 +6,7 @@ from src.adapters.output.activity_document_mongo import ActivityDocument
 
 logger = logging.getLogger(__name__)
 
-async def init_database(host, port):
+async def initialize_database(host, port):
     logger.debug("[init_database] Initializing the database")
 
     try:
