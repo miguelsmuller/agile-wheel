@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     db_host: str = ""
     db_port: str = ""
 
+    sentry_dns: str = ""
+
     model_config = SettingsConfigDict(
         env_prefix="",
         env_file=".env",

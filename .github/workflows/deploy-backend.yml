@@ -124,10 +124,12 @@ jobs:
         with:
           env_vars_update_strateg: 'overwrite'
           env_vars: |
+            ENV=PROD
             INTERNAL_PORT=8080
             DB_HOST=host.docker.internal
             DB_PORT=27017
             ALLOWED_ORIGINS="http://agilewheel.miguelsmuller.dev.br\,https://agilewheel.miguelsmuller.dev.br"
+            SENTRY_DNS=${{ vars.SENTRY_DNS }}
           service: 'agile-wheel-backend'
           image: 'docker.io/miguelsmuller/agile-wheel-backend:latest'
 

@@ -1,0 +1,23 @@
+import logging
+
+import sentry_sdk
+from sentry_sdk.integrations.logging import LoggingIntegration
+from src.config.settings import Settings
+
+logger = logging.getLogger(__name__)
+
+
+async def initialize_monitoring(settings: Settings):
+    if settings.sentry_dns:
+        logger.info("Initializing Sentry")
+        sentry_sdk.init(
+            dsn=settings.sentry_dns,
+            environment=settings.env,
+            send_default_pii=True,
+            integrations=[
+                LoggingIntegration(level=logging.DEBUG, event_level=logging.FATAL),
+            ],
+        )
+        logger.info("Sentry initialization successful")
+    else:
+        logger.info("sentry_dsn not provided, skipping Sentry initialization")
