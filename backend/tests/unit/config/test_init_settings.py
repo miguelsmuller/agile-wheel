@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 import pytest
-from src.config.settings import Settings, get_settings
+from src.config.settings import Settings, initialize_settings
 
 
 @pytest.fixture
@@ -12,8 +12,8 @@ def mock_dependencies():
 
 def test_get_settings_logs_and_return_type(mock_dependencies):
     # When
-    get_settings.cache_clear()  # Clear lru_cache
-    settings = get_settings()
+    initialize_settings.cache_clear()  # Clear lru_cache
+    settings = initialize_settings()
 
     # Then
     assert isinstance(settings, Settings)

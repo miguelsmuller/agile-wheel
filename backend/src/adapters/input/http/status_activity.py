@@ -2,7 +2,6 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, Path, status
-from fastapi.responses import JSONResponse
 from src.adapters.input.http.schemas import ActivityResponse, StatusResponse
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.status_activity_port import StatusActivityPort
@@ -29,10 +28,7 @@ async def status_activity(
     ],
     status_activity_service: StatusActivityPort = Depends(lambda: service),
 ):
-    try:
-        activity = await status_activity_service.execute(activity_id , participant_id)
-    except Exception as e:
-        return JSONResponse({"error": str(e)}, status.HTTP_500_INTERNAL_SERVER_ERROR)
+    activity = await status_activity_service.execute(activity_id , participant_id)
 
     return StatusResponse(
         activity = ActivityResponse.from_activity(activity=activity)

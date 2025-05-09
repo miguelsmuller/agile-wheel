@@ -7,8 +7,8 @@ logger = logging.getLogger(__name__)
 
 class Settings(BaseSettings):
 
-    env: str = "dev"
-    log_level: str = "info"
+    env: str = "LOCAL"
+    log_level: str = "INFO"
     enable_profiling: bool = False
     allowed_origins: str = ""
 
@@ -30,6 +30,6 @@ class Settings(BaseSettings):
 
 
 @lru_cache
-def get_settings() -> Settings:
+def initialize_settings() -> Settings:
     logger.debug("[get_settings] Initializing settings")
     return Settings()

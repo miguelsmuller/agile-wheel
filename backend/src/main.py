@@ -7,10 +7,10 @@ from src.adapters.input.router import router
 from src.config.database import initialize_database
 from src.config.logger import initialize_logger
 from src.config.monitoring import initialize_monitoring
-from src.config.settings import get_settings
+from src.config.settings import initialize_settings
 
 initialize_logger()
-settings = get_settings()
+settings = initialize_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

@@ -26,5 +26,3 @@ _activity_router.include_router(evaluation_activity_router, tags=["activity"])
 _activity_router.include_router(ws_activity_status_router)
 
 router.include_router(_activity_router)
-
-
