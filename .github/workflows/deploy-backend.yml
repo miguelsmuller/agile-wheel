@@ -122,7 +122,7 @@ jobs:
       - id: 'deploy'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
-          env_vars_update_strateg: 'overwrite'
+          env_vars_update_strategy: 'overwrite'
           env_vars: |
             ENV=PROD
             INTERNAL_PORT=8080
