@@ -9,7 +9,9 @@
     "build": "npm run prebuild && ng build",
     "watch": "npm run prebuild && ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "compose-up": "docker compose up -d --force-recreate --build --remove-orphans",
+    "compose-down": "docker compose down"
   },
   "dependencies": {
     "@angular/animations": "^19.2.7",

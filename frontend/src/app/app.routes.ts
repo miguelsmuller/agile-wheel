@@ -7,6 +7,7 @@ import { EnterActivityComponent } from './pages/enter-activity/enter-activity.co
 export const routes: Routes = [
   { path: '', redirectTo: 'create-activity', pathMatch: 'full' },
   { path: 'create-activity', component: CreateActivityComponent },
+  { path: 'enter-activity/:id', component: EnterActivityComponent },
   { path: 'enter-activity', component: EnterActivityComponent },
   { path: 'activity/:id', component: ActivityComponent },
   { path: 'activity/:id/result', component: ResultComponent },

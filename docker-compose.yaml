@@ -11,7 +11,7 @@ services:
       - ENABLE_DOCS=true
       - LOG_LEVEL=DEBUG
       - ALLOWED_ORIGINS=http://localhost:4200,http://127.0.0.1:4200,http://localhost:4444,http://127.0.0.1:4444
-      - SENTRY_DNS=https://fb2dff1b2dd2990c74c5c323feff3932@o4509293345243136.ingest.us.sentry.io/4509293347602432
+      - SENTRY_DNS=
       - INTERNAL_PORT=${INTERNAL_BACKEND_PORT:-8000}
     ports:
       - "3333:${INTERNAL_BACKEND_PORT:-8000}"

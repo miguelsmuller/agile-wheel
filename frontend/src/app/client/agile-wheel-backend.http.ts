@@ -28,6 +28,12 @@ export class AgileWheelBackEndHTTP {
     });
   }
 
+  patch<T>(endpoint: string, body: unknown, headers?: Record<string, string>): Observable<T> {
+    return this.http.patch<T>(`${this.baseUrl}/${endpoint}`, body, {
+      headers: this.createHeaders(headers),
+    });
+  }
+
   put<T>(endpoint: string, body: unknown, headers?: Record<string, string>): Observable<T> {
     return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body, {
       headers: this.createHeaders(headers),
