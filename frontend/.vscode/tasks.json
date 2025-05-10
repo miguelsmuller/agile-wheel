@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "FrontEnd lint --fix",
+			"type": "shell",
+			"command": "npm run lint -- --fix",
+			"problemMatcher": [],
+			"detail": "Run ng lint com --fix"
+		},
+		{
+			"label": "FrontEnd test",
+			"type": "shell",
+			"command": "npm run test",
+			"problemMatcher": [],
+			"detail": "Run ng test"
+		}
+	]
+}

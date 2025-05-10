@@ -163,6 +163,3 @@ ignore_missing_imports = true
 serve = "uvicorn src.main:app --port 3333 --reload"
 ruff = "ruff check --fix ."
 tests = "pytest --cov=src --cov-report=term --cov-report=html"
-compose-up = "docker compose up -d --force-recreate --build --remove-orphans"
-compose-down = "docker compose down"
-
