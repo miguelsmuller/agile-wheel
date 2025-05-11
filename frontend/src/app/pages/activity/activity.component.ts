@@ -13,12 +13,12 @@ import { distinctUntilChanged, map, Subscription } from 'rxjs';
 import { isEqual } from 'lodash';
 
 import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
-import { ActivityStateService } from '@services/activity-state.service';
 import { ActivityStreamMessage, ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
 import { SubmitEvaluationService } from '@use-cases/submit-evaluation.usecase';
 
 import { EvaluationWrapperComponent } from './evaluation-wrapper/evaluation-wrapper.component';
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
+import { getActivityFromLocalStorage, getParticipantFromLocalStorage } from '@utils/utils';
 
 @Component({
   selector: 'app-activity',
@@ -51,21 +51,15 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly activityStateService: ActivityStateService,
     private readonly activityStreamService: ActivityStreamUseCase,
     private readonly submitEvaluationService: SubmitEvaluationService
   ) {}
 
   async ngOnInit() {
-    const activityId = this.activatedRoute.snapshot.paramMap.get('id');
-    if (!activityId) return;
+    this.activity = getActivityFromLocalStorage() as Activity;
+    this.currentParticipant = getParticipantFromLocalStorage() as Participant;
 
-    const { activity, currentParticipant } =
-      await this.activityStateService.initialize(activityId);
-    this.activity = activity;
-    this.currentParticipant = currentParticipant;
-
-    this.dimensions = activity.dimensions.map(dimension => ({
+    this.dimensions = this.activity.dimensions.map(dimension => ({
       ...dimension,
       principles: dimension.principles.map(principle => ({
         ...principle,
@@ -74,7 +68,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
     }));
 
     this.sub = this.activityStreamService
-      .startObserving(activity.activity_id, currentParticipant.id)
+      .startObserving(this.activity.activity_id, this.currentParticipant.id)
       .pipe(
         map((msg: ActivityStreamMessage) => msg.participants),
         distinctUntilChanged((prev, curr) => isEqual(prev, curr))

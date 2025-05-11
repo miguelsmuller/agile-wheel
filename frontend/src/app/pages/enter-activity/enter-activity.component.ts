@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { EnterActivityRequest, EnterActivityService } from '@use-cases/enter-activity.usecase';
-import { getActivityFromLocalStorage } from '@utils/utils';
 
 @Component({
   selector: 'app-enter-activity',
@@ -34,8 +33,7 @@ export class EnterActivityComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly formBuilder: FormBuilder,
-    private readonly joinActivityService: EnterActivityService,
-    private readonly router: Router
+    private readonly joinActivityService: EnterActivityService
   ) {
     this.enterForm = this.formBuilder.group({
       activityId: ['', Validators.required],
@@ -45,12 +43,6 @@ export class EnterActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const activity = getActivityFromLocalStorage();
-
-    if (activity) {
-      this.router.navigate(['/activity', activity.activity_id]);
-    }
-
     const activityId = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (activityId) {
