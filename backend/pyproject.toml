@@ -161,5 +161,5 @@ ignore_missing_imports = true
 ##############################################################################
 [tool.poe.tasks]
 serve = "uvicorn src.main:app --port 3333 --reload"
-ruff = "ruff check --fix ."
-tests = "pytest --cov=src --cov-report=term --cov-report=html"
+lint = "ruff check --fix ."
+test = "pytest --cov=src --cov-report=term --cov-report=html"

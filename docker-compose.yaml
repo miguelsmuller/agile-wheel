@@ -13,6 +13,7 @@ services:
       - mongo
     volumes:
       - ./backend/src:/app/src
+      - ./backend/tests:/app/tests
       - ./backend/pyproject.toml:/app/pyproject.toml
       - ./backend/poetry.lock:/app/poetry.lock
     command: uvicorn src.main:app --host 0.0.0.0 --port ${INTERNAL_BACKEND_PORT:-8000} --reload

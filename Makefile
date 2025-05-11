@@ -6,6 +6,8 @@ COLOR_YELLOW = \033[33m
 
 PROJECT_NAME = `basename $(PWD)`
 
+export PATH := $(HOME)/.local/bin:$(PATH)
+
 ## prints this help
 help:
 	printf "${COLOR_YELLOW}\n${PROJECT_NAME}\n\n${COLOR_RESET}"
@@ -28,14 +30,27 @@ help:
 	[ -f frontend/.env ] || cp frontend/.env.template frontend/.env
 
 ## sets up the project locally using Docker containers
-install-locally: .generate_env
+compose-build: .generate_env
 	@echo "Setting up the project locally..."
-	docker compose up -d --force-recreate --build --remove-orphans
+	docker compose build --no-cache
 
 ## starts the project services in Docker containers
 compose-up:
-	docker compose up -d --force-recreate --build --remove-orphans
+	@echo "Starting the project services..."
+	docker compose up -d --force-recreate --remove-orphans
 
 ## stops and removes the project services in Docker containers
 compose-down:
+	@echo "Stopping and removing the project services..."
 	docker compose down
+
+## runs tests for both backend and frontend
+test:
+	@echo "Running tests for both backend and frontend..."
+	docker compose exec backend poetry run poe test
+
+## runs linters for both backend and frontend
+lint:
+	@echo "Running linters for both backend and frontend..."
+	docker compose exec backend poetry run poe lint
+	docker compose exec frontend npm run lint

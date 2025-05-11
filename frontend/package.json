@@ -8,8 +8,8 @@
     "start": "npm run prebuild && ng serve",
     "build": "npm run prebuild && ng build",
     "watch": "npm run prebuild && ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "test": "ng test --watch=false",
+    "lint": "ng lint --fix"
   },
   "dependencies": {
     "@angular/animations": "^19.2.7",
