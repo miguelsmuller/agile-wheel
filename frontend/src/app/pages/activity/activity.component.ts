@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -15,10 +15,10 @@ import { isEqual } from 'lodash';
 import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
 import { ActivityStreamMessage, ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
 import { SubmitEvaluationService } from '@use-cases/submit-evaluation.usecase';
+import { getActivityFromLocalStorage, getParticipantFromLocalStorage } from '@utils/utils';
 
 import { EvaluationWrapperComponent } from './evaluation-wrapper/evaluation-wrapper.component';
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
-import { getActivityFromLocalStorage, getParticipantFromLocalStorage } from '@utils/utils';
 
 @Component({
   selector: 'app-activity',
@@ -50,7 +50,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
   participants: Participant[] = [];
 
   constructor(
-    private readonly activatedRoute: ActivatedRoute,
     private readonly activityStreamService: ActivityStreamUseCase,
     private readonly submitEvaluationService: SubmitEvaluationService
   ) {}

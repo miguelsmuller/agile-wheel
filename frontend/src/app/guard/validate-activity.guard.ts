@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+
 import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
 import { Activity } from '@models/activity.model';
 import { getActivityFromLocalStorage, getParticipantFromLocalStorage } from '@utils/utils';
-import { firstValueFrom } from 'rxjs';
 
 export interface GetActivityResponse {
   activity: Activity;
@@ -24,16 +25,16 @@ export class ValidateActitivityGuard implements CanActivate {
       return false;
     }
 
-    const LocalActivity = getActivityFromLocalStorage();
+    const activityFromLocalStorage = getActivityFromLocalStorage();
     const currentParticipant = getParticipantFromLocalStorage();
 
-    const hasLocalStorageData = !LocalActivity || !currentParticipant;
+    const hasLocalStorageData = !activityFromLocalStorage || !currentParticipant;
     if (hasLocalStorageData) {
       this.redirectToCreateActivity('Missing localStorage data');
       return false;
     }
 
-    const isActivityIdMismatched = activityIdFromURL !== LocalActivity.activity_id;
+    const isActivityIdMismatched = activityIdFromURL !== activityFromLocalStorage.activity_id;
     if (isActivityIdMismatched) {
       this.redirectToCreateActivity('Activity mismatch');
       return false;
@@ -45,7 +46,7 @@ export class ValidateActitivityGuard implements CanActivate {
     );
 
     const isLocalActivityInvalid =
-      !remoteActivity || remoteActivity.activity_id !== LocalActivity.activity_id;
+      !remoteActivity || remoteActivity.activity_id !== activityFromLocalStorage.activity_id;
     if (isLocalActivityInvalid) {
       this.redirectToCreateActivity('Activity invalid');
       return false;
