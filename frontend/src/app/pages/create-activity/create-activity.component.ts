@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CreateActivityService, CreateActivityRequest } from '@use-cases/create-activity.usecase';
-import { getActivityFromLocalStorage } from '@utils/utils';
 
 @Component({
   selector: 'app-create-activity',
@@ -27,27 +26,18 @@ import { getActivityFromLocalStorage } from '@utils/utils';
     MatIconModule,
   ],
 })
-export class CreateActivityComponent implements OnInit {
+export class CreateActivityComponent {
   createForm: FormGroup;
   isSubmitting = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly createActivityService: CreateActivityService,
-    private readonly router: Router
+    private readonly createActivityService: CreateActivityService
   ) {
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
     });
-  }
-
-  ngOnInit(): void {
-    const activity = getActivityFromLocalStorage();
-
-    if (activity) {
-      this.router.navigate(['/activity', activity.activity_id]);
-    }
   }
 
   async createActivity(): Promise<void> {
@@ -60,11 +50,14 @@ export class CreateActivityComponent implements OnInit {
       name: this.createForm.value.name,
     };
 
-    try {
-      this.createActivityService.createActivity(owner);
-    } catch (error) {
-      console.error('[createActivity]', error);
-      this.isSubmitting = false;
-    }
+    this.createActivityService.createActivity(owner).subscribe({
+      next: () => {
+        console.log('[createActivity] Activity created successfully');
+      },
+      error: error => {
+        this.isSubmitting = false;
+        console.error('[createActivity]', error);
+      },
+    });
   }
 }

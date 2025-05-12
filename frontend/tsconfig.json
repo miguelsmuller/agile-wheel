@@ -23,7 +23,8 @@
       "@models/*": ["app/models/*"],
       "@services/*": ["app/services/*"],
       "@use-cases/*": ["app/use-cases/*"],
-      "@utils/*": ["app/utils/*"]
+      "@utils/*": ["app/utils/*"],
+      "@env/*": ["environments/*"]
     }
   },
   "angularCompilerOptions": {

@@ -5,12 +5,12 @@
       Agile Wheel - Entrar
     </h2>
 
-    <form class="space-y-4 mt-4" [formGroup]="joinForm" (ngSubmit)="onCreate()">
+    <form class="space-y-4 mt-4" [formGroup]="enterForm" (ngSubmit)="enterActivity()">
       <mat-form-field class="w-full">
         <mat-label>ID da Atividade</mat-label>
         <input 
           matInput 
-          formControlName="id" 
+          formControlName="activityId" 
           required />
       </mat-form-field>
 
@@ -18,7 +18,7 @@
         <mat-label>Nome</mat-label>
         <input 
           matInput 
-          formControlName="name" 
+          formControlName="participantName" 
           required />
       </mat-form-field>
 
@@ -26,7 +26,7 @@
         <mat-label>E-mail</mat-label>
         <input 
           matInput 
-          formControlName="email" 
+          formControlName="participantEmail" 
           type="email" 
           required />
       </mat-form-field>
@@ -36,8 +36,8 @@
         color="primary" 
         class="w-full" 
         type="submit" 
-        [disabled]="joinForm.invalid">
-        Entrar na atividade
+        [disabled]="enterForm.invalid || isSubmitting">
+        {{ isSubmitting ? 'Entrando...' : 'Entrar em atividade' }}
       </button>
 
     </form>

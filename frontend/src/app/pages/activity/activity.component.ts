@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -13,9 +13,9 @@ import { distinctUntilChanged, map, Subscription } from 'rxjs';
 import { isEqual } from 'lodash';
 
 import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
-import { ActivityStateService } from '@services/activity-state.service';
 import { ActivityStreamMessage, ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
 import { SubmitEvaluationService } from '@use-cases/submit-evaluation.usecase';
+import { getActivityFromLocalStorage, getParticipantFromLocalStorage } from '@utils/utils';
 
 import { EvaluationWrapperComponent } from './evaluation-wrapper/evaluation-wrapper.component';
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
@@ -40,7 +40,7 @@ import { ListParticipantsComponent } from './list-participants/list-participants
   ],
 })
 export class ActivityComponent implements OnInit, OnDestroy {
-  private sub!: Subscription;
+  private subscription!: Subscription;
 
   isSubmitting = false;
 
@@ -50,22 +50,15 @@ export class ActivityComponent implements OnInit, OnDestroy {
   participants: Participant[] = [];
 
   constructor(
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly activityStateService: ActivityStateService,
     private readonly activityStreamService: ActivityStreamUseCase,
     private readonly submitEvaluationService: SubmitEvaluationService
   ) {}
 
   async ngOnInit() {
-    const activityId = this.activatedRoute.snapshot.paramMap.get('id');
-    if (!activityId) return;
+    this.activity = getActivityFromLocalStorage() as Activity;
+    this.currentParticipant = getParticipantFromLocalStorage() as Participant;
 
-    const { activity, currentParticipant } =
-      await this.activityStateService.initialize(activityId);
-    this.activity = activity;
-    this.currentParticipant = currentParticipant;
-
-    this.dimensions = activity.dimensions.map(dimension => ({
+    this.dimensions = this.activity.dimensions.map(dimension => ({
       ...dimension,
       principles: dimension.principles.map(principle => ({
         ...principle,
@@ -73,8 +66,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
       })),
     }));
 
-    this.sub = this.activityStreamService
-      .startObserving(activity.activity_id, currentParticipant.id)
+    this.subscription = this.activityStreamService
+      .startObserving(this.activity.activity_id, this.currentParticipant.id)
       .pipe(
         map((msg: ActivityStreamMessage) => msg.participants),
         distinctUntilChanged((prev, curr) => isEqual(prev, curr))
@@ -84,24 +77,28 @@ export class ActivityComponent implements OnInit, OnDestroy {
           this.participants = msg;
         },
         error: (err: unknown) => console.error(err),
-        complete: () => console.debug('activity stream finished'),
+        complete: () => console.debug('[ActivityComponent] Activity stream finished'),
       });
   }
 
   ngOnDestroy() {
     this.activityStreamService.stopObserving();
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
   async submit(): Promise<void> {
     this.isSubmitting = true;
 
+    if (!this.activity || !this.currentParticipant) {
+      throw new Error('[ActivityComponent] Activity or participant is not defined');
+    }
+
     try {
       this.submitEvaluationService.submitEvaluation(
-        this.activity?.activity_id as string,
-        this.currentParticipant?.id as string,
+        this.activity,
+        this.currentParticipant,
         this.dimensions
       );
     } catch (error) {

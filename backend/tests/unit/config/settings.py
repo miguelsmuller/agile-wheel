@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 class Settings(BaseSettings):
     logger.debug("[get_settings] Settings the database")
 
-    env: str = "dev"
-    log_level: str = "info"
+    env: str = "LOCAL"
+    log_level: str = "INFO"
     enable_profiling: bool = False
     allowed_origins: str = ""
 

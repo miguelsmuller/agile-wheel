@@ -28,22 +28,24 @@ export class SubmitEvaluationService {
   ) {}
 
   submitEvaluation(
-    activityId: string,
-    participantId: string,
+    activity: Activity,
+    currentParticipant: Participant,
     dimensions: DimensionWithScores[]
   ): void {
-    const apiEndPoint = `v1/activity/${activityId}/evaluation`;
+    const apiEndPoint = `v1/activity/${activity.activity_id}/evaluation`;
     const payload = this.buildSubmitEvaluationPayload(dimensions);
-    const headers = { 'X-Participant-Id': participantId };
+    const headers = { 'X-Participant-Id': currentParticipant.id };
 
     this.backendClient.post<SubmitEvaluationResponse>(apiEndPoint, payload, headers).subscribe({
-      next: () => {
-        const redirectTo = `activity/${activityId}/result`;
+      next: (response: SubmitEvaluationResponse) => {
+        console.debug('[SubmitEvaluationService] Starting subimit evaluation', response);
+
+        const redirectTo = `activity/${activity.activity_id}/result`;
         clearDataFromLocalStorage();
         this.router.navigate([redirectTo]);
       },
       error: error => {
-        console.error('Erro ao criar atividade:', error);
+        console.error('[SubmitEvaluationService] Error while submit evaluation', error);
       },
     });
   }

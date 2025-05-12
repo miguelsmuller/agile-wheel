@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "lint project",
+            "detail": "runs linters for both backend and frontend",
+            "command": "make lint",
+            "problemMatcher": [],
+            "presentation": {
+                "focus": true,
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "test project",
+            "detail": "runs tests for both backend and frontend",
+            "command": "make test",
+            "problemMatcher": [],
+            "presentation": {
+                "focus": true,
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+        }
+    ]
+}
