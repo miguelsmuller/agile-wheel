@@ -50,11 +50,14 @@ export class CreateActivityComponent {
       name: this.createForm.value.name,
     };
 
-    try {
-      this.createActivityService.createActivity(owner);
-    } catch (error) {
-      console.error('[createActivity]', error);
-      this.isSubmitting = false;
-    }
+    this.createActivityService.createActivity(owner).subscribe({
+      next: () => {
+        console.log('[createActivity] Activity created successfully');
+      },
+      error: error => {
+        this.isSubmitting = false;
+        console.error('[createActivity]', error);
+      },
+    });
   }
 }

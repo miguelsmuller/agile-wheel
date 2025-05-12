@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
 import { Activity, Participant } from '@models/activity.model';
 import { setActivityToLocalStorage, setParticipantToLocalStorage } from '@utils/utils';
+import { Observable, tap } from 'rxjs';
 
 export interface CreateActivityResponse {
   participant: Participant;
@@ -22,21 +23,20 @@ export class CreateActivityService {
     private readonly router: Router
   ) {}
 
-  createActivity(owner: CreateActivityRequest): void {
-    this.backendClient
-      .post<CreateActivityResponse>('v1/activity', {
-        owner: owner,
-      })
-      .subscribe({
-        next: response => {
-          setParticipantToLocalStorage(response.participant);
-          setActivityToLocalStorage(response.activity);
+  createActivity(participant: CreateActivityRequest): Observable<CreateActivityResponse> {
+    const apiEndPoint = 'v1/activity';
+    const payload = {
+      owner: participant,
+    };
 
-          this.router.navigate(['/activity', response.activity.activity_id]);
-        },
-        error: error => {
-          console.error('Erro ao criar atividade:', error);
-        },
-      });
+    return this.backendClient.post<CreateActivityResponse>(apiEndPoint, payload).pipe(
+      tap((response: CreateActivityResponse) => {
+        setParticipantToLocalStorage(response.participant);
+        setActivityToLocalStorage(response.activity);
+        console.debug('[CreateActivityService] Activity created successfully', response);
+
+        this.router.navigate(['/activity/', response.activity.activity_id]);
+      })
+    );
   }
 }

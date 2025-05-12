@@ -72,8 +72,8 @@ export class ValidateActitivityGuard implements CanActivate {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private redirectToCreateActivity(message: string): void {
+    console.error('[ActivityStateGuard] Something went wrong.', message);
     this.router.navigate(['/create-activity']);
   }
 }

@@ -64,11 +64,14 @@ export class EnterActivityComponent implements OnInit {
       name: this.enterForm.get('participantName')?.value,
     };
 
-    try {
-      this.joinActivityService.enterActivity(activityId, participant);
-    } catch (error) {
-      console.error('[enterActivity]', error);
-      this.isSubmitting = false;
-    }
+    this.joinActivityService.enterActivity(activityId, participant).subscribe({
+      next: () => {
+        console.log('[enterActivity] Enter activity successfully');
+      },
+      error: error => {
+        this.isSubmitting = false;
+        console.error('[enterActivity]', error);
+      },
+    });
   }
 }

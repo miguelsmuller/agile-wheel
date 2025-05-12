@@ -40,7 +40,7 @@ import { ListParticipantsComponent } from './list-participants/list-participants
   ],
 })
 export class ActivityComponent implements OnInit, OnDestroy {
-  private sub!: Subscription;
+  private subscription!: Subscription;
 
   isSubmitting = false;
 
@@ -66,7 +66,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
       })),
     }));
 
-    this.sub = this.activityStreamService
+    this.subscription = this.activityStreamService
       .startObserving(this.activity.activity_id, this.currentParticipant.id)
       .pipe(
         map((msg: ActivityStreamMessage) => msg.participants),
@@ -77,24 +77,28 @@ export class ActivityComponent implements OnInit, OnDestroy {
           this.participants = msg;
         },
         error: (err: unknown) => console.error(err),
-        complete: () => console.debug('activity stream finished'),
+        complete: () => console.debug('[ActivityComponent] Activity stream finished'),
       });
   }
 
   ngOnDestroy() {
     this.activityStreamService.stopObserving();
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
   async submit(): Promise<void> {
     this.isSubmitting = true;
 
+    if (!this.activity || !this.currentParticipant) {
+      throw new Error('[ActivityComponent] Activity or participant is not defined');
+    }
+
     try {
       this.submitEvaluationService.submitEvaluation(
-        this.activity?.activity_id as string,
-        this.currentParticipant?.id as string,
+        this.activity,
+        this.currentParticipant,
         this.dimensions
       );
     } catch (error) {

@@ -11,6 +11,7 @@ export class InitialStepGuard implements CanActivate {
     const activity = getActivityFromLocalStorage();
 
     if (activity) {
+      console.error('[InitialStepGuard] Something went wrong.');
       this.router.navigate(['/activity', activity.activity_id]);
       return false;
     }

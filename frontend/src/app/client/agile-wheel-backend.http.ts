@@ -17,35 +17,35 @@ export class AgileWheelBackEndHTTP {
   }
 
   get<T>(endpoint: string, headers?: Record<string, string>): Observable<T> {
-    console.debug('GET', `${this.baseUrl}/${endpoint}`);
+    console.debug('[AW-GET]', `${this.baseUrl}/${endpoint}`);
     return this.http.get<T>(`${this.baseUrl}/${endpoint}`, {
       headers: this.createHeaders(headers),
     });
   }
 
   post<T>(endpoint: string, body: unknown, headers?: Record<string, string>): Observable<T> {
-    console.debug('POST', `${this.baseUrl}/${endpoint}`);
+    console.debug('[AW-POST]', `${this.baseUrl}/${endpoint}`);
     return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body, {
       headers: this.createHeaders(headers),
     });
   }
 
-  patch<T>(endpoint: string, body: unknown, headers?: Record<string, string>): Observable<T> {
-    console.debug('PATCH', `${this.baseUrl}/${endpoint}`);
-    return this.http.patch<T>(`${this.baseUrl}/${endpoint}`, body, {
-      headers: this.createHeaders(headers),
-    });
-  }
-
   put<T>(endpoint: string, body: unknown, headers?: Record<string, string>): Observable<T> {
-    console.debug('PUT', `${this.baseUrl}/${endpoint}`);
+    console.debug('[AW-PUT]', `${this.baseUrl}/${endpoint}`);
     return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body, {
       headers: this.createHeaders(headers),
     });
   }
 
+  patch<T>(endpoint: string, body: unknown, headers?: Record<string, string>): Observable<T> {
+    console.debug('[AW-PATCH]', `${this.baseUrl}/${endpoint}`);
+    return this.http.patch<T>(`${this.baseUrl}/${endpoint}`, body, {
+      headers: this.createHeaders(headers),
+    });
+  }
+
   delete<T>(endpoint: string, headers?: Record<string, string>): Observable<T> {
-    console.debug('DELETE', `${this.baseUrl}/${endpoint}`);
+    console.debug('[AW-DELETE]', `${this.baseUrl}/${endpoint}`);
     return this.http.delete<T>(`${this.baseUrl}/${endpoint}`, {
       headers: this.createHeaders(headers),
     });

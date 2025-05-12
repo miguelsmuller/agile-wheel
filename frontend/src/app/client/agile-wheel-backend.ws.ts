@@ -11,17 +11,17 @@ import { environment } from '@env/environment';
 export class AgileWheelBackEndWS {
   private socket$: WebSocketSubject<unknown> | null = null;
   private currentEndpoint: string | null = null;
-  private readonly baseUrl = environment.wsAgileWheelUrl;
+  private readonly APIBaseURL = environment.wsAgileWheelUrl;
 
   connect<T>(path: string): Observable<T> {
-    const fullEndpoint = `${this.baseUrl}${path}`;
+    const fullEndpoint = `${this.APIBaseURL}${path}`;
 
     if (!this.socket$ || this.socket$.closed || this.currentEndpoint !== fullEndpoint) {
       this.currentEndpoint = fullEndpoint;
       this.socket$ = webSocket({
         url: fullEndpoint,
-        openObserver: { next: () => console.log('[WS] Connected') },
-        closeObserver: { next: () => console.log('[WS] Disconnected') },
+        openObserver: { next: () => console.log('[AW-WS] Connected') },
+        closeObserver: { next: () => console.log('[AW-WS] Disconnected') },
       });
     }
 
@@ -38,6 +38,12 @@ export class AgileWheelBackEndWS {
     );
   }
 
+  disconnect(): void {
+    this.socket$?.complete();
+    this.socket$ = null;
+    this.currentEndpoint = null;
+  }
+
   sendMessage<T>(message: T): void {
     if (this.isConnected()) {
       (this.socket$ as WebSocketSubject<T>)?.next(message);
@@ -46,11 +52,5 @@ export class AgileWheelBackEndWS {
 
   isConnected(): boolean {
     return !!this.socket$ && !this.socket$.closed;
-  }
-
-  disconnect(): void {
-    this.socket$?.complete();
-    this.socket$ = null;
-    this.currentEndpoint = null;
   }
 }

@@ -31,7 +31,7 @@ export const routes: Routes = [
   {
     path: 'activity/:id/result',
     component: ResultComponent,
-    canActivate: [ValidateActitivityGuard],
+    canActivate: [],
   },
   { path: '**', redirectTo: 'create-activity' },
 ];
