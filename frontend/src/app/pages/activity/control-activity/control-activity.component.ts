@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
-import { SubmitEvaluationService } from '@use-cases/submit-evaluation.usecase';
+import { ActivityFlowFacade } from '@use-cases/activity-flow.facade';
 
 @Component({
   selector: 'app-control-activity',
@@ -31,7 +31,7 @@ export class ControlActivityComponent {
   @Input() currentParticipant!: Participant;
   @Input() dimensions!: DimensionWithScores[];
 
-  constructor(private readonly submitEvaluationService: SubmitEvaluationService) {}
+  constructor(private readonly activityFlow: ActivityFlowFacade) {}
 
   get buttonLabel(): string {
     if (this.activity?.owner?.id === this.currentParticipant?.id) {
@@ -48,7 +48,7 @@ export class ControlActivityComponent {
     }
 
     try {
-      this.submitEvaluationService.submitEvaluation(
+      await this.activityFlow.submitActivityFlow(
         this.activity,
         this.currentParticipant,
         this.dimensions
