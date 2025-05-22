@@ -38,16 +38,24 @@ async def mock_init_beanie():
 # * Mocking the Activity entity
 # ****************************************************************
 
-mock_uuid = "b3d59547-35fc-446d-b567-8ba6ab65f764"
-mock_activity_uuid = UUID(mock_uuid)
 mock_activity_created = datetime(
     2025, 4, 13, 10, 30, 00, 00, tzinfo=pytz.timezone("America/Sao_Paulo")
 )
 
 @pytest.fixture
-def mock_activity_fixture():
+def mock_uuid_string():
+    return "b3d59547-35fc-446d-b567-8ba6ab65f764"
+
+
+@pytest.fixture
+def mock_uuid(mock_uuid_string):
+    return UUID(mock_uuid_string)
+
+
+@pytest.fixture
+def mock_activity_fixture(mock_uuid):
     return Activity(
-        id=mock_activity_uuid,
+        id=mock_uuid,
         is_opened=False,
         created_at=mock_activity_created,
         participants=[
@@ -207,10 +215,10 @@ def mock_activity_fixture():
 
 
 @pytest.fixture
-def mock_activity_document_fixture():
+def mock_activity_document_fixture(mock_uuid_string):
     return ActivityDocument(
         _id=ObjectId("67fa905024b5c557a228c505"),
-        app_id=mock_uuid,
+        app_id=mock_uuid_string,
         is_opened=True,
         created_at=mock_activity_created,
         participants=[

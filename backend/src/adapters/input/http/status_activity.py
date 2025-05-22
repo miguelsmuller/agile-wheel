@@ -1,7 +1,8 @@
+import logging
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Header, Path, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Path, status
 from src.adapters.input.http.schemas import ActivityResponse, StatusResponse
 from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.status_activity_port import StatusActivityPort
@@ -28,7 +29,22 @@ async def status_activity(
     ],
     status_activity_service: StatusActivityPort = Depends(lambda: service),
 ):
-    activity = await status_activity_service.execute(activity_id , participant_id)
+    try:
+        activity = await status_activity_service.execute(activity_id , participant_id)
+
+    except ReferenceError as error:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Activity not found: {error}"
+        ) from error
+
+    except Exception as error:
+        logging.error("[get][/activity] %s", str(error))
+
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Unexpected error occurred: {error}"
+        ) from error
 
     return StatusResponse(
         activity = ActivityResponse.from_activity(activity=activity)
