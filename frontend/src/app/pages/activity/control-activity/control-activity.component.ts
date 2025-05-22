@@ -33,6 +33,13 @@ export class ControlActivityComponent {
 
   constructor(private readonly submitEvaluationService: SubmitEvaluationService) {}
 
+  get buttonLabel(): string {
+    if (this.activity?.owner?.id === this.currentParticipant?.id) {
+      return this.isSubmitting ? 'Enviando...' : 'Enviar e Concluir';
+    }
+    return this.isSubmitting ? 'Enviando...' : 'Enviar Respostas';
+  }
+
   async submit(): Promise<void> {
     this.isSubmitting = true;
 
