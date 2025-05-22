@@ -4,14 +4,14 @@
 		{
 			"label": "Backend lint --fix",
 			"type": "shell",
-			"command": "poetry poe ruff",
+			"command": "poetry poe lint",
 			"problemMatcher": [],
 			"detail": "Run Ruff with --fix"
 		},
 		{
 			"label": "Backend test",
 			"type": "shell",
-			"command": "poetry poe tests",
+			"command": "poetry poe test",
 			"problemMatcher": [],
 			"detail": "Run PyTest with coverage and report"
 		}
