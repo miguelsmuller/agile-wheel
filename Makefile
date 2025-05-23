@@ -18,7 +18,7 @@ export PATH := $(HOME)/.local/bin:$(PATH)
 
 .PHONY: help
 help: ## Command help
-	@egrep -h '\s##\s' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
 .PHONY: generate_env
@@ -52,34 +52,48 @@ compose-down: ## stops and removes the project services in Docker containers
 test: ## runs tests for both backend and frontend
 	@printf "${COLOR_GREEN_BOLD}Running tests for both backend and frontend...${COLOR_RESET}"
 	@echo "\n"
-	$(MAKE) --no-print-directory test-backend
-
-
-.PHONY: test-backend
-test-backend: ## runs tests for backend
-	@printf "${COLOR_GREEN_BOLD}Running tests for backend...${COLOR_RESET}"
-	@echo "\n"
-	docker compose exec backend poetry run poe test
+	$(MAKE) --no-print-directory backend-test
 
 
 .PHONY: lint
 lint: ## runs linters for both backend and frontend
 	@printf "${COLOR_GREEN_BOLD}Running linters for both backend and frontend...${COLOR_RESET}"
 	@echo "\n"
-	$(MAKE) --no-print-directory lint-backend
+	$(MAKE) --no-print-directory backend-lint
 	@echo "\n"
 	$(MAKE) --no-print-directory lint-frontend
 
 
-.PHONY: lint-backend
-lint-backend: ## run linter for backend
+.PHONY: lint-frontend
+frontend-lint: ## run linter for frontend
+	@printf "${COLOR_GREEN_BOLD}Running linter for frontend...${COLOR_RESET}"
+	@echo "\n"
+	docker compose exec frontend npm run lint
+
+
+.PHONY: backend-lint
+backend-lint: ## run linter for backend
 	@printf "${COLOR_GREEN_BOLD}Running linter for backend...${COLOR_RESET}"
 	@echo "\n"
 	docker compose exec backend poetry run poe lint
 
 
-.PHONY: lint-frontend
-lint-frontend: ## run linter for frontend
-	@printf "${COLOR_GREEN_BOLD}Running linter for frontend...${COLOR_RESET}"
+.PHONY: backend-test
+backend-test: ## runs tests for backend
+	@printf "${COLOR_GREEN_BOLD}Running tests for backend...${COLOR_RESET}"
 	@echo "\n"
-	docker compose exec frontend npm run lint
+	docker compose exec backend poetry run poe test
+
+
+.PHONY: backend-exec
+backend-exec: ## run the backend shell
+	@printf "${COLOR_GREEN_BOLD}Exec container shell...${COLOR_RESET}"
+	@echo "\n"
+	docker compose exec backend /bin/bash
+
+
+.PHONY: backend-logs
+backend-logs: ## display logs from the backend
+	@printf "${COLOR_GREEN_BOLD}Backend logs...${COLOR_RESET}"
+	@echo "\n"
+	docker compose logs backend -f
