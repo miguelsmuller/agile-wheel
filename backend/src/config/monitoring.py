@@ -18,6 +18,6 @@ async def initialize_monitoring(settings: Settings):
                 LoggingIntegration(level=logging.DEBUG, event_level=logging.FATAL),
             ],
         )
-        logger.debug("Sentry initialization successful")
+        logger.debug("[init_monitoring] Sentry initialization successful")
     else:
-        logger.debug("sentry_dsn not provided, skipping Sentry initialization")
+        logger.debug("[init_monitoring] Skipping Sentry initialization")

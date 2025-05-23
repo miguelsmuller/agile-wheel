@@ -8,3 +8,5 @@ def initialize_logger():
 
     logging.basicConfig(level=log_level)
     logging.debug("[init_logging] Logging initialized - level: %s", log_level_env)
+
+    logging.getLogger("pymongo").setLevel(logging.ERROR)
