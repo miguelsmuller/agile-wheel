@@ -7,6 +7,8 @@ from src.adapters.input.http.schemas import ActivityResponse, StatusResponse
 from src.application.ports.input.status_activity_port import StatusActivityPort
 from src.config.dependencies import get_status_activity_service
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter()
 
 @router.get(
@@ -35,7 +37,7 @@ async def status_activity(
         ) from error
 
     except Exception as error:
-        logging.error("[get][/activity] %s", str(error))
+        logger.error("[get][/activity] %s", str(error))
 
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

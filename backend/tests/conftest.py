@@ -14,10 +14,17 @@ from src.adapters.output.activity_document_mongo import (
     PrincipleModel,
     RatingModel,
 )
+from src.config.settings import Settings, initialize_settings
 from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension, Principle
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
 from src.domain.entities.participant import Participant
+
+
+@pytest.fixture(autouse=True, scope="session")
+def no_env_file_for_settings():
+    Settings.model_config["env_file"] = None
+    initialize_settings.cache_clear()
 
 # ****************************************************************
 # * Mocking the database connection

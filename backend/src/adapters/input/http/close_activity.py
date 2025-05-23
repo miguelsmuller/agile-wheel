@@ -30,6 +30,7 @@ async def close_activity(
             activity_id=activity_id,
             participant_id_requested=participant_id
         )
+
     except PermissionError as e:
         return JSONResponse({"error": str(e)}, status.HTTP_403_FORBIDDEN)
 

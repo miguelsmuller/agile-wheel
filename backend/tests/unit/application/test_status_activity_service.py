@@ -44,7 +44,7 @@ async def test_status_activity_success(mock_repository, mock_activity):
     result = await service.execute(activity_id=ACTIVITY_ID, participant_id=PARTICIPANT_ID)
 
     # Then
-    mock_repository.find_one.assert_awaited_once_with(str(ACTIVITY_ID))
+    mock_repository.find_one.assert_awaited_once_with(ACTIVITY_ID)
     assert result.id == ACTIVITY_ID
     assert result.is_opened is True
 

@@ -10,3 +10,4 @@ def initialize_logger():
     logging.debug("[init_logging] Logging initialized - level: %s", log_level_env)
 
     logging.getLogger("pymongo").setLevel(logging.ERROR)
+    logging.getLogger("urllib3").setLevel(logging.ERROR)

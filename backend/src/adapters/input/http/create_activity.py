@@ -25,7 +25,6 @@ async def activity(
     activity_request: CreateActivityRequest,
     create_activity_service: CreateActivityPort = Depends(get_create_activity_service),
 ):
-
     owner = Participant(
         email=activity_request.owner.email,
         name=activity_request.owner.name,
