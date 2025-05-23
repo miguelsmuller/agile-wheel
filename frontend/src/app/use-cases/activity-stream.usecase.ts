@@ -17,6 +17,12 @@ export interface Participant {
   email: string;
 }
 
+interface BackendEnvelope {
+  type: string;
+  activity_id: string;
+  activity: ActivityStreamMessage;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ActivityStreamUseCase {
   constructor(private readonly socketClient: AgileWheelBackEndWS) {}
@@ -25,8 +31,8 @@ export class ActivityStreamUseCase {
     const path = `/v1/activities/${activityID}/stream?participant_id=${participantID}`;
 
     return this.socketClient
-      .connect<ActivityStreamMessage>(path)
-      .pipe(map((msg: ActivityStreamMessage) => msg));
+      .connect<BackendEnvelope>(path)
+      .pipe(map((msg: BackendEnvelope) => msg.activity));
   }
 
   stopObserving() {
