@@ -7,16 +7,11 @@ from src.adapters.input.http.schemas import (
     CreateActivityResponse,
     ParticipantResponse,
 )
-from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.create_activity_port import CreateActivityPort
-from src.application.usecase.create_activity_service import CreateActivityService
+from src.config.dependencies import get_create_activity_service
 from src.domain.entities.participant import Participant
 
 router = APIRouter()
-
-repository = ActivityRepositoryAdapter()
-service = CreateActivityService(repository=repository)
-
 
 @router.post(
     "/activity",
@@ -28,7 +23,7 @@ service = CreateActivityService(repository=repository)
 )
 async def activity(
     activity_request: CreateActivityRequest,
-    create_activity_service: CreateActivityPort = Depends(lambda: service),
+    create_activity_service: CreateActivityPort = Depends(get_create_activity_service),
 ):
 
     owner = Participant(

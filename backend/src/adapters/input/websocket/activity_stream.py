@@ -7,25 +7,21 @@ from fastapi import APIRouter, Depends, Path, Query, WebSocket, WebSocketDisconn
 from fastapi.websockets import WebSocketState
 from pydantic.json import pydantic_encoder
 from src.adapters.input.websocket.schemas import ActivityStream, ActivityStreamType
-from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.status_activity_port import StatusActivityPort
-from src.application.usecase.status_activity_service import StatusActivityService
+from src.config.dependencies import get_status_activity_service
 from src.domain.entities.activity import Activity
 
 MESSAGE_INTERVAL_SECONDS = 1
 MESSAGE_TO_DISCONNECT = "close"
 
 router = APIRouter()
-repository = ActivityRepositoryAdapter()
-service = StatusActivityService(repository=repository)
-
 
 @router.websocket("/activities/{activity_id}/stream")
 async def stream_activity(
     websocket: WebSocket,
     activity_id: UUID = Path(...),
     participant_id: UUID = Query(...),
-    status_activity_service: StatusActivityPort = Depends(lambda: service),
+    status_activity_service: StatusActivityPort = Depends(get_status_activity_service),
 ) -> None:
     await websocket.accept()
 

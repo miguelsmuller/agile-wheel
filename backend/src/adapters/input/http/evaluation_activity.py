@@ -4,16 +4,11 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Header, Path, status
 from fastapi.responses import JSONResponse
 from src.adapters.input.http.schemas import EvaluationRequest, EvaluationResponse
-from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.evaluation_activity_port import EvaluationActivityPort
-from src.application.usecase.evaluation_activity_service import EvaluationActivityService
+from src.config.dependencies import get_evaluation_activity_service
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
 
 router = APIRouter()
-
-repository = ActivityRepositoryAdapter()
-service = EvaluationActivityService(repository=repository)
-
 
 @router.post(
     "/activity/{activity_id}/evaluation",
@@ -30,7 +25,7 @@ async def evaluation_activity(
     participant_id: Annotated[
         UUID, Header(alias="X-Participant-Id", title="The identifier of the participant")
     ],
-    evaluation_activity_service: EvaluationActivityPort = Depends(lambda: service),
+    evaluation_activity_service: EvaluationActivityPort = Depends(get_evaluation_activity_service),
 ):
     participant_evaluation = ParticipantEvaluation(
         participant_id=participant_id,

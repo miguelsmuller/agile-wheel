@@ -9,15 +9,11 @@ from src.adapters.input.http.schemas import (
     JoinResponse,
     ParticipantResponse,
 )
-from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.join_activity_port import JoinActivityPort
-from src.application.usecase.join_activity_service import JoinActivityService
+from src.config.dependencies import get_join_activity_service
 from src.domain.entities.participant import Participant
 
 router = APIRouter()
-
-repository = ActivityRepositoryAdapter()
-service = JoinActivityService(repository=repository)
 
 @router.patch(
     "/activity/{activity_id}/join",
@@ -30,7 +26,7 @@ service = JoinActivityService(repository=repository)
 async def join_activity(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     request: JoinRequest,
-    join_activity_service: JoinActivityPort = Depends(lambda: service),
+    join_activity_service: JoinActivityPort = Depends(get_join_activity_service),
 ):
     try:
         activity, participant = await join_activity_service.execute(
