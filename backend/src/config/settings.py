@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     enable_docs: bool = False
     allowed_origins: str = ""
 
+    db_type: str = ""
     db_host: str = ""
     db_port: str = ""
 
