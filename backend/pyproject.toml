@@ -28,6 +28,7 @@ dependencies = [
     "poethepoet[poetry-plugin] (>=0.33.1,<0.34.0)",
     "pytz (>=2025.2,<2026.0)",
     "sentry-sdk[fastapi] (>=2.27.0,<3.0.0)",
+    "google-cloud-firestore (>=2.20.2,<3.0.0)",
 ]
 
 [project.urls]
