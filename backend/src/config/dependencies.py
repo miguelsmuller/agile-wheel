@@ -1,6 +1,6 @@
 # Em dependencies.py
 from fastapi import Depends
-from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
+from src.adapters.output.activity_repository_mongo_adapter import ActivityRepositoryAdapter
 from src.application.usecase.close_activity_service import CloseActivityService
 from src.application.usecase.create_activity_service import CreateActivityService
 from src.application.usecase.evaluation_activity_service import EvaluationActivityService
