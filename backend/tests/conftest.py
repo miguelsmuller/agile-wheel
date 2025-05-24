@@ -6,7 +6,7 @@ import pytz
 from beanie import init_beanie
 from bson import ObjectId
 from mongomock_motor import AsyncMongoMockClient
-from src.adapters.output.activity_document_mongo import (
+from src.adapters.output.activity_document import (
     ActivityDocument,
     DimensionModel,
     ParticipantEvaluationModel,

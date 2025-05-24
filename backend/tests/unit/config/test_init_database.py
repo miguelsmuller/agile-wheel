@@ -1,7 +1,7 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from src.adapters.output.activity_document_mongo import ActivityDocument
+from src.adapters.output.activity_document import ActivityDocument
 from src.config.database import initialize_database
 
 

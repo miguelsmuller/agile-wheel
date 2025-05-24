@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from src.adapters.output.activity_document_mongo import ActivityDocument
+from src.adapters.output.activity_document import ActivityDocument
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
 
