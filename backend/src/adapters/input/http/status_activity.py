@@ -8,6 +8,7 @@ from src.application.ports.input.status_activity_port import StatusActivityPort
 from src.config.dependencies import get_status_activity_service
 
 logger = logging.getLogger(__name__)
+logger_prefix = "[GET_ACTIVITY]"
 
 router = APIRouter()
 router_params = {
@@ -29,6 +30,7 @@ async def get_activity(
     status_activity_service: StatusActivityPort = Depends(get_status_activity_service),
 ):
     try:
+        logger.debug("%s Request", logger_prefix)
         activity = await status_activity_service.execute(activity_id , participant_id)
 
     except ReferenceError as error:

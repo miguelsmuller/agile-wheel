@@ -1,3 +1,4 @@
+import logging
 from typing import Annotated
 from uuid import UUID
 
@@ -7,6 +8,9 @@ from src.adapters.input.http.schemas import EvaluationRequest, EvaluationRespons
 from src.application.ports.input.evaluation_activity_port import EvaluationActivityPort
 from src.config.dependencies import get_evaluation_activity_service
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
+
+logger = logging.getLogger(__name__)
+logger_prefix = "[POST_ACTIVITY_EVALUATION]"
 
 router = APIRouter()
 router_params = {
@@ -39,6 +43,7 @@ async def post_activity_evaluation(
     )
 
     try:
+        logger.debug("%s Request: %s", logger_prefix, evaluation_request)
         evaluation = await evaluation_activity_service.execute(
             activity_id, participant_evaluation
         )

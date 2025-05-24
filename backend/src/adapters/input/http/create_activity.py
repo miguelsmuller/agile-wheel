@@ -12,7 +12,7 @@ from src.config.dependencies import get_create_activity_service
 from src.domain.entities.participant import Participant
 
 logger = logging.getLogger(__name__)
-logger_prefix = "[post][/activity]"
+logger_prefix = "[POST_ACTIVITY]"
 
 router = APIRouter()
 router_params = {

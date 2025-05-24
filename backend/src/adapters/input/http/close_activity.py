@@ -9,7 +9,7 @@ from src.application.ports.input.close_activity_port import CloseActivityPort
 from src.config.dependencies import get_close_activity_service
 
 logger = logging.getLogger(__name__)
-logger_prefix = "[post][/activity/$/close]"
+logger_prefix = "[POST_ACTIVITY_CLOSE]"
 
 router = APIRouter()
 router_params = {
