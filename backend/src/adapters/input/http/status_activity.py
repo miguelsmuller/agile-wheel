@@ -10,16 +10,16 @@ from src.config.dependencies import get_status_activity_service
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
-
-@router.get(
-    "/activity/{activity_id}",
-    status_code=status.HTTP_200_OK,
-    responses={
+router_params = {
+    "status_code": status.HTTP_200_OK,
+    "responses": {
         status.HTTP_200_OK: {"description": "Close activity successfully."},
         status.HTTP_404_NOT_FOUND: {"description": "Activity not found."},
     },
-    response_model=StatusResponse,
-)
+    "response_model": StatusResponse,
+}
+
+@router.get("/activity/{activity_id}", **router_params)
 async def status_activity(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[

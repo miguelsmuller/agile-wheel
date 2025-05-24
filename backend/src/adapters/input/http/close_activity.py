@@ -1,3 +1,4 @@
+import logging
 from typing import Annotated
 from uuid import UUID
 
@@ -7,17 +8,20 @@ from src.adapters.input.http.schemas import ActivityResponse, CloseResponse
 from src.application.ports.input.close_activity_port import CloseActivityPort
 from src.config.dependencies import get_close_activity_service
 
-router = APIRouter()
+logger = logging.getLogger(__name__)
+logger_prefix = "[post][/activity/$/close]"
 
-@router.post(
-    "/activity/{activity_id}/close",
-    status_code=status.HTTP_200_OK,
-    responses={
+router = APIRouter()
+router_params = {
+    "status_code": status.HTTP_200_OK,
+    "responses": {
         status.HTTP_200_OK: {"description": "Close activity successfully."},
         status.HTTP_403_FORBIDDEN: {"description": "Permission denied."},
     },
-    response_model=CloseResponse,
-)
+    "response_model": CloseResponse,
+}
+
+@router.post("/activity/{activity_id}/close", **router_params)
 async def close_activity(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
@@ -26,6 +30,7 @@ async def close_activity(
     close_activity_service: CloseActivityPort = Depends(get_close_activity_service),
 ):
     try:
+        logger.debug("%s Request", logger_prefix)
         closed_activity = await close_activity_service.execute(
             activity_id=activity_id,
             participant_id_requested=participant_id

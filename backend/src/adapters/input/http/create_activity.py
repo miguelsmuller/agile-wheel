@@ -15,16 +15,15 @@ logger = logging.getLogger(__name__)
 logger_prefix = "[post][/activity]"
 
 router = APIRouter()
-
-
-@router.post(
-    "/activity",
-    status_code=status.HTTP_201_CREATED,
-    responses={
+router_params = {
+    "status_code": status.HTTP_201_CREATED,
+    "responses": {
         status.HTTP_201_CREATED: {"description": "Activity created successfully."},
     },
-    response_model=CreateActivityResponse,
-)
+    "response_model": CreateActivityResponse,
+}
+
+@router.post("/activity", **router_params)
 async def activity(
     activity_request: CreateActivityRequest,
     create_activity_service: CreateActivityPort = Depends(get_create_activity_service),

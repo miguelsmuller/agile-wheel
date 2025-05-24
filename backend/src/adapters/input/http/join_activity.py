@@ -14,15 +14,15 @@ from src.config.dependencies import get_join_activity_service
 from src.domain.entities.participant import Participant
 
 router = APIRouter()
-
-@router.patch(
-    "/activity/{activity_id}/join",
-    status_code=status.HTTP_200_OK,
-    responses={
+router_params = {
+    "status_code": status.HTTP_200_OK,
+    "responses": {
         status.HTTP_200_OK: {"description": "Join activity successfully."},
     },
-    response_model=JoinResponse,
-)
+    "response_model": JoinResponse,
+}
+
+@router.patch("/activity/{activity_id}/join", **router_params)
 async def join_activity(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     request: JoinRequest,

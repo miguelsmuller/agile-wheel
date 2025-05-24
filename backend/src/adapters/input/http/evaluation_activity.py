@@ -9,16 +9,16 @@ from src.config.dependencies import get_evaluation_activity_service
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
 
 router = APIRouter()
-
-@router.post(
-    "/activity/{activity_id}/evaluation",
-    status_code=status.HTTP_200_OK,
-    responses={
+router_params = {
+    "status_code": status.HTTP_200_OK,
+    "responses": {
         status.HTTP_200_OK: {"description": "Close activity successfully."},
         status.HTTP_404_NOT_FOUND: {"description": "Activity not found."},
     },
-    response_model=EvaluationResponse,
-)
+    "response_model": EvaluationResponse,
+}
+
+@router.post("/activity/{activity_id}/evaluation", **router_params)
 async def evaluation_activity(
     evaluation_request: EvaluationRequest,
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
