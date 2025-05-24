@@ -8,11 +8,16 @@ from src.application.ports.output.activity_repository import ActivityRepositoryP
 from src.domain.entities.activity import Activity
 
 logger = logging.getLogger(__name__)
+logger_prefix = "[ActivityRepositoryFirestoreAdapter]"
 
 
 class ActivityRepositoryFirestoreAdapter(ActivityRepositoryPort):
     def __init__(self):
+        logger.debug("%s Initializing client", logger_prefix)
+
         self.db = firestore.Client(project="agile-wheel")
+
+        logger.debug("%s client initialized: %s", logger_prefix, str(self.db))
 
     async def create(self, activity: Activity) -> Activity:
         document = ActivityDocument.from_domain(activity)
@@ -20,7 +25,22 @@ class ActivityRepositoryFirestoreAdapter(ActivityRepositoryPort):
 
         doc_ref = self.db.collection("Activities").document(document.app_id)
 
-        await asyncio.to_thread(doc_ref.set, data)
+        logger.debug(
+            "%s Attempting to create activity: %s", logger_prefix, str(document)
+        )
+
+        try:
+            await asyncio.to_thread(doc_ref.set, data)
+            logger.debug(
+                "%s Successfully created activity: %s", logger_prefix, str(document)
+            )
+        except Exception as error:
+            logger.exception(
+                "%s Failed to create activity: %s",
+                logger_prefix,
+                str(error)
+            )
+            raise error
 
         return activity
 

@@ -11,7 +11,11 @@ from src.application.ports.input.create_activity_port import CreateActivityPort
 from src.config.dependencies import get_create_activity_service
 from src.domain.entities.participant import Participant
 
+logger = logging.getLogger(__name__)
+logger_prefix = "[post][/activity]"
+
 router = APIRouter()
+
 
 @router.post(
     "/activity",
@@ -32,10 +36,11 @@ async def activity(
     )
 
     try:
+        logger.debug("%s Request: %s", logger_prefix, activity_request)
         activity = await create_activity_service.execute(owner=owner)
 
     except Exception as error:
-        logging.error("[post][/activity] %s", str(error))
+        logger.exception("%s Error: %s", logger_prefix, str(error))
 
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
