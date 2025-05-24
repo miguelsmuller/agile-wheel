@@ -97,3 +97,21 @@ backend-logs: ## display logs from the backend
 	@printf "${COLOR_GREEN_BOLD}Backend logs...${COLOR_RESET}"
 	@echo "\n"
 	docker compose logs backend -f
+
+.PHONY: backend-dep-install
+backend-dep-install: ## install backend dependencies
+	@printf "${COLOR_GREEN_BOLD}Install dependencies for backend...${COLOR_RESET}"
+	@echo "\n"
+	docker compose exec backend poetry run poe dep-install
+
+.PHONY: backend-dep-update
+backend-dep-update: ## update backend dependencies
+	@printf "${COLOR_GREEN_BOLD}Update dependencies for backend...${COLOR_RESET}"
+	@echo "\n"
+	docker compose exec backend poetry run poe dep-update
+
+.PHONY: backend-dep-lock
+backend-dep-lock: ## lock backend dependencies
+	@printf "${COLOR_GREEN_BOLD}Lock file for backend...${COLOR_RESET}"
+	@echo "\n"
+	docker compose exec backend poetry run poe dep-lock
