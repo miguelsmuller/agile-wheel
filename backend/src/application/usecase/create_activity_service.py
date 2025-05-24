@@ -1,12 +1,19 @@
+import logging
+
 from src.application.ports.input.create_activity_port import CreateActivityPort
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension, Principle
 from src.domain.entities.participant import Participant
 
+logger = logging.getLogger(__name__)
+logger_prefix = "[CreateActivityService]"
+
 
 class CreateActivityService(CreateActivityPort):
     def __init__(self, repository: ActivityRepositoryPort = None):
+        logger.debug("%s Initializing with repository: %s", logger_prefix, str(repository))
+
         self.repository = repository
 
     async def execute(self, owner: Participant) -> Activity:
@@ -18,6 +25,7 @@ class CreateActivityService(CreateActivityPort):
 
         activity.add_participant(owner)
 
+        logger.debug("%s Creating: %s", logger_prefix, str(activity))
         return await self.repository.create(activity)
 
     def _add_default_dimenstions(self, activity: Activity) -> None:

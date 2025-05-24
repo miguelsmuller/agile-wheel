@@ -2,6 +2,16 @@ name: Deploy Backend
 
 on:
   workflow_dispatch:
+    inputs:
+      log_level:
+        description: 'Log level'
+        required: false
+        default: 'DEBUG'
+        type: choice
+        options:
+          - DEBUG
+          - INFO
+          - ERROR
   push:
     branches:
       - main
@@ -126,6 +136,7 @@ jobs:
           env_vars: |
             ENV=${{ vars.ENV }}
             INTERNAL_PORT=8080
+            LOG_LEVEL=${{ github.event_name == 'workflow_dispatch' && inputs.log_level || 'DEBUG' }}
             DB_TYPE=${{ vars.DB_TYPE }}
             DB_HOST=${{ secrets.DB_HOST }}
             DB_PORT=${{ vars.DB_PORT }}
