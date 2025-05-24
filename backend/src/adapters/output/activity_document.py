@@ -39,16 +39,13 @@ class ParticipantEvaluationModel(BaseModel):
     participant_id: str
     ratings: list[RatingModel]
 
-class ActivityDocument(Document):
+class ActivityDocument(BaseModel):
     app_id: str
     is_opened: bool = False
     created_at: datetime
     participants: list[ParticipantModel]
     dimensions: list[DimensionModel]
     evaluations: list[ParticipantEvaluationModel]
-
-    class Settings:
-        name = "activities"
 
     @classmethod
     def from_domain(cls, activity: Activity) -> "ActivityDocument":
@@ -143,3 +140,8 @@ class ActivityDocument(Document):
             dimensions=dimensions,
             evaluations=evaluations
         )
+
+
+class ActivityDocumentForMongo(ActivityDocument, Document):
+    class Settings:
+        name = "activities"
