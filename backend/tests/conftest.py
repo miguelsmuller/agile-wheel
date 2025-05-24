@@ -38,31 +38,71 @@ async def mock_init_beanie():
 # * Mocking the Activity entity
 # ****************************************************************
 
-mock_uuid = "b3d59547-35fc-446d-b567-8ba6ab65f764"
-mock_activity_uuid = UUID(mock_uuid)
 mock_activity_created = datetime(
     2025, 4, 13, 10, 30, 00, 00, tzinfo=pytz.timezone("America/Sao_Paulo")
 )
 
 @pytest.fixture
-def mock_activity_fixture():
+def mock_uuid_string():
+    return "b3d59547-35fc-446d-b567-8ba6ab65f764"
+
+
+@pytest.fixture
+def mock_uuid(mock_uuid_string):
+    return UUID(mock_uuid_string)
+
+
+@pytest.fixture
+def mock_participant_owner():
+    return Participant(
+        name="string",
+        email="user@example.com",
+        role="owner",
+        id=UUID("7870b158-4900-466a-948c-14b462b62f5b")
+    )
+
+
+@pytest.fixture
+def mock_participant_model_owner(mock_participant_owner):
+    return ParticipantModel(
+        name=mock_participant_owner.name,
+        email=mock_participant_owner.email,
+        role=mock_participant_owner.role,
+        id=str(mock_participant_owner.id)
+    )
+
+
+@pytest.fixture
+def mock_participant_regular():
+    return Participant(
+        name="string",
+        email="user@example.com",
+        role="regular",
+        id=UUID("3259afaa-29af-43ca-bcdd-3c52dfbfe2e7")
+    )
+
+
+@pytest.fixture
+def mock_participant_model_regular(mock_participant_regular):
+    return ParticipantModel(
+        name=mock_participant_regular.name,
+        email=mock_participant_regular.email,
+        role=mock_participant_regular.role,
+        id=str(mock_participant_regular.id)
+    )
+
+
+@pytest.fixture
+def mock_activity_fixture(
+    mock_uuid, mock_participant_owner, mock_participant_regular
+):
     return Activity(
-        id=mock_activity_uuid,
+        id=mock_uuid,
         is_opened=False,
         created_at=mock_activity_created,
         participants=[
-            Participant(
-                name="string",
-                email="user@example.com",
-                role="owner",
-                id=UUID("b3d59547-35fc-446d-b567-8ba6ab65f764")
-            ),
-            Participant(
-                name="string",
-                email="user@example.com",
-                role="regular",
-                id=UUID("12d2beee-d4e3-4633-adce-248e5d9a6227")
-            )
+            mock_participant_owner,
+            mock_participant_regular
         ],
         dimensions=[
             Dimension(
@@ -207,25 +247,17 @@ def mock_activity_fixture():
 
 
 @pytest.fixture
-def mock_activity_document_fixture():
+def mock_activity_document_fixture(
+    mock_uuid_string, mock_participant_model_owner, mock_participant_model_regular
+):
     return ActivityDocument(
         _id=ObjectId("67fa905024b5c557a228c505"),
-        app_id=mock_uuid,
+        app_id=mock_uuid_string,
         is_opened=True,
         created_at=mock_activity_created,
         participants=[
-            ParticipantModel(
-                id="7870b158-4900-466a-948c-14b462b62f5b",
-                name="Fulano de Tal",
-                role="owner",
-                email="fulano@example.com"
-            ),
-            ParticipantModel(
-                id="3259afaa-29af-43ca-bcdd-3c52dfbfe2e7",
-                name="Ciclano de Tal",
-                role="regular",
-                email="ciclano@example.com"
-            )
+            mock_participant_model_owner,
+            mock_participant_model_regular
         ],
         dimensions=[
             DimensionModel(

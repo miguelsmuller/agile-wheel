@@ -16,6 +16,7 @@ services:
       - ./backend/tests:/app/tests
       - ./backend/pyproject.toml:/app/pyproject.toml
       - ./backend/poetry.lock:/app/poetry.lock
+      - ./backend/.env.test:/app/.env.test
     command: uvicorn src.main:app --host 0.0.0.0 --port ${INTERNAL_BACKEND_PORT:-8000} --reload
 
   frontend:

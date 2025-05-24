@@ -19,7 +19,7 @@ async def initialize_database(host, port):
             ]
         )
 
-        logger.debug("[init_database] Logging initialized")
+        logger.debug("[init_database] Database initialized")
 
     except Exception as err:
         logger.error("[init_database] %s", str(err))

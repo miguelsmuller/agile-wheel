@@ -14,11 +14,11 @@ import { isEqual } from 'lodash';
 
 import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
 import { ActivityStreamMessage, ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
-import { SubmitEvaluationService } from '@use-cases/submit-evaluation.usecase';
 import { getActivityFromLocalStorage, getParticipantFromLocalStorage } from '@utils/utils';
 
 import { EvaluationWrapperComponent } from './evaluation-wrapper/evaluation-wrapper.component';
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
+import { ControlActivityComponent } from './control-activity/control-activity.component';
 
 @Component({
   selector: 'app-activity',
@@ -37,22 +37,18 @@ import { ListParticipantsComponent } from './list-participants/list-participants
     MatSliderModule,
     EvaluationWrapperComponent,
     ListParticipantsComponent,
+    ControlActivityComponent,
   ],
 })
 export class ActivityComponent implements OnInit, OnDestroy {
   private subscription!: Subscription;
-
-  isSubmitting = false;
 
   activity: Activity | null = null;
   currentParticipant: Participant | null = null;
   dimensions: DimensionWithScores[] = [];
   participants: Participant[] = [];
 
-  constructor(
-    private readonly activityStreamService: ActivityStreamUseCase,
-    private readonly submitEvaluationService: SubmitEvaluationService
-  ) {}
+  constructor(private readonly activityStreamService: ActivityStreamUseCase) {}
 
   async ngOnInit() {
     this.activity = getActivityFromLocalStorage() as Activity;
@@ -85,25 +81,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.activityStreamService.stopObserving();
     if (this.subscription) {
       this.subscription.unsubscribe();
-    }
-  }
-
-  async submit(): Promise<void> {
-    this.isSubmitting = true;
-
-    if (!this.activity || !this.currentParticipant) {
-      throw new Error('[ActivityComponent] Activity or participant is not defined');
-    }
-
-    try {
-      this.submitEvaluationService.submitEvaluation(
-        this.activity,
-        this.currentParticipant,
-        this.dimensions
-      );
-    } catch (error) {
-      console.error('[ActivityComponent]', error);
-      this.isSubmitting = false;
     }
   }
 }

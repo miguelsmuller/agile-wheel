@@ -1,22 +1,19 @@
+import logging
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Path, status
+from fastapi import APIRouter, Depends, HTTPException, Path, status
 from src.adapters.input.http.schemas import (
     ActivityResponse,
     JoinRequest,
     JoinResponse,
     ParticipantResponse,
 )
-from src.adapters.output.activity_repository_adapter import ActivityRepositoryAdapter
 from src.application.ports.input.join_activity_port import JoinActivityPort
-from src.application.usecase.join_activity_service import JoinActivityService
+from src.config.dependencies import get_join_activity_service
 from src.domain.entities.participant import Participant
 
 router = APIRouter()
-
-repository = ActivityRepositoryAdapter()
-service = JoinActivityService(repository=repository)
 
 @router.patch(
     "/activity/{activity_id}/join",
@@ -29,18 +26,31 @@ service = JoinActivityService(repository=repository)
 async def join_activity(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     request: JoinRequest,
-    join_activity_service: JoinActivityPort = Depends(lambda: service),
+    join_activity_service: JoinActivityPort = Depends(get_join_activity_service),
 ):
-
-    activity, participant = await join_activity_service.execute(
-        activity_id=activity_id,
-        participant=Participant(
-            name=request.participant.name,
-            email=request.participant.email,
-            role="regular"
+    try:
+        activity, participant = await join_activity_service.execute(
+            activity_id=activity_id,
+            participant=Participant(
+                name=request.participant.name,
+                email=request.participant.email,
+                role="regular"
+            )
         )
-    )
 
+    except ReferenceError as error:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Activity not found: {error}"
+        ) from error
+
+    except Exception as error:
+        logging.error("[patch][/activity] %s", str(error))
+
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Unexpected error occurred: {error}"
+        ) from error
 
     return JoinResponse(
         participant=ParticipantResponse.from_participant(participant=participant),

@@ -65,8 +65,8 @@ async def test_join_activity_not_found(mock_repository, mock_participant):
 
     # When & Then
     with pytest.raises(
-        AttributeError,
-        match="'NoneType' object has no attribute 'add_participant'"
+        ReferenceError,
+        match="Activity not found for update"
     ):
         await service.execute(activity_id=ACTIVITY_ID, participant=mock_participant)
 

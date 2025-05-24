@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
 import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
-import { clearDataFromLocalStorage } from '@utils/utils';
 
 export interface SubmitEvaluationResponse {
   participant: Participant;
@@ -20,13 +18,20 @@ export interface SubmitEvaluationRequest {
   ratings: SubmitEvaluationRatingRequest[];
 }
 
+/**
+ * Service responsible for submitting participant evaluations to the backend.
+ */
 @Injectable({ providedIn: 'root' })
 export class SubmitEvaluationService {
-  constructor(
-    private readonly backendClient: AgileWheelBackEndHTTP,
-    private readonly router: Router
-  ) {}
+  constructor(private readonly backendClient: AgileWheelBackEndHTTP) {}
 
+  /**
+   * Submits a participant's evaluation for a specific activity.
+   *
+   * @param activity - The activity being evaluated.
+   * @param currentParticipant - The participant submitting the evaluation.
+   * @param dimensions - The dimensions and principles being evaluated with scores.
+   */
   submitEvaluation(
     activity: Activity,
     currentParticipant: Participant,
@@ -39,10 +44,6 @@ export class SubmitEvaluationService {
     this.backendClient.post<SubmitEvaluationResponse>(apiEndPoint, payload, headers).subscribe({
       next: (response: SubmitEvaluationResponse) => {
         console.debug('[SubmitEvaluationService] Starting subimit evaluation', response);
-
-        const redirectTo = `activity/${activity.activity_id}/result`;
-        clearDataFromLocalStorage();
-        this.router.navigate([redirectTo]);
       },
       error: error => {
         console.error('[SubmitEvaluationService] Error while submit evaluation', error);

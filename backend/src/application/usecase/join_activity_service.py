@@ -16,8 +16,11 @@ class JoinActivityService(JoinActivityPort):
         activity_id: UUID,
         participant: Participant
     ) -> tuple[Activity, Participant]:
-
         activity = await self.repository.find_one(activity_id)
+
+        if activity is None:
+            raise ReferenceError("Activity not found for update")
+
         activity.add_participant(participant)
 
         return await self.repository.update(activity), participant

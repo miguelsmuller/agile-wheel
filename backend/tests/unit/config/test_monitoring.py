@@ -11,8 +11,8 @@ def mock_sentry_sdk(mocker):
 
 
 @pytest.fixture
-def mock_logger_info(mocker):
-    return mocker.patch("src.config.monitoring.logger.info")
+def mock_logger_debug(mocker):
+    return mocker.patch("src.config.monitoring.logger.debug")
 
 
 @pytest.fixture
@@ -28,12 +28,13 @@ def mock_settings():
     )
 
 
-def test_initialize_monitoring_successfully(
+@pytest.mark.asyncio
+async def test_initialize_monitoring_successfully(
     mock_sentry_sdk,
-    mock_logger_info,
+    mock_logger_debug,
     mock_settings
 ):
-    initialize_monitoring(mock_settings)
+    await initialize_monitoring(mock_settings)
 
     mock_sentry_sdk.init.assert_called_once_with(
         dsn=mock_settings.sentry_dns,
@@ -42,15 +43,16 @@ def test_initialize_monitoring_successfully(
         integrations=[ANY],
     )
 
-    mock_logger_info.assert_called_with("Sentry initialization successful")
+    mock_logger_debug.assert_called_with("[init_monitoring] Sentry initialization successful")
 
 
-def test_initialize_monitoring_fails(mock_sentry_sdk, mock_logger_info, mock_settings):
+@pytest.mark.asyncio
+async def test_initialize_monitoring_fails(mock_sentry_sdk, mock_logger_debug, mock_settings):
     mock_settings.sentry_dns = None
 
-    initialize_monitoring(mock_settings)
+    await initialize_monitoring(mock_settings)
 
     mock_sentry_sdk.init.assert_not_called()
 
-    expected_log = "sentry_dsn not provided, skipping Sentry initialization"
-    mock_logger_info.assert_called_once_with(expected_log)
+    expected_log = "[init_monitoring] Skipping Sentry initialization"
+    mock_logger_debug.assert_called_once_with(expected_log)

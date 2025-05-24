@@ -1,24 +1,21 @@
-from typing import TYPE_CHECKING
 from uuid import UUID
 
 from src.application.ports.input.status_activity_port import StatusActivityPort
+from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
-
-if TYPE_CHECKING:  # pragma: no cover
-    from src.application.ports.output.activity_repository import ActivityRepositoryPort
 
 
 class StatusActivityService(StatusActivityPort):
 
-    def __init__(self, repository = None):
-        self.repository: ActivityRepositoryPort = repository
+    def __init__(self, repository: ActivityRepositoryPort = None):
+        self.repository  = repository
 
     async def execute(
         self,
         activity_id: UUID,
         participant_id: UUID,
     ) -> Activity:
-        activity = await self.repository.find_one(str(activity_id))
+        activity = await self.repository.find_one(activity_id)
 
         if activity is None:
             raise ReferenceError("Activity not found for update")

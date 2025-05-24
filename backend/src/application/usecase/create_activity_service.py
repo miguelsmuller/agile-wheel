@@ -1,11 +1,12 @@
 from src.application.ports.input.create_activity_port import CreateActivityPort
+from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension, Principle
 from src.domain.entities.participant import Participant
 
 
 class CreateActivityService(CreateActivityPort):
-    def __init__(self, repository=None):
+    def __init__(self, repository: ActivityRepositoryPort = None):
         self.repository = repository
 
     async def execute(self, owner: Participant) -> Activity:
