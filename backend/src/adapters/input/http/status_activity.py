@@ -19,8 +19,9 @@ router_params = {
     "response_model": StatusResponse,
 }
 
+
 @router.get("/activity/{activity_id}", **router_params)
-async def status_activity(
+async def get_activity(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
         UUID, Header(alias="X-Participant-Id", title="The identifier of the participant")

@@ -22,8 +22,9 @@ router_params = {
     "response_model": JoinResponse,
 }
 
+
 @router.patch("/activity/{activity_id}/join", **router_params)
-async def join_activity(
+async def post_activity_join(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     request: JoinRequest,
     join_activity_service: JoinActivityPort = Depends(get_join_activity_service),

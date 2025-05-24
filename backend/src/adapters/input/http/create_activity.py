@@ -23,8 +23,9 @@ router_params = {
     "response_model": CreateActivityResponse,
 }
 
+
 @router.post("/activity", **router_params)
-async def activity(
+async def post_activity(
     activity_request: CreateActivityRequest,
     create_activity_service: CreateActivityPort = Depends(get_create_activity_service),
 ):

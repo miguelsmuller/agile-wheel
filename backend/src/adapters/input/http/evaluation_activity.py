@@ -18,8 +18,9 @@ router_params = {
     "response_model": EvaluationResponse,
 }
 
+
 @router.post("/activity/{activity_id}/evaluation", **router_params)
-async def evaluation_activity(
+async def post_activity_evaluation(
     evaluation_request: EvaluationRequest,
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[

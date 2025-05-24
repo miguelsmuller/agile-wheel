@@ -21,8 +21,9 @@ router_params = {
     "response_model": CloseResponse,
 }
 
+
 @router.post("/activity/{activity_id}/close", **router_params)
-async def close_activity(
+async def post_activity_close(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
         UUID, Header(alias="X-Participant-Id", title="The identifier of the participant")
