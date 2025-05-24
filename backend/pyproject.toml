@@ -28,7 +28,7 @@ dependencies = [
     "poethepoet[poetry-plugin] (>=0.33.1,<0.34.0)",
     "pytz (>=2025.2,<2026.0)",
     "sentry-sdk[fastapi] (>=2.27.0,<3.0.0)",
-    "google-cloud-firestore (>=2.20.2,<3.0.0)",
+    "google-cloud-firestore (>=2.20.2,<3.0.0)"
 ]
 
 [project.urls]
@@ -56,6 +56,7 @@ mypy = ">=1.15.0"
 mongomock-motor = "^0.0.35"
 pytest-cov = "^6.1.1"
 pytest-mock = ">=3.14.0,<4.0.0"
+pytest-dotenv = ">=0.5.2,<0.6.0"
 
 
 ##############################################################################
@@ -67,8 +68,8 @@ testpaths = ["./"]
 asyncio_mode = "auto"
 # when project expands, change to "session"
 asyncio_default_fixture_loop_scope = "function"
-# env_override_existing_values = 1
-# env_files = [".env.test"]
+env_override_existing_values = 1
+env_files = [".env.test"]
 # filterwarnings = [
 #     "ignore::DeprecationWarning:callee.*",
 #     "ignore:.*The `__fields__` attribute is deprecated:DeprecationWarning",
@@ -164,4 +165,7 @@ ignore_missing_imports = true
 [tool.poe.tasks]
 serve = "uvicorn src.main:app --port 3333 --reload"
 lint = "ruff check --fix ."
-test = "pytest --cov=src --cov-report=term --cov-report=html"
+test = "pytest --cov=src --cov-report=term --cov-report=html"   
+dep-install = "poetry install"
+dep-update = "poetry update"
+dep-lock = "poetry lock"
