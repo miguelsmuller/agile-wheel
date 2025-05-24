@@ -1,7 +1,7 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from src.adapters.output.activity_document_mongo import ActivityDocument
+from src.adapters.output.activity_document import ActivityDocumentForMongo
 from src.config.database import initialize_database
 
 
@@ -41,7 +41,7 @@ async def test_init_database_success(mock_dependencies):
     mock_motor_client.assert_called_once_with("mongodb://localhost:27017")
     mock_init_beanie.assert_awaited_once_with(
         database=mock_client.mydb,
-        document_models=[ActivityDocument]
+        document_models=[ActivityDocumentForMongo]
     )
 
 

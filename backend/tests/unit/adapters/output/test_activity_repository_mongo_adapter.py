@@ -2,13 +2,13 @@ from dataclasses import replace
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from src.adapters.output.activity_document_mongo import ActivityDocument
+from src.adapters.output.activity_document import ActivityDocumentForMongo
 from src.adapters.output.activity_repository_mongo_adapter import ActivityRepositoryAdapter
 
 
 @pytest.fixture
 def mock_insert():
-    with patch.object(ActivityDocument, "insert", new_callable=AsyncMock) as mock_insert:
+    with patch.object(ActivityDocumentForMongo, "insert", new_callable=AsyncMock) as mock_insert:
         yield mock_insert
 
 

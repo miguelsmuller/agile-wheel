@@ -6,8 +6,8 @@ import pytz
 from beanie import init_beanie
 from bson import ObjectId
 from mongomock_motor import AsyncMongoMockClient
-from src.adapters.output.activity_document_mongo import (
-    ActivityDocument,
+from src.adapters.output.activity_document import (
+    ActivityDocumentForMongo,
     DimensionModel,
     ParticipantEvaluationModel,
     ParticipantModel,
@@ -29,7 +29,7 @@ async def mock_init_beanie():
 
     await init_beanie(
         client.get_database(name="db"),
-        document_models=[ActivityDocument]
+        document_models=[ActivityDocumentForMongo]
     )
 
     yield client
@@ -250,7 +250,7 @@ def mock_activity_fixture(
 def mock_activity_document_fixture(
     mock_uuid_string, mock_participant_model_owner, mock_participant_model_regular
 ):
-    return ActivityDocument(
+    return ActivityDocumentForMongo(
         _id=ObjectId("67fa905024b5c557a228c505"),
         app_id=mock_uuid_string,
         is_opened=True,

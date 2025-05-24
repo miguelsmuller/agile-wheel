@@ -2,7 +2,7 @@ import logging
 
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
-from src.adapters.output.activity_document_mongo import ActivityDocument
+from src.adapters.output.activity_document import ActivityDocumentForMongo
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ async def initialize_database(host, port):
         await init_beanie(
             database=client.mydb,
             document_models=[
-                ActivityDocument
+                ActivityDocumentForMongo
             ]
         )
 
