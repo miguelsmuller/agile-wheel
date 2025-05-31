@@ -134,16 +134,21 @@ jobs:
         with:
           env_vars_update_strategy: 'overwrite'
           env_vars: |
-            ENV=${{ vars.ENV }}
             INTERNAL_PORT=8080
+
+            ENV=${{ vars.ENV }}
             LOG_LEVEL=${{ github.event_name == 'workflow_dispatch' && inputs.log_level || 'DEBUG' }}
+            
             DB_TYPE=${{ vars.DB_TYPE }}
             DB_HOST=${{ secrets.DB_HOST }}
             DB_PORT=${{ vars.DB_PORT }}
-            ALLOWED_ORIGINS=${{ vars.ALLOWED_ORIGINS }}
-            SENTRY_DNS=${{ vars.SENTRY_DNS }}
+            
             ENABLE_DOCS=${{ vars.ENABLE_DOCS }}
             ENABLE_PROFILING=${{ vars.ENABLE_PROFILING }}
+
+            ALLOWED_ORIGINS=${{ vars.ALLOWED_ORIGINS }}
+            
+            SENTRY_DNS=${{ vars.SENTRY_DNS }}
           service: 'agile-wheel-backend'
           image: 'docker.io/miguelsmuller/agile-wheel-backend:latest'
 

@@ -8,19 +8,21 @@ from src.application.ports.input.status_activity_port import StatusActivityPort
 from src.config.dependencies import get_status_activity_service
 
 logger = logging.getLogger(__name__)
+logger_prefix = "[GET_ACTIVITY]"
 
 router = APIRouter()
-
-@router.get(
-    "/activity/{activity_id}",
-    status_code=status.HTTP_200_OK,
-    responses={
+router_params = {
+    "status_code": status.HTTP_200_OK,
+    "responses": {
         status.HTTP_200_OK: {"description": "Close activity successfully."},
         status.HTTP_404_NOT_FOUND: {"description": "Activity not found."},
     },
-    response_model=StatusResponse,
-)
-async def status_activity(
+    "response_model": StatusResponse,
+}
+
+
+@router.get("/activity/{activity_id}", **router_params)
+async def get_activity(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
         UUID, Header(alias="X-Participant-Id", title="The identifier of the participant")
@@ -28,6 +30,7 @@ async def status_activity(
     status_activity_service: StatusActivityPort = Depends(get_status_activity_service),
 ):
     try:
+        logger.debug("%s Request", logger_prefix)
         activity = await status_activity_service.execute(activity_id , participant_id)
 
     except ReferenceError as error:

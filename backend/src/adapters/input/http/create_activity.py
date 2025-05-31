@@ -12,20 +12,20 @@ from src.config.dependencies import get_create_activity_service
 from src.domain.entities.participant import Participant
 
 logger = logging.getLogger(__name__)
-logger_prefix = "[post][/activity]"
+logger_prefix = "[POST_ACTIVITY]"
 
 router = APIRouter()
-
-
-@router.post(
-    "/activity",
-    status_code=status.HTTP_201_CREATED,
-    responses={
+router_params = {
+    "status_code": status.HTTP_201_CREATED,
+    "responses": {
         status.HTTP_201_CREATED: {"description": "Activity created successfully."},
     },
-    response_model=CreateActivityResponse,
-)
-async def activity(
+    "response_model": CreateActivityResponse,
+}
+
+
+@router.post("/activity", **router_params)
+async def post_activity(
     activity_request: CreateActivityRequest,
     create_activity_service: CreateActivityPort = Depends(get_create_activity_service),
 ):
@@ -36,7 +36,8 @@ async def activity(
     )
 
     try:
-        logger.debug("%s Request: %s", logger_prefix, activity_request)
+        logger.debug("%s", logger_prefix, extra={"activity_request": activity_request})
+
         activity = await create_activity_service.execute(owner=owner)
 
     except Exception as error:

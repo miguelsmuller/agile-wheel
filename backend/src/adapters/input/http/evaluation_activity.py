@@ -1,3 +1,4 @@
+import logging
 from typing import Annotated
 from uuid import UUID
 
@@ -8,18 +9,22 @@ from src.application.ports.input.evaluation_activity_port import EvaluationActiv
 from src.config.dependencies import get_evaluation_activity_service
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
 
-router = APIRouter()
+logger = logging.getLogger(__name__)
+logger_prefix = "[POST_ACTIVITY_EVALUATION]"
 
-@router.post(
-    "/activity/{activity_id}/evaluation",
-    status_code=status.HTTP_200_OK,
-    responses={
+router = APIRouter()
+router_params = {
+    "status_code": status.HTTP_200_OK,
+    "responses": {
         status.HTTP_200_OK: {"description": "Close activity successfully."},
         status.HTTP_404_NOT_FOUND: {"description": "Activity not found."},
     },
-    response_model=EvaluationResponse,
-)
-async def evaluation_activity(
+    "response_model": EvaluationResponse,
+}
+
+
+@router.post("/activity/{activity_id}/evaluation", **router_params)
+async def post_activity_evaluation(
     evaluation_request: EvaluationRequest,
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
@@ -38,6 +43,7 @@ async def evaluation_activity(
     )
 
     try:
+        logger.debug("%s Request: %s", logger_prefix, evaluation_request)
         evaluation = await evaluation_activity_service.execute(
             activity_id, participant_evaluation
         )

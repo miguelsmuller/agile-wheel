@@ -22,13 +22,13 @@ dependencies = [
     "uvicorn[standard]>=0.34.0,<0.35.0",
     "python-dotenv>=1.1.0,<2.0.0",
     "pydantic[email]>=2.11.2,<3.0.0",
+    "pydantic-settings>=2.8.1,<3.0.0",
     "beanie>=1.29.0,<2.0.0",
     "motor>=3.7.0,<4.0.0",
-    "pydantic-settings>=2.8.1,<3.0.0",
-    "poethepoet[poetry-plugin] (>=0.33.1,<0.34.0)",
     "pytz (>=2025.2,<2026.0)",
     "sentry-sdk[fastapi] (>=2.27.0,<3.0.0)",
-    "google-cloud-firestore (>=2.20.2,<3.0.0)"
+    "google-cloud-firestore (>=2.20.2,<3.0.0)",
+    "python-json-logger (>=3.3.0,<4.0.0)"
 ]
 
 [project.urls]
@@ -48,19 +48,20 @@ packages = [{ include = "src" }]
 # 3. Dependências e configs de desenvolvimento
 ##############################################################################
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.3.5"
-pytest-asyncio = "^0.26.0"
 pdbpp = ">=0.11.6,<0.12.0"
-ruff = ">=0.11.4"
-mypy = ">=1.15.0"
-mongomock-motor = "^0.0.35"
+pytest = "^8.3.5"
 pytest-cov = "^6.1.1"
 pytest-mock = ">=3.14.0,<4.0.0"
 pytest-dotenv = ">=0.5.2,<0.6.0"
+pytest-asyncio = "^0.26.0"
+mongomock-motor = "^0.0.35"
+ruff = ">=0.11.4"
+mypy = ">=1.15.0"
+poethepoet = {extras = ["poetry-plugin"], version = ">=0.33.1,<0.34.0"}
 
 
 ##############################################################################
-# 4. Pytest/Ruff/Mypy – atualize paths
+# 4. Pytest/Ruff/Mypy
 ##############################################################################
 [tool.pytest.ini_options]
 pythonpath = ["src"]
@@ -70,14 +71,6 @@ asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 env_override_existing_values = 1
 env_files = [".env.test"]
-# filterwarnings = [
-#     "ignore::DeprecationWarning:callee.*",
-#     "ignore:.*The `__fields__` attribute is deprecated:DeprecationWarning",
-#     "ignore:.*invalid escape sequence:DeprecationWarning:callee.*",
-#     "ignore::DeprecationWarning:pydantic_core.*",
-#     "ignore::DeprecationWarning:fastapi.*",
-#     "ignore::DeprecationWarning:pydantic.*",
-# ]
 filterwarnings = [
     "ignore:Accessing the 'model_fields' attribute on the instance is deprecated:DeprecationWarning",
     "ignore:.*The `__fields__` attribute is deprecated:DeprecationWarning"
@@ -92,6 +85,7 @@ target-version = "py312"
 "tests/**/*.py" = [
     "S101", # flake8-bandit - use of assert detected
 ]
+
 [tool.ruff.lint]
 select = [
     "A",   # flake8-builtins
@@ -160,7 +154,7 @@ ignore_missing_imports = true
 
 
 ##############################################################################
-# 5. Tarefas do Poe the Poet – rode sempre a partir da raiz
+# 5. Tarefas do Poe the Poet
 ##############################################################################
 [tool.poe.tasks]
 serve = "uvicorn src.main:app --port 3333 --reload"

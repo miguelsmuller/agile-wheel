@@ -13,22 +13,28 @@ from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.config.dependencies import get_join_activity_service
 from src.domain.entities.participant import Participant
 
-router = APIRouter()
+logger = logging.getLogger(__name__)
+logger_prefix = "[POST_ACTIVITY_JOIN]"
 
-@router.patch(
-    "/activity/{activity_id}/join",
-    status_code=status.HTTP_200_OK,
-    responses={
+router = APIRouter()
+router_params = {
+    "status_code": status.HTTP_200_OK,
+    "responses": {
         status.HTTP_200_OK: {"description": "Join activity successfully."},
     },
-    response_model=JoinResponse,
-)
-async def join_activity(
+    "response_model": JoinResponse,
+}
+
+
+@router.patch("/activity/{activity_id}/join", **router_params)
+async def post_activity_join(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     request: JoinRequest,
     join_activity_service: JoinActivityPort = Depends(get_join_activity_service),
 ):
     try:
+        logger.debug("%s Request: %s", logger_prefix, request)
+
         activity, participant = await join_activity_service.execute(
             activity_id=activity_id,
             participant=Participant(
