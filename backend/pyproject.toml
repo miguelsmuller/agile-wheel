@@ -27,7 +27,8 @@ dependencies = [
     "motor>=3.7.0,<4.0.0",
     "pytz (>=2025.2,<2026.0)",
     "sentry-sdk[fastapi] (>=2.27.0,<3.0.0)",
-    "google-cloud-firestore (>=2.20.2,<3.0.0)"
+    "google-cloud-firestore (>=2.20.2,<3.0.0)",
+    "python-json-logger (>=3.3.0,<4.0.0)"
 ]
 
 [project.urls]
