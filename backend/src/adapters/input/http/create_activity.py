@@ -36,7 +36,8 @@ async def post_activity(
     )
 
     try:
-        logger.debug("%s Request: %s", logger_prefix, activity_request)
+        logger.debug("%s", logger_prefix, extra={"activity_request": activity_request})
+
         activity = await create_activity_service.execute(owner=owner)
 
     except Exception as error:

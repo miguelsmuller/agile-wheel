@@ -31,7 +31,10 @@ async def post_activity_close(
     close_activity_service: CloseActivityPort = Depends(get_close_activity_service),
 ):
     try:
-        logger.debug("%s Request", logger_prefix)
+        logger.debug("%s", logger_prefix, extra={
+            "activity_id": activity_id, "participant_id": participant_id
+        })
+
         closed_activity = await close_activity_service.execute(
             activity_id=activity_id,
             participant_id_requested=participant_id
