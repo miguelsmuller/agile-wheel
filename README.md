@@ -11,6 +11,8 @@
 
 ## 📘 Documentação do Agile Wheel
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/miguelsmuller/agile-wheel)
+
 - Agile Wheel
     - [App Overview](docs/index.md)
     - [Agile Wheel Framework](docs/agile-wheel-framework.md)
