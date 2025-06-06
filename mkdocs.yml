@@ -36,31 +36,6 @@ nav:
     - Configuração Docker: 4-development-deployment/docker-setup.md
     - Integração Contínua (CI): 4-development-deployment/continuous-integration.md
 
-  - Docs AI Generated: 
-    - Agile Wheel App: _ai-generated/index.md
-    - Agile Wheel Framework: _ai-generated/agile-wheel-framework.md
-    - Arquitetura do Sistema: 
-      - Overview: _ai-generated/1-architecture/index.md
-      - Arquitetura do Front-End: _ai-generated/1-architecture/frontend-architecture.md
-      - Arquitetura do Back-End: _ai-generated/1-architecture/backend-architecture.md
-      - Modelo de Dados: _ai-generated/1-architecture/data-model.md
-    - Backend: 
-      - Overview: _ai-generated/2-backend/index.md
-      - Contexto - Activity: _ai-generated/2-backend/context-activity.md
-      - Configuração do Backend: _ai-generated/2-backend/backend-configuration.md
-    - Frontend: 
-      - Overview: _ai-generated/3-frontend/index.md
-      - Componente - Activity: _ai-generated/3-frontend/component-activity.md
-      - Componente - Evaluation: _ai-generated/3-frontend/component-evaluation.md
-      - Activity - Criação e entrada: _ai-generated/3-frontend/activity-creation-entry.md
-      - Participantes: _ai-generated/3-frontend/participants.md
-      - Frontend Services and Data Flow: _ai-generated/3-frontend/frontend-services-data-flow.md
-      - UI Styling and Theming: _ai-generated/3-frontend/ui-styling-theming.md
-    - Development and Deployment:
-      - Overview: _ai-generated/4-development-deployment/index.md
-      - Docker Setup: _ai-generated/4-development-deployment/docker-setup.md
-      - Continuous Integration: _ai-generated/4-development-deployment/continuous-integration.md
-
 
 theme:
   name: material
