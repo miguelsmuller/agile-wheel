@@ -64,6 +64,10 @@ class Activity:
     dimensions: list[Dimension] = field(default_factory=list)
     evaluations: list[ParticipantEvaluation] = field(default_factory=list)
 
+    @property
+    def owner(self) -> Participant | None:
+        return next((p for p in self.participants if p.role == "owner"), None)
+
     def generate_result(self) -> ActivityResult:
         return ActivityResult.from_activity(self)
 

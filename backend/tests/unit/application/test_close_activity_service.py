@@ -57,7 +57,7 @@ async def test_close_activity_not_found(mock_repository):
     service = CloseActivityService(repository=mock_repository)
 
     # When & Then
-    with pytest.raises(AttributeError, match="'NoneType' object has no attribute 'participants'"):
+    with pytest.raises(ReferenceError, match="Activity not found for update"):
         await service.execute(
             activity_id=UUID("8e6587b8-b158-4068-a254-76bd0d31f4f7"),
             participant_id_requested=UUID("7870b158-4900-466a-948c-14b462b62f5b")
