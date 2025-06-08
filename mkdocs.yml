@@ -19,7 +19,8 @@ nav:
     - Backend Overview: 2-backend/README.md
     - Configuração: 2-backend/configuration.md
     - Domain - Activity:
-      - Endpoints HTTP: 2-backend/domain-activity-http.md
+      - Endpoints HTTP:
+        - "[post] Activity Close": 2-backend/triggers/http_post_activity_close.md
       - Endpoints WS: 2-backend/domain-activity-ws.md 
 
   - Frontend:

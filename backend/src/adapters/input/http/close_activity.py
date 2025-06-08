@@ -17,6 +17,7 @@ router_params = {
     "responses": {
         status.HTTP_200_OK: {"description": "Close activity successfully."},
         status.HTTP_403_FORBIDDEN: {"description": "Permission denied."},
+        status.HTTP_404_NOT_FOUND: {"description": "Activity not found."},
     },
     "response_model": CloseResponse,
 }
