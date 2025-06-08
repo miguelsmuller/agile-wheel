@@ -1,6 +1,9 @@
-# Rodando Localmente
+# Execução Local
 
-## 1. Executando o Conjunto de Componentes
+> [!NOTE]  
+> Para facilitar o setup é bom entender que o projeto possui automações já disponíveis (Makefile, Python e Poetry, integrações com VSCode, etc), leia primeiro a documentação: [automations.md](./automations.md).
+
+## Executando o Conjunto de Componentes
 
 O aplicativo pode ser executado localmente usando o Docker Compose:
 
@@ -12,7 +15,7 @@ Este comando inicia todos os serviços necessários em contêineres com a config
 
 Para desenvolvimento de componentes individuais:
 
-## 2. Executando apenas backend
+## Executando apenas backend
 
 Ainda vai ser necessário ter um banco de dados para executar o backend
 
@@ -95,7 +98,7 @@ docker run -it agile-whell-backend sh
 apt update && apt install -y iputils-ping curl dnsutils telnet
 ```
 
-## 3. Exceutando apenas frontend
+## Exceutando apenas frontend
 
 ```sh
 cd frontend
