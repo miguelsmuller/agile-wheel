@@ -10,7 +10,7 @@ class GetActivityService(GetActivityPort):
     def __init__(self, repository: ActivityRepositoryPort = None):
         self.repository  = repository
 
-    async def execute(
+    async def get_activity(
         self,
         activity_id: UUID,
         participant_id: UUID,

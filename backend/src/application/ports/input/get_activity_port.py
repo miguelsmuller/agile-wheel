@@ -6,5 +6,5 @@ from src.domain.entities.activity import Activity
 
 class GetActivityPort(ABC):
     @abstractmethod
-    def execute(self, activity_id:UUID, participant_id: UUID) -> Activity:
+    def get_activity(self, activity_id:UUID, participant_id: UUID) -> Activity:
         pass

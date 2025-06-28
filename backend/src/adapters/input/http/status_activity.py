@@ -31,7 +31,7 @@ async def get_activity(
 ):
     try:
         logger.debug("%s Request", logger_prefix)
-        activity = await status_activity_service.execute(activity_id , participant_id)
+        activity = await status_activity_service.get_activity(activity_id , participant_id)
 
     except ReferenceError as error:
         raise HTTPException(
