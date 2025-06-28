@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, Path, Query, WebSocket, WebSocketDisconn
 from fastapi.websockets import WebSocketState
 from pydantic.json import pydantic_encoder
 from src.adapters.input.websocket.schemas import ActivityStream, ActivityStreamType
-from src.application.ports.input.status_activity_port import StatusActivityPort
+from src.application.ports.input.get_activity_port import StatusActivityPort
 from src.config.dependencies import get_status_activity_service
 from src.domain.entities.activity import Activity
 

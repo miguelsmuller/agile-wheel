@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from src.application.ports.input.status_activity_port import StatusActivityPort
+from src.application.ports.input.get_activity_port import StatusActivityPort
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
 
