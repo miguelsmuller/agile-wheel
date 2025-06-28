@@ -4,7 +4,7 @@ from uuid import UUID
 from src.domain.entities.activity import Activity
 
 
-class StatusActivityPort(ABC):
+class GetActivityPort(ABC):
     @abstractmethod
     def execute(self, activity_id:UUID, participant_id: UUID) -> Activity:
         pass

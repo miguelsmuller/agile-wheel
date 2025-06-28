@@ -1,11 +1,11 @@
 from uuid import UUID
 
-from src.application.ports.input.get_activity_port import StatusActivityPort
+from src.application.ports.input.get_activity_port import GetActivityPort
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
 
 
-class StatusActivityService(StatusActivityPort):
+class GetActivityService(GetActivityPort):
 
     def __init__(self, repository: ActivityRepositoryPort = None):
         self.repository  = repository

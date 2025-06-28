@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, Path, Query, WebSocket, WebSocketDisconn
 from fastapi.websockets import WebSocketState
 from pydantic.json import pydantic_encoder
 from src.adapters.input.websocket.schemas import ActivityStream, ActivityStreamType
-from src.application.ports.input.get_activity_port import StatusActivityPort
+from src.application.ports.input.get_activity_port import GetActivityPort
 from src.config.dependencies import get_status_activity_service
 from src.domain.entities.activity import Activity
 
@@ -21,7 +21,7 @@ async def stream_activity(
     websocket: WebSocket,
     activity_id: UUID = Path(...),
     participant_id: UUID = Query(...),
-    status_activity_service: StatusActivityPort = Depends(get_status_activity_service),
+    status_activity_service: GetActivityPort = Depends(get_status_activity_service),
 ) -> None:
     await websocket.accept()
 
@@ -59,7 +59,7 @@ async def _wait_for_disconnect(websocket: WebSocket) -> None:
 
 async def _send_activity_periodically(
     websocket: WebSocket,
-    service: StatusActivityPort,
+    service: GetActivityPort,
     activity_id: UUID,
     participant_id: UUID
 ) -> None:
@@ -70,7 +70,7 @@ async def _send_activity_periodically(
 
 
 async def _build_payload(
-    service: StatusActivityPort,
+    service: GetActivityPort,
     activity_id: UUID,
     participant_id: UUID
 ) -> str:

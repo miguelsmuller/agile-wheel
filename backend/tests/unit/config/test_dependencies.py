@@ -9,7 +9,7 @@ from src.application.usecase.close_activity_service import CloseActivityService
 from src.application.usecase.create_activity_service import CreateActivityService
 from src.application.usecase.evaluation_activity_service import EvaluationActivityService
 from src.application.usecase.join_activity_service import JoinActivityService
-from src.application.usecase.get_activity_service import StatusActivityService
+from src.application.usecase.get_activity_service import GetActivityService
 from src.config.dependencies import (
     get_activity_repository,
     get_close_activity_service,
@@ -77,4 +77,4 @@ def test_get_status_activity_service():
     service = get_status_activity_service()
 
     # then
-    assert isinstance(service, StatusActivityService)
+    assert isinstance(service, GetActivityService)
