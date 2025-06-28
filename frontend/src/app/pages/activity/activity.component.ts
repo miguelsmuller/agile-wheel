@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
-import { distinctUntilChanged, map, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, Subscription, tap } from 'rxjs';
 import { isEqual } from 'lodash';
 
 import { Activity, DimensionWithScores, Participant } from '@models/activity.model';
@@ -48,7 +48,10 @@ export class ActivityComponent implements OnInit, OnDestroy {
   dimensions: DimensionWithScores[] = [];
   participants: Participant[] = [];
 
-  constructor(private readonly activityStreamService: ActivityStreamUseCase) {}
+  constructor(
+    private readonly router: Router,
+    private readonly activityStreamService: ActivityStreamUseCase
+  ) {}
 
   async ngOnInit() {
     this.activity = getActivityFromLocalStorage() as Activity;
@@ -65,6 +68,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.subscription = this.activityStreamService
       .startObserving(this.activity.activity_id, this.currentParticipant.id)
       .pipe(
+        tap((msg: ActivityStreamMessage) => {
+          if (!msg.is_opened) {
+            const redirectTo = `activity/${msg.activity_id}/result`;
+            this.router.navigate([redirectTo]);
+          }
+        }),
+        filter((msg: ActivityStreamMessage) => msg.is_opened),
         map((msg: ActivityStreamMessage) => msg.participants),
         distinctUntilChanged((prev, curr) => isEqual(prev, curr))
       )
