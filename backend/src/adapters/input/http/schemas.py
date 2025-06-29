@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field
 from src.domain.aggregations.activity_result import ActivityResult
 from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension, Principle
@@ -10,7 +10,7 @@ from src.domain.entities.participant import Participant
 class ParticipantResponse(BaseModel):
     id: str
     name: str
-    email: str
+    email: EmailStr
 
     @classmethod
     def from_participant(cls, participant: Participant) -> "ParticipantResponse":
@@ -86,15 +86,8 @@ class ActivityForResultResponse(ActivityResponse):
 
 
 class ParticipantRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
     email: EmailStr
-
-    @field_validator("name")
-    @classmethod
-    def validator_name(cls, value):
-        if len(value) < 3:
-            raise ValueError("Name must be at least 3 characters long")
-        return value
 
 # ****************************************************************
 # * Request and Response Schemas for requests and responses
