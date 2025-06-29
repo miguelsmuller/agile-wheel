@@ -7,6 +7,10 @@ from src.domain.entities.dimension import Dimension, Principle
 from src.domain.entities.participant import Participant
 
 
+# ================================================================
+# Participant Schemas
+# ================================================================
+
 class ParticipantResponse(BaseModel):
     id: str
     name: str
@@ -19,6 +23,14 @@ class ParticipantResponse(BaseModel):
             name=participant.name,
             email=participant.email
         )
+
+class ParticipantRequest(BaseModel):
+    name: str = Field(min_length=3)
+    email: EmailStr
+
+# ================================================================
+# Principle and Dimension Schemas
+# ================================================================
 
 class PrincipleResponse(BaseModel):
     id: str
@@ -51,6 +63,15 @@ class DimensionResponse(BaseModel):
             ]
         )
 
+class RatingRequest(BaseModel):
+    principle_id: str
+    score: float
+    comments: str | None = None
+
+# ================================================================
+# Activity Schemas
+# ================================================================
+
 class ActivityResponse(BaseModel):
     activity_id: str
     created_at: datetime
@@ -78,20 +99,16 @@ class ActivityResponse(BaseModel):
             ]
         )
 
+# Alternative views
 
 class ActivityForResultResponse(ActivityResponse):
     owner: ParticipantResponse | None = Field(exclude=True)
     participants: list[ParticipantResponse] | None = Field(exclude=True)
     dimensions: list[DimensionResponse] | None = Field(exclude=True)
 
-
-class ParticipantRequest(BaseModel):
-    name: str = Field(min_length=3)
-    email: EmailStr
-
-# ****************************************************************
-# * Request and Response Schemas for requests and responses
-# ****************************************************************
+# ================================================================
+# Request and Response Schemas for requests and responses
+# ================================================================
 
 class CreateActivityRequest(BaseModel):
     owner: ParticipantRequest
@@ -100,6 +117,8 @@ class CreateActivityResponse(BaseModel):
     participant: ParticipantResponse
     activity: ActivityResponse
 
+# ========================
+
 class JoinRequest(BaseModel):
     participant: ParticipantRequest
 
@@ -107,16 +126,17 @@ class JoinResponse(BaseModel):
     participant: ParticipantResponse
     activity: ActivityResponse
 
+# ========================
+
 class CloseResponse(BaseModel):
     activity: ActivityResponse
+
+# ========================
 
 class StatusResponse(BaseModel):
     activity: ActivityResponse
 
-class RatingRequest(BaseModel):
-    principle_id: str
-    score: float
-    comments: str | None = None
+# ========================
 
 class EvaluationRequest(BaseModel):
     ratings: list[RatingRequest]
@@ -124,6 +144,8 @@ class EvaluationRequest(BaseModel):
 class EvaluationResponse(BaseModel):
     activity_id: str
     evaluation_id: str
+
+# ========================
 
 class ResultResponse(BaseModel):
     activity: ActivityForResultResponse
