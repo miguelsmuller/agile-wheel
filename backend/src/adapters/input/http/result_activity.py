@@ -7,8 +7,8 @@ from src.adapters.input.http.schemas import (
     ActivityForResultResponse,
     ResultResponse,
 )
-from src.application.ports.input.get_activity_status_port import GetActivityStatusPort
-from src.config.dependencies import get_status_activity_service
+from src.application.ports.input.get_activity_result_port import GetActivityResultPort
+from src.config.dependencies import get_result_activity_service
 
 logger = logging.getLogger(__name__)
 logger_prefix = "[GET_ACTIVITY_RESULT]"
@@ -27,7 +27,7 @@ router_params = {
 @router.get("/activity/{activity_id}/result", **router_params)
 async def get_result(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
-    activity_service: GetActivityStatusPort = Depends(get_status_activity_service),
+    activity_service: GetActivityResultPort = Depends(get_result_activity_service),
 ):
     try:
         logger.debug("%s Request", logger_prefix)

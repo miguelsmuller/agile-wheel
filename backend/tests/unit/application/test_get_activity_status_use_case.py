@@ -48,7 +48,9 @@ async def test_status_activity_success(mock_repository, mock_activity):
     mock_repository.find_one.return_value = mock_activity
 
     # When
-    result = await service.get_activity_status(activity_id=ACTIVITY_ID, participant_id=PARTICIPANT_ID)
+    result = await service.get_activity_status(
+        activity_id=ACTIVITY_ID, participant_id=PARTICIPANT_ID
+    )
 
     # Then
     mock_repository.find_one.assert_awaited_once_with(ACTIVITY_ID)
@@ -76,29 +78,3 @@ async def test_status_activity_permission_error(mock_repository, mock_activity):
     # When & Then
     with pytest.raises(PermissionError, match="Only the members cant get the status"):
         await service.get_activity_status(activity_id=ACTIVITY_ID, participant_id=NON_MEMBER_ID)
-
-
-@pytest.mark.asyncio
-async def test_result_activity_success(mock_repository, mock_activity_close):
-    # Given
-    service = GetActivityStatusService(repository=mock_repository)
-    mock_repository.find_one.return_value = mock_activity_close
-
-    # When
-    result = await service.get_activity_result(activity_id=ACTIVITY_ID)
-
-    # Then
-    mock_repository.find_one.assert_awaited_once_with(ACTIVITY_ID)
-    assert result.activity.id == ACTIVITY_ID
-    assert result.activity.is_opened is False
-
-
-@pytest.mark.asyncio
-async def test_result_activity_not_found(mock_repository):
-    # Given
-    service = GetActivityStatusService(repository=mock_repository)
-    mock_repository.find_one.return_value = None
-
-    # When & Then
-    with pytest.raises(ReferenceError, match="Activity not found for update"):
-        await service.get_activity_result(activity_id=ACTIVITY_ID)

@@ -6,7 +6,6 @@ from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension, Principle
 from src.domain.entities.participant import Participant
 
-
 # ================================================================
 # Participant Schemas
 # ================================================================
