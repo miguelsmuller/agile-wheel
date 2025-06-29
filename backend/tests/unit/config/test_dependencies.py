@@ -1,10 +1,10 @@
 
 from unittest.mock import MagicMock
 
-from src.adapters.output.activity_repository_firestore_adapter import (
+from src.adapters.persistence.activity_repository_firestore_adapter import (
     ActivityRepositoryFirestoreAdapter,
 )
-from src.adapters.output.activity_repository_mongo_adapter import ActivityRepositoryAdapter
+from src.adapters.persistence.activity_repository_mongo_adapter import ActivityRepositoryAdapter
 from src.application.usecase.close_activity_use_case import CloseActivityService
 from src.application.usecase.create_activity_use_case import CreateActivityService
 from src.application.usecase.evaluation_activity_use_case import EvaluationActivityService
@@ -33,7 +33,7 @@ def test_get_activity_repository_firestore(mocker):
     mock_settings = MagicMock()
     mock_settings.db_type = "firestore"
     mocker.patch("src.config.dependencies.initialize_settings", return_value=mock_settings)
-    mocker.patch("src.adapters.output.activity_repository_firestore_adapter.firestore.Client")
+    mocker.patch("src.adapters.persistence.activity_repository_firestore_adapter.firestore.Client")
 
     # when
     repository = get_activity_repository()

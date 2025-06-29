@@ -6,7 +6,7 @@ import pytest
 @pytest.fixture
 def mock_repository_find_one():
     with patch(
-        "src.adapters.output.activity_repository_mongo_adapter.ActivityRepositoryAdapter.find_one"
+        "src.adapters.persistence.activity_repository_mongo_adapter.ActivityRepositoryAdapter.find_one"
     ) as mock_find_one:
         yield mock_find_one
 

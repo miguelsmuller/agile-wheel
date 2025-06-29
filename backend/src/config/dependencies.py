@@ -1,10 +1,10 @@
 import logging
 
 from fastapi import Depends
-from src.adapters.output.activity_repository_firestore_adapter import (
+from src.adapters.persistence.activity_repository_firestore_adapter import (
     ActivityRepositoryFirestoreAdapter,
 )
-from src.adapters.output.activity_repository_mongo_adapter import ActivityRepositoryAdapter
+from src.adapters.persistence.activity_repository_mongo_adapter import ActivityRepositoryAdapter
 from src.application.usecase.close_activity_use_case import CloseActivityService
 from src.application.usecase.create_activity_use_case import CreateActivityService
 from src.application.usecase.evaluation_activity_use_case import EvaluationActivityService

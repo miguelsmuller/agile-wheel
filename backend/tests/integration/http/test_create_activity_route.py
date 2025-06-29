@@ -8,7 +8,7 @@ from src.main import app
 @pytest.fixture
 def mock_repository_create():
     with patch(
-        "src.adapters.output.activity_repository_mongo_adapter.ActivityRepositoryAdapter.create"
+        "src.adapters.persistence.activity_repository_mongo_adapter.ActivityRepositoryAdapter.create"
     ) as mock_create:
         yield mock_create
 

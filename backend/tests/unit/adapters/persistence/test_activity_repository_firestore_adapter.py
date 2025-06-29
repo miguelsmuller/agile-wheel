@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
-from src.adapters.output.activity_repository_firestore_adapter import (
+from src.adapters.persistence.activity_repository_firestore_adapter import (
     ActivityRepositoryFirestoreAdapter,
 )
 
@@ -9,7 +9,7 @@ from src.adapters.output.activity_repository_firestore_adapter import (
 @pytest.fixture
 def mock_firestore_client():
     firestore_client_path = (
-        "src.adapters.output.activity_repository_firestore_adapter.firestore.Client"
+        "src.adapters.persistence.activity_repository_firestore_adapter.firestore.Client"
     )
     with patch(firestore_client_path) as mock_client:
         yield mock_client

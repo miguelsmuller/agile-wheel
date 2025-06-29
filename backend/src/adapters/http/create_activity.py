@@ -1,7 +1,7 @@
 import logging
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from src.adapters.input.http.schemas import (
+from src.adapters.http.schemas import (
     ActivityResponse,
     CreateActivityRequest,
     CreateActivityResponse,

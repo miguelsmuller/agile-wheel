@@ -4,7 +4,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, Path, status
 from fastapi.responses import JSONResponse
-from src.adapters.input.http.schemas import EvaluationRequest, EvaluationResponse
+from src.adapters.http.schemas import EvaluationRequest, EvaluationResponse
 from src.application.ports.input.evaluation_activity_port import EvaluationActivityPort
 from src.config.dependencies import get_evaluation_activity_service
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating

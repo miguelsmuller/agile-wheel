@@ -3,7 +3,7 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Path, status
-from src.adapters.input.http.schemas import (
+from src.adapters.http.schemas import (
     ActivityForResultResponse,
     ResultResponse,
 )
