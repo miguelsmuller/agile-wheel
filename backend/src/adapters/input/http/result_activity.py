@@ -7,7 +7,7 @@ from src.adapters.input.http.schemas import (
     ActivityForResultResponse,
     ResultResponse,
 )
-from src.application.ports.input.get_activity_port import GetActivityPort
+from src.application.ports.input.get_activity_status_port import GetActivityStatusPort
 from src.config.dependencies import get_status_activity_service
 
 logger = logging.getLogger(__name__)
@@ -27,11 +27,11 @@ router_params = {
 @router.get("/activity/{activity_id}/result", **router_params)
 async def get_result(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
-    activity_service: GetActivityPort = Depends(get_status_activity_service),
+    activity_service: GetActivityStatusPort = Depends(get_status_activity_service),
 ):
     try:
         logger.debug("%s Request", logger_prefix)
-        activity_with_result = await activity_service.get_activity_with_result(activity_id)
+        activity_with_result = await activity_service.get_activity_result(activity_id)
 
     except ReferenceError as error:
         raise HTTPException(

@@ -1,18 +1,18 @@
 from uuid import UUID
 
 from src.application.dto.activity_with_result import ActivityWithResult
-from src.application.ports.input.get_activity_port import GetActivityPort
+from src.application.ports.input.get_activity_status_port import GetActivityStatusPort
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.aggregations.activity_result import ActivityResult
 from src.domain.entities.activity import Activity
 
 
-class GetActivityService(GetActivityPort):
+class GetActivityStatusService(GetActivityStatusPort):
 
     def __init__(self, repository: ActivityRepositoryPort = None):
         self.repository  = repository
 
-    async def get_activity(
+    async def get_activity_status(
         self,
         activity_id: UUID,
         participant_id: UUID,
@@ -28,7 +28,7 @@ class GetActivityService(GetActivityPort):
 
         return activity
 
-    async def get_activity_with_result(
+    async def get_activity_result(
         self, activity_id: UUID
     ) -> ActivityWithResult:
         activity = await self.repository.find_one(activity_id)

@@ -8,7 +8,7 @@ from src.adapters.output.activity_repository_mongo_adapter import ActivityReposi
 from src.application.usecase.close_activity_use_case import CloseActivityService
 from src.application.usecase.create_activity_use_case import CreateActivityService
 from src.application.usecase.evaluation_activity_use_case import EvaluationActivityService
-from src.application.usecase.get_activity_use_case import GetActivityService
+from src.application.usecase.get_activity_status_use_case import GetActivityStatusService
 from src.application.usecase.join_activity_use_case import JoinActivityService
 from src.config.settings import initialize_settings
 
@@ -55,5 +55,5 @@ def get_join_activity_service(
 def get_status_activity_service(
     repository=Depends(get_activity_repository)
 ):
-    return GetActivityService(repository=repository)
+    return GetActivityStatusService(repository=repository)
 

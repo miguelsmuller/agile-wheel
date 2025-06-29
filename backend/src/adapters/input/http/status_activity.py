@@ -4,7 +4,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Path, status
 from src.adapters.input.http.schemas import ActivityResponse, StatusResponse
-from src.application.ports.input.get_activity_port import GetActivityPort
+from src.application.ports.input.get_activity_status_port import GetActivityStatusPort
 from src.config.dependencies import get_status_activity_service
 
 logger = logging.getLogger(__name__)
@@ -27,11 +27,11 @@ async def get_activity(
     participant_id: Annotated[
         UUID, Header(alias="X-Participant-Id", title="The identifier of the participant")
     ],
-    status_activity_service: GetActivityPort = Depends(get_status_activity_service),
+    status_activity_service: GetActivityStatusPort = Depends(get_status_activity_service),
 ):
     try:
         logger.debug("%s Request", logger_prefix)
-        activity = await status_activity_service.get_activity(activity_id , participant_id)
+        activity = await status_activity_service.get_activity_status(activity_id , participant_id)
 
     except ReferenceError as error:
         raise HTTPException(
