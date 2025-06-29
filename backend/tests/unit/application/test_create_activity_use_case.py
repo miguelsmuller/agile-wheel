@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock
 from uuid import UUID
 
 import pytest
-from src.application.usecase.create_activity_service import CreateActivityService
+from src.application.usecase.create_activity_use_case import CreateActivityService
 from src.domain.entities.participant import Participant
 
 PARTICIPANT_ID = UUID("7870b158-4900-466a-948c-14b462b62f5b")

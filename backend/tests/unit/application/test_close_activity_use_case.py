@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock
 from uuid import UUID
 
 import pytest
-from src.application.usecase.close_activity_service import CloseActivityService
+from src.application.usecase.close_activity_use_case import CloseActivityService
 
 
 @pytest.fixture
