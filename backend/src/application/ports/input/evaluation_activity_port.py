@@ -11,5 +11,4 @@ class EvaluationActivityPort(ABC):
         activity_id:UUID,
         evaluation:ParticipantEvaluation
     ) -> ParticipantEvaluation:
-
-        pass
+        pass  # pragma: no cover

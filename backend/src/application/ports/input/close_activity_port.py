@@ -7,4 +7,4 @@ from src.domain.entities.activity import Activity
 class CloseActivityPort(ABC):
     @abstractmethod
     def execute(self, activity_id:UUID, participant_id_requested:str) -> Activity:
-        pass
+        pass  # pragma: no cover
