@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
+from src.domain.aggregations.activity_result import ActivityResult
 from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension, Principle
 from src.domain.entities.participant import Participant
@@ -77,6 +78,13 @@ class ActivityResponse(BaseModel):
             ]
         )
 
+
+class ActivityForResultResponse(ActivityResponse):
+    owner: ParticipantResponse | None = Field(exclude=True)
+    participants: list[ParticipantResponse] | None = Field(exclude=True)
+    dimensions: list[DimensionResponse] | None = Field(exclude=True)
+
+
 class ParticipantRequest(BaseModel):
     name: str
     email: EmailStr
@@ -123,3 +131,7 @@ class EvaluationRequest(BaseModel):
 class EvaluationResponse(BaseModel):
     activity_id: str
     evaluation_id: str
+
+class ResultResponse(BaseModel):
+    activity: ActivityForResultResponse
+    result: ActivityResult
