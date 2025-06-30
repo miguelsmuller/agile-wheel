@@ -76,7 +76,7 @@ async def _build_payload(
 ) -> str:
     try:
         result = await service.get_activity_status(activity_id, participant_id)
-    
+
         if isinstance(result, Activity):
             message = {
                 "type": (
