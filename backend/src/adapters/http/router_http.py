@@ -1,15 +1,15 @@
 from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
-from src.adapters.http.close_activity import router as close_activity_router
-from src.adapters.http.create_activity import router as craeate_activity_router
-from src.adapters.http.evaluation_activity import router as evaluation_activity_router
-from src.adapters.http.join_activity import router as join_activity_router
-from src.adapters.http.result_activity import router as result_activity_router
-from src.adapters.http.status_activity import router as status_activity_router
+from src.adapters.http.get_result_activity import endpoint as result_activity_endpoint
+from src.adapters.http.get_status_activity import endpoint as status_activity_endpoint
+from src.adapters.http.patch_join_activity import endpoint as join_activity_endpoint
+from src.adapters.http.post_close_activity import endpoint as close_activity_endpoint
+from src.adapters.http.post_create_activity import endpoint as craeate_activity_endpoint
+from src.adapters.http.post_evaluation_activity import endpoint as evaluation_activity_endpoint
 
-http_router = APIRouter()
+router_http = APIRouter()
 
-@http_router.get("/ping")
+@router_http.get("/ping")
 def ping():
     return JSONResponse(
         content={"message": "pong"},
@@ -17,11 +17,11 @@ def ping():
     )
 
 _activity_router = APIRouter(prefix="/v1")
-_activity_router.include_router(craeate_activity_router, tags=["activity"])
-_activity_router.include_router(status_activity_router, tags=["activity"])
-_activity_router.include_router(join_activity_router, tags=["activity"])
-_activity_router.include_router(close_activity_router, tags=["activity"])
-_activity_router.include_router(evaluation_activity_router, tags=["activity"])
-_activity_router.include_router(result_activity_router, tags=["activity"])
+_activity_router.include_router(craeate_activity_endpoint, tags=["activity"])
+_activity_router.include_router(status_activity_endpoint, tags=["activity"])
+_activity_router.include_router(join_activity_endpoint, tags=["activity"])
+_activity_router.include_router(close_activity_endpoint, tags=["activity"])
+_activity_router.include_router(evaluation_activity_endpoint, tags=["activity"])
+_activity_router.include_router(result_activity_endpoint, tags=["activity"])
 
-http_router.include_router(_activity_router)
+router_http.include_router(_activity_router)

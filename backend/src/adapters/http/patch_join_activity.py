@@ -16,7 +16,7 @@ from src.domain.entities.participant import Participant
 logger = logging.getLogger(__name__)
 logger_prefix = "[POST_ACTIVITY_JOIN]"
 
-router = APIRouter()
+endpoint = APIRouter()
 router_params = {
     "status_code": status.HTTP_200_OK,
     "responses": {
@@ -26,7 +26,7 @@ router_params = {
 }
 
 
-@router.patch("/activity/{activity_id}/join", **router_params)
+@endpoint.patch("/activity/{activity_id}/join", **router_params)
 async def post_activity_join(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     request: JoinRequest,

@@ -10,7 +10,7 @@ from src.config.dependencies import get_status_activity_service
 logger = logging.getLogger(__name__)
 logger_prefix = "[GET_ACTIVITY]"
 
-router = APIRouter()
+endpoint = APIRouter()
 router_params = {
     "status_code": status.HTTP_200_OK,
     "responses": {
@@ -21,7 +21,7 @@ router_params = {
 }
 
 
-@router.get("/activity/{activity_id}", **router_params)
+@endpoint.get("/activity/{activity_id}", **router_params)
 async def get_activity(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[

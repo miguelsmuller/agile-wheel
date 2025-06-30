@@ -14,9 +14,9 @@ from src.domain.entities.activity import Activity
 MESSAGE_INTERVAL_SECONDS = 1
 MESSAGE_TO_DISCONNECT = "close"
 
-router = APIRouter()
+endpoint = APIRouter()
 
-@router.websocket("/activities/{activity_id}/stream")
+@endpoint.websocket("/activities/{activity_id}/stream")
 async def stream_activity(
     websocket: WebSocket,
     activity_id: UUID = Path(...),

@@ -14,7 +14,7 @@ from src.domain.entities.participant import Participant
 logger = logging.getLogger(__name__)
 logger_prefix = "[POST_ACTIVITY]"
 
-router = APIRouter()
+endpoint = APIRouter()
 router_params = {
     "status_code": status.HTTP_201_CREATED,
     "responses": {
@@ -24,7 +24,7 @@ router_params = {
 }
 
 
-@router.post("/activity", **router_params)
+@endpoint.post("/activity", **router_params)
 async def post_activity(
     activity_request: CreateActivityRequest,
     create_activity_service: CreateActivityPort = Depends(get_create_activity_service),

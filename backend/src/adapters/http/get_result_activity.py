@@ -13,7 +13,7 @@ from src.config.dependencies import get_result_activity_service
 logger = logging.getLogger(__name__)
 logger_prefix = "[GET_ACTIVITY_RESULT]"
 
-router = APIRouter()
+endpoint = APIRouter()
 router_params = {
     "status_code": status.HTTP_200_OK,
     "responses": {
@@ -24,7 +24,7 @@ router_params = {
 }
 
 
-@router.get("/activity/{activity_id}/result", **router_params)
+@endpoint.get("/activity/{activity_id}/result", **router_params)
 async def get_result(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     activity_service: GetActivityResultPort = Depends(get_result_activity_service),

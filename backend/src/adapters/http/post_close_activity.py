@@ -11,7 +11,7 @@ from src.config.dependencies import get_close_activity_service
 logger = logging.getLogger(__name__)
 logger_prefix = "[POST_ACTIVITY_CLOSE]"
 
-router = APIRouter()
+endpoint = APIRouter()
 router_params = {
     "status_code": status.HTTP_200_OK,
     "responses": {
@@ -23,7 +23,7 @@ router_params = {
 }
 
 
-@router.post("/activity/{activity_id}/close", **router_params)
+@endpoint.post("/activity/{activity_id}/close", **router_params)
 async def post_activity_close(
     activity_id: Annotated[UUID, Path(title="The identifier of the actvity")],
     participant_id: Annotated[
