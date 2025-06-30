@@ -6,23 +6,25 @@ repo_url: https://github.com/miguelsmuller/agile-wheel
 
 nav:
   - Introdução:
-    - Visão Geral: index.md
+    - Visão Geral: README.md
     - Framework Agile Wheel: agile-wheel-framework.md
+    - Automações Úteis: automations.md
     - Execução Local: local-run.md
   
   - Architecture:
-    - Architecture Overview: 1-architecture/index.md
+    - Architecture Overview: 1-architecture/README.md
     - Modelo de Dados: 1-architecture/data-model.md
 
   - Backend:
-    - Backend Overview: 2-backend/index.md
+    - Backend Overview: 2-backend/README.md
     - Configuração: 2-backend/configuration.md
     - Domain - Activity:
-      - Endpoints HTTP: 2-backend/domain-activity-http.md
+      - Endpoints HTTP:
+        - "[post] Activity Close": 2-backend/triggers/http_post_activity_close.md
       - Endpoints WS: 2-backend/domain-activity-ws.md 
 
   - Frontend:
-    - Frontend Overview: 3-frontend/index.md
+    - Frontend Overview: 3-frontend/README.md
     - UI & Temas: 3-frontend/ui-styling-theming.md
     - Componentes de Páginas:
       - Create Activity: 3-frontend/component-activity-creation-entry.md
@@ -32,7 +34,7 @@ nav:
     - Serviços e Fluxo de Dados: 3-frontend/frontend-services-data-flow.md
 
   - Deployment:
-    - Deployment Overview: 4-development-deployment/index.md
+    - Deployment Overview: 4-development-deployment/README.md
     - Configuração Docker: 4-development-deployment/docker-setup.md
     - Integração Contínua (CI): 4-development-deployment/continuous-integration.md
 

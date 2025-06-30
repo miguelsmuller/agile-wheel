@@ -1,15 +1,15 @@
 
 from unittest.mock import MagicMock
 
-from src.adapters.output.activity_repository_firestore_adapter import (
+from src.adapters.persistence.activity_repository_firestore_adapter import (
     ActivityRepositoryFirestoreAdapter,
 )
-from src.adapters.output.activity_repository_mongo_adapter import ActivityRepositoryAdapter
-from src.application.usecase.close_activity_service import CloseActivityService
-from src.application.usecase.create_activity_service import CreateActivityService
-from src.application.usecase.evaluation_activity_service import EvaluationActivityService
-from src.application.usecase.join_activity_service import JoinActivityService
-from src.application.usecase.status_activity_service import StatusActivityService
+from src.adapters.persistence.activity_repository_mongo_adapter import ActivityRepositoryAdapter
+from src.application.usecase.close_activity_use_case import CloseActivityService
+from src.application.usecase.create_activity_use_case import CreateActivityService
+from src.application.usecase.evaluation_activity_use_case import EvaluationActivityService
+from src.application.usecase.get_activity_status_use_case import GetActivityStatusService
+from src.application.usecase.join_activity_use_case import JoinActivityService
 from src.config.dependencies import (
     get_activity_repository,
     get_close_activity_service,
@@ -33,7 +33,7 @@ def test_get_activity_repository_firestore(mocker):
     mock_settings = MagicMock()
     mock_settings.db_type = "firestore"
     mocker.patch("src.config.dependencies.initialize_settings", return_value=mock_settings)
-    mocker.patch("src.adapters.output.activity_repository_firestore_adapter.firestore.Client")
+    mocker.patch("src.adapters.persistence.activity_repository_firestore_adapter.firestore.Client")
 
     # when
     repository = get_activity_repository()
@@ -77,4 +77,4 @@ def test_get_status_activity_service():
     service = get_status_activity_service()
 
     # then
-    assert isinstance(service, StatusActivityService)
+    assert isinstance(service, GetActivityStatusService)

@@ -7,4 +7,4 @@ from src.domain.entities.participant import Participant
 class CreateActivityPort(ABC):
     @abstractmethod
     def execute(self, owner: Participant) -> Activity:
-        pass
+        pass  # pragma: no cover

@@ -8,4 +8,4 @@ from src.domain.entities.participant import Participant
 class JoinActivityPort(ABC):
     @abstractmethod
     def execute(self, activity_id:UUID, participant: Participant) -> tuple[Activity, Participant]:
-        pass
+        pass  # pragma: no cover

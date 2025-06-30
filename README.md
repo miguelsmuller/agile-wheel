@@ -14,22 +14,22 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/miguelsmuller/agile-wheel)
 
 - Agile Wheel
-    - [App Overview](docs/index.md)
+    - [App Overview](docs/README.md)
     - [Agile Wheel Framework](docs/agile-wheel-framework.md)
 
 - Arquitetura do Sistema
-    - [Visão Geral da Arquitetura](docs/1-architecture/index.md)
+    - [Visão Geral da Arquitetura](docs/1-architecture/README.md)
     - [Arquitetura do Front-End](docs/1-architecture/frontend-architecture.md)
     - [Arquitetura do Back-End](docs/1-architecture/backend-architecture.md)
     - [Modelo de Dados](docs/1-architecture/data-model.md)
 
 -  Backend
-    - [Visão Geral](docs/2-backend/index.md)
+    - [Visão Geral](docs/2-backend/README.md)
     - [Contexto - Activity](docs/2-backend/context-activity.md)
     - [Configuração do Backend](docs/2-backend/backend-configuration.md)
 
 - Frontend
-    - [Visão Geral](docs/3-frontend/index.md)
+    - [Visão Geral](docs/3-frontend/README.md)
     - [Componente - Activity](docs/3-frontend/component-activity.md)
     - [Componente - Evaluation](docs/3-frontend/component-evaluation.md)
     - [Activity - Criação e Entrada](docs/3-frontend/activity-creation-entry.md)
@@ -38,6 +38,6 @@
     - [UI Styling and Theming](docs/3-frontend/ui-styling-theming.md)
 
 - Desenvolvimento e Deploy
-    - [Visão Geral](docs/4-development-deployment/index.md)
+    - [Visão Geral](docs/4-development-deployment/README.md)
     - [Configuração com Docker](docs/4-development-deployment/docker-setup.md)
     - [Integração Contínua (CI)](docs/4-development-deployment/continuous-integration.md)
