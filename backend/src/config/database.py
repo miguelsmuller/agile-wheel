@@ -8,7 +8,8 @@ from src.adapters.persistence.activity_document import ActivityDocumentForMongo
 logger = logging.getLogger(__name__)
 
 async def initialize_database(host, port):
-    logger.debug("[init_database] Initializing the database")
+    log_data = { host: host, port: port }
+    logger.debug("[INIT_DATABASE] Initializing the database", extra=log_data)
 
     try:
         client = AsyncIOMotorClient(f"mongodb://{host}:{port}")
@@ -20,7 +21,8 @@ async def initialize_database(host, port):
             ]
         )
 
-        logger.debug("[init_database] Database initialized")
+        logger.debug("[INIT_DATABASE] Database initialized")
 
     except Exception as err:
-        logger.error("[init_database] %s", str(err))
+        log_data = { "error": str(err) }
+        logger.error("[INIT_DATABASE] Database initialization failed", extra=log_data)
