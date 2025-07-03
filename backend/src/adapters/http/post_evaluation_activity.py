@@ -8,6 +8,7 @@ from src.adapters.http.schemas import EvaluationRequest, EvaluationResponse
 from src.application.ports.input.evaluation_activity_port import EvaluationActivityPort
 from src.config.dependencies import get_evaluation_activity_service
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
+from src.domain.exceptions import ActivityNotFoundError
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -65,7 +66,7 @@ async def post_activity_evaluation(
             activity_id, participant_evaluation
         )
 
-    except ReferenceError as error:
+    except ActivityNotFoundError as error:
         raise handle_not_found(error) from error
 
     except Exception as error:
