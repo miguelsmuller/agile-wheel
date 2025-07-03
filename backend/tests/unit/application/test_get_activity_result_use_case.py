@@ -3,6 +3,7 @@ from unittest.mock import AsyncMock
 from uuid import UUID
 
 import pytest
+
 from src.application.usecase.get_activity_result_use_case import GetActivityResultService
 from src.domain.entities.participant import Participant
 

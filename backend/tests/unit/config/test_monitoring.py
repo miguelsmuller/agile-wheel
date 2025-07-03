@@ -1,6 +1,7 @@
 from unittest.mock import ANY
 
 import pytest
+
 from src.config.monitoring import initialize_monitoring
 from src.config.settings import Settings
 

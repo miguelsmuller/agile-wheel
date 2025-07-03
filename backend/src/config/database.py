@@ -2,6 +2,7 @@ import logging
 
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
+
 from src.adapters.persistence.activity_document import ActivityDocumentForMongo
 
 logger = logging.getLogger(__name__)

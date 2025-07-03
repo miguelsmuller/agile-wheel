@@ -3,6 +3,7 @@ import logging
 
 import pytest
 from pythonjsonlogger.json import JsonFormatter
+
 from src.config.logger import initialize_logger
 
 

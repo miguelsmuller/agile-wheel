@@ -2,6 +2,7 @@ import logging
 
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
+
 from src.config.settings import Settings
 
 logger = logging.getLogger(__name__)

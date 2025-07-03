@@ -3,6 +3,7 @@ from uuid import UUID
 
 from beanie import Document
 from pydantic import BaseModel
+
 from src.domain.entities.activity import (
     Activity,
     Dimension,

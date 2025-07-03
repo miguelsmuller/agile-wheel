@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 import pytest
+
 from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension, Principle
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating

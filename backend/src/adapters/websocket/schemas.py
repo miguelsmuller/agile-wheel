@@ -2,6 +2,7 @@ from datetime import datetime
 from enum import Enum
 
 from pydantic import BaseModel
+
 from src.domain.entities.activity import Activity
 from src.domain.entities.participant import Participant
 
