@@ -50,7 +50,7 @@ async def post_activity_close(
 
         closed_activity = await close_activity_service.execute(
             activity_id=activity_id,
-            participant_id_requested=participant_id
+            participant_id=participant_id
         )
 
     except PermissionDeniedError as error:
