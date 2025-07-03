@@ -4,6 +4,7 @@ from src.application.ports.input.join_activity_port import JoinActivityPort
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
 from src.domain.entities.participant import Participant
+from src.domain.exceptions import ActivityNotFoundError
 
 
 class JoinActivityService(JoinActivityPort):
@@ -19,7 +20,7 @@ class JoinActivityService(JoinActivityPort):
         activity = await self.repository.find_one(activity_id)
 
         if activity is None:
-            raise ReferenceError("Activity not found for update")
+            raise ActivityNotFoundError("Activity not found for join")
 
         activity.add_participant(participant)
 
