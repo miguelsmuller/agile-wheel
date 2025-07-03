@@ -25,6 +25,9 @@ router = APIRouter()
         status.HTTP_201_CREATED: {
             "description": "Activity created successfully."
         },
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {
+            "description": "Validation error for the request data.",
+        },
         status.HTTP_500_INTERNAL_SERVER_ERROR: {
             "description": "Server responded with an unknown error."
         },
