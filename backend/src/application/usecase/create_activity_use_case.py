@@ -12,11 +12,13 @@ logger_prefix = "[CreateActivityService]"
 
 class CreateActivityService(CreateActivityPort):
     def __init__(self, repository: ActivityRepositoryPort = None):
-        logger.debug("%s Initializing with repository: %s", logger_prefix, str(repository))
-
         self.repository = repository
 
     async def execute(self, owner: Participant) -> Activity:
+        log_data = { "owner": owner }
+
+        logger.debug("[CREATE_ACTIVITY_SERVICE] Doing Business Logic", extra=log_data)
+
         activity = Activity()
 
         activity.is_opened = True
@@ -25,7 +27,10 @@ class CreateActivityService(CreateActivityPort):
 
         activity.add_participant(owner)
 
-        logger.debug("%s Creating: %s", logger_prefix, str(activity))
+        log_data["activity"] = activity
+        log_data["repository"] = str(self.repository)
+        logger.debug("[CREATE_ACTIVITY_SERVICE] Creating activity",extra=log_data)
+
         return await self.repository.create(activity)
 
     def _add_default_dimenstions(self, activity: Activity) -> None:
