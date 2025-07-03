@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse
 from src.adapters.http.schemas import ActivityResponse, CloseResponse
 from src.application.ports.input.close_activity_port import CloseActivityPort
 from src.config.dependencies import get_close_activity_service
+from src.domain.exceptions import ActivityNotFoundError, PermissionDeniedError
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -52,10 +53,10 @@ async def post_activity_close(
             participant_id_requested=participant_id
         )
 
-    except PermissionError as error:
+    except PermissionDeniedError as error:
         raise handle_forbidden(error) from error
 
-    except ReferenceError as error:
+    except ActivityNotFoundError as error:
         raise handle_not_found(error) from error
 
     except Exception as error:

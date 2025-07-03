@@ -5,6 +5,7 @@ from uuid import UUID
 import pytest
 
 from src.application.usecase.close_activity_use_case import CloseActivityService
+from src.domain.exceptions import ActivityNotFoundError, PermissionDeniedError
 
 
 @pytest.fixture
@@ -25,7 +26,7 @@ async def test_close_activity_success(mock_repository, mock_activity_fixture):
     # When
     result = await service.execute(
         activity_id=activity_data.id,
-        participant_id_requested=activity_data.participants[0].id
+        participant_id=activity_data.participants[0].id
     )
 
     # Then
@@ -43,10 +44,10 @@ async def test_close_activity_permission_error(mock_repository, mock_activity_fi
     service = CloseActivityService(repository=mock_repository)
 
     # When & Then
-    with pytest.raises(PermissionError, match="Only the owner can close the activity"):
+    with pytest.raises(PermissionDeniedError, match="Only the owner can close the activity"):
         await service.execute(
             activity_id=activity_data.id,
-            participant_id_requested=UUID("3259afaa-29af-43ca-bcdd-3c52dfbfe2e7")
+            participant_id=UUID("3259afaa-29af-43ca-bcdd-3c52dfbfe2e7")
         )
 
 
@@ -58,8 +59,8 @@ async def test_close_activity_not_found(mock_repository):
     service = CloseActivityService(repository=mock_repository)
 
     # When & Then
-    with pytest.raises(ReferenceError, match="Activity not found for update"):
+    with pytest.raises(ActivityNotFoundError, match="Activity not found for close"):
         await service.execute(
             activity_id=UUID("8e6587b8-b158-4068-a254-76bd0d31f4f7"),
-            participant_id_requested=UUID("7870b158-4900-466a-948c-14b462b62f5b")
+            participant_id=UUID("7870b158-4900-466a-948c-14b462b62f5b")
         )
