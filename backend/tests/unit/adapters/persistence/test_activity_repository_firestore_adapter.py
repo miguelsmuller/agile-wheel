@@ -1,6 +1,7 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
+
 from src.adapters.persistence.activity_repository_firestore_adapter import (
     ActivityRepositoryFirestoreAdapter,
 )

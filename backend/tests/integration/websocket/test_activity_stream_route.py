@@ -2,8 +2,9 @@ import json
 from uuid import UUID
 
 import pytest
-import src.adapters.websocket.ws_activity_stream as stream_mod
 from fastapi.testclient import TestClient
+
+import src.adapters.websocket.ws_activity_stream as stream_mod
 from src.adapters.websocket.schemas import ActivityStreamType
 from src.config.dependencies import get_status_activity_service
 from src.domain.entities.activity import Activity

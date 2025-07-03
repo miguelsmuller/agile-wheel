@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from pydantic import BaseModel, EmailStr, Field
+
 from src.domain.aggregations.activity_result import ActivityResult
 from src.domain.entities.activity import Activity
 from src.domain.entities.dimension import Dimension, Principle

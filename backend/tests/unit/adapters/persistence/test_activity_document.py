@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
 import pytest
+
 from src.adapters.persistence.activity_document import ActivityDocument
 
 if TYPE_CHECKING:

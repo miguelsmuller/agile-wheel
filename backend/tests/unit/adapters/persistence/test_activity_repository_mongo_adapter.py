@@ -2,6 +2,7 @@ from dataclasses import replace
 from unittest.mock import AsyncMock, patch
 
 import pytest
+
 from src.adapters.persistence.activity_document import ActivityDocumentForMongo
 from src.adapters.persistence.activity_repository_mongo_adapter import ActivityRepositoryAdapter
 

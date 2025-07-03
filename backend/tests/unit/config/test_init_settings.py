@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 import pytest
+
 from src.config.settings import Settings, initialize_settings
 
 

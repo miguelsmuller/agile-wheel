@@ -3,6 +3,7 @@ from unittest.mock import AsyncMock
 from uuid import UUID
 
 import pytest
+
 from src.application.usecase.evaluation_activity_use_case import EvaluationActivityService
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
 

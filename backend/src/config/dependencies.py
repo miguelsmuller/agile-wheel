@@ -1,6 +1,7 @@
 import logging
 
 from fastapi import Depends
+
 from src.adapters.persistence.activity_repository_firestore_adapter import (
     ActivityRepositoryFirestoreAdapter,
 )
