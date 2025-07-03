@@ -76,7 +76,7 @@ def handle_not_found(error: ActivityNotFoundError) -> HTTPException:
 
     return HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Activity not found: {error}"
+        detail=str(error)
     )
 
 def handle_unexpected_error(log_data: dict, error: Exception) -> HTTPException:
