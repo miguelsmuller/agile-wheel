@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse
 from src.adapters.http.schemas import ActivityResponse, CloseResponse
 from src.application.ports.input.close_activity_port import CloseActivityPort
 from src.config.dependencies import get_close_activity_service
+from src.domain.exceptions import ActivityNotFoundError, PermissionDeniedError
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -49,13 +50,13 @@ async def post_activity_close(
 
         closed_activity = await close_activity_service.execute(
             activity_id=activity_id,
-            participant_id_requested=participant_id
+            participant_id=participant_id
         )
 
-    except PermissionError as error:
+    except PermissionDeniedError as error:
         raise handle_forbidden(error) from error
 
-    except ReferenceError as error:
+    except ActivityNotFoundError as error:
         raise handle_not_found(error) from error
 
     except Exception as error:
@@ -66,7 +67,7 @@ async def post_activity_close(
         activity=ActivityResponse.from_activity(activity=closed_activity)
     )
 
-def handle_forbidden(error: PermissionError) -> JSONResponse:
+def handle_forbidden(error: PermissionDeniedError) -> JSONResponse:
     """Handle the case when the participant is not allowed to close the activity."""
 
     return HTTPException(
@@ -74,12 +75,12 @@ def handle_forbidden(error: PermissionError) -> JSONResponse:
         detail=f"Participant is not allowed to close this activity: {error}"
     )
 
-def handle_not_found(error: ReferenceError) -> HTTPException:
+def handle_not_found(error: ActivityNotFoundError) -> HTTPException:
     """Handle the case when an activity is not found."""
 
     return HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Activity not found: {error}"
+        detail=str(error)
     )
 
 def handle_unexpected_error(log_data: dict, error: Exception) -> HTTPException:

@@ -6,16 +6,32 @@ services:
     env_file:
       - ./backend/.env
     environment:
+      - ENV=LOCAL
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - ENABLE_PROFILING=true
+      - ENABLE_DOCS=true
+      - LOG_LEVEL=DEBUG
+      - ALLOWED_ORIGINS=http://localhost:4200,http://127.0.0.1:4200,http://localhost:4444,http://127.0.0.1:4444
+      - SENTRY_DNS=
       - INTERNAL_PORT=${INTERNAL_BACKEND_PORT:-8000}
     ports:
       - "3333:${INTERNAL_BACKEND_PORT:-8000}"
     depends_on:
       - mongo
     volumes:
+      - type: bind
+        source: ./backend/pyproject.toml   # precisa existir
+        target: /app/pyproject.toml
+        read_only: true
+      - type: bind
+        source: ./backend/poetry.lock   # precisa existir
+        target: /app/poetry.lock
+        read_only: true     
       - ./backend/src:/app/src
       - ./backend/tests:/app/tests
-      - ./backend/pyproject.toml:/app/pyproject.toml
-      - ./backend/poetry.lock:/app/poetry.lock
+      # - ./backend/pyproject.toml:/app/pyproject.toml
+      # - ./backend/poetry.lock:/app/poetry.lock
       - ./backend/.env.test:/app/.env.test
     command: uvicorn src.main:app --host 0.0.0.0 --port ${INTERNAL_BACKEND_PORT:-8000} --reload
 

@@ -25,6 +25,9 @@ router = APIRouter()
         status.HTTP_201_CREATED: {
             "description": "Activity created successfully."
         },
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {
+            "description": "Validation error for the request data.",
+        },
         status.HTTP_500_INTERNAL_SERVER_ERROR: {
             "description": "Server responded with an unknown error."
         },
@@ -45,7 +48,7 @@ async def post_activity(
     )
 
     try:
-        logger.debug("[POST_ACTIVITY] Request Received", extra=log_data)
+        logger.debug("[POST_ACTIVITY_CREATE] Request Received", extra=log_data)
 
         activity = await create_activity_service.execute(owner=owner)
 
@@ -61,7 +64,7 @@ async def post_activity(
 def handle_unexpected_error(log_data: dict, error: Exception) -> HTTPException:
     """Handle unexpected errors, logging them."""
 
-    logger.exception("[POST_ACTIVITY] Unexpected error", extra=log_data)
+    logger.exception("[POST_ACTIVITY_CREATE] Unexpected error", extra=log_data)
 
     return HTTPException(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

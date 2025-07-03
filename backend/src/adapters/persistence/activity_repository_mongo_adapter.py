@@ -3,6 +3,7 @@ from uuid import UUID
 from src.adapters.persistence.activity_document import ActivityDocumentForMongo
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
+from src.domain.exceptions import ActivityNotFoundError
 
 
 class ActivityRepositoryAdapter(ActivityRepositoryPort):
@@ -24,7 +25,7 @@ class ActivityRepositoryAdapter(ActivityRepositoryPort):
             )
 
             if not cached_doc:
-                raise ReferenceError("Activity not found for update")
+                raise ActivityNotFoundError("Activity not found for update")
 
         activity_doc = ActivityDocumentForMongo.from_domain(activity)
         activity_doc.id = cached_doc.id

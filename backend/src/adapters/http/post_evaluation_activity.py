@@ -8,6 +8,7 @@ from src.adapters.http.schemas import EvaluationRequest, EvaluationResponse
 from src.application.ports.input.evaluation_activity_port import EvaluationActivityPort
 from src.config.dependencies import get_evaluation_activity_service
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
+from src.domain.exceptions import ActivityNotFoundError
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -24,6 +25,9 @@ router = APIRouter()
         },
         status.HTTP_404_NOT_FOUND: {
             "description": "Activity not found with the provided identifier."
+        },
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {
+            "description": "Validation error for the request data.",
         },
         status.HTTP_500_INTERNAL_SERVER_ERROR: {
             "description": "Server responded with an unknown error."
@@ -62,7 +66,7 @@ async def post_activity_evaluation(
             activity_id, participant_evaluation
         )
 
-    except ReferenceError as error:
+    except ActivityNotFoundError as error:
         raise handle_not_found(error) from error
 
     except Exception as error:
@@ -74,12 +78,12 @@ async def post_activity_evaluation(
         evaluation_id=str(evaluation.id),
     )
 
-def handle_not_found(error: ReferenceError) -> HTTPException:
+def handle_not_found(error: ActivityNotFoundError) -> HTTPException:
     """Handle the case when an activity is not found."""
 
     return HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Activity not found: {error}"
+        detail=str(error)
     )
 
 def handle_unexpected_error(log_data: dict, error: Exception) -> HTTPException:

@@ -4,6 +4,7 @@ from src.application.dto.activity_with_result import ActivityWithResult
 from src.application.ports.input.get_activity_result_port import GetActivityResultPort
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.aggregations.activity_result import ActivityResult
+from src.domain.exceptions import ActivityNotFoundError
 
 
 class GetActivityResultService(GetActivityResultPort):
@@ -17,7 +18,7 @@ class GetActivityResultService(GetActivityResultPort):
         activity = await self.repository.find_one(activity_id)
 
         if activity is None:
-            raise ReferenceError("Activity not found for update")
+            raise ActivityNotFoundError("Activity not found for update")
 
         return ActivityWithResult(
             activity=activity,
