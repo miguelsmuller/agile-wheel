@@ -67,7 +67,7 @@ async def post_activity_close(
         activity=ActivityResponse.from_activity(activity=closed_activity)
     )
 
-def handle_forbidden(error: PermissionError) -> JSONResponse:
+def handle_forbidden(error: PermissionDeniedError) -> JSONResponse:
     """Handle the case when the participant is not allowed to close the activity."""
 
     return HTTPException(
@@ -75,7 +75,7 @@ def handle_forbidden(error: PermissionError) -> JSONResponse:
         detail=f"Participant is not allowed to close this activity: {error}"
     )
 
-def handle_not_found(error: ReferenceError) -> HTTPException:
+def handle_not_found(error: ActivityNotFoundError) -> HTTPException:
     """Handle the case when an activity is not found."""
 
     return HTTPException(

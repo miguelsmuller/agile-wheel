@@ -3,6 +3,7 @@ from uuid import UUID
 from src.application.ports.input.get_activity_status_port import GetActivityStatusPort
 from src.application.ports.output.activity_repository import ActivityRepositoryPort
 from src.domain.entities.activity import Activity
+from src.domain.exceptions import ActivityNotFoundError, PermissionDeniedError
 
 
 class GetActivityStatusService(GetActivityStatusPort):
@@ -18,10 +19,10 @@ class GetActivityStatusService(GetActivityStatusPort):
         activity = await self.repository.find_one(activity_id)
 
         if activity is None:
-            raise ReferenceError("Activity not found for update")
+            raise ActivityNotFoundError("Activity not found for update")
 
         participant_ids = {p.id for p in activity.participants}
         if participant_id not in participant_ids:
-            raise PermissionError("Only the members cant get the status")
+            raise PermissionDeniedError("Only the members cant get the status")
 
         return activity

@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Path, status
 from src.adapters.http.schemas import ActivityResponse, StatusResponse
 from src.application.ports.input.get_activity_status_port import GetActivityStatusPort
 from src.config.dependencies import get_status_activity_service
+from src.domain.exceptions import ActivityNotFoundError, PermissionDeniedError
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -47,8 +48,11 @@ async def get_status(
 
         activity = await status_activity_service.get_activity_status(activity_id , participant_id)
 
-    except ReferenceError as error:
+    except ActivityNotFoundError as error:
         raise handle_not_found(error) from error
+
+    except PermissionDeniedError as error:
+        raise handle_forbidden(error) from error
 
     except Exception as error:
         log_data["error"] = str(error)
@@ -58,11 +62,19 @@ async def get_status(
         activity = ActivityResponse.from_activity(activity=activity)
     )
 
-def handle_not_found(error: ReferenceError) -> HTTPException:
+def handle_not_found(error: ActivityNotFoundError) -> HTTPException:
     """Handle the case when an activity is not found."""
 
     return HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
+        detail=str(error)
+    )
+
+def handle_forbidden(error: PermissionDeniedError) -> HTTPException:
+    """Handle the case when the participant is not allowed to close the activity."""
+
+    return HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
         detail=str(error)
     )
 

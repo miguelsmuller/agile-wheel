@@ -6,6 +6,7 @@ import pytest
 
 from src.application.usecase.get_activity_status_use_case import GetActivityStatusService
 from src.domain.entities.participant import Participant
+from src.domain.exceptions import ActivityNotFoundError, PermissionDeniedError
 
 ACTIVITY_ID = UUID("8e6587b8-b158-4068-a254-76bd0d31f4f7")
 PARTICIPANT_ID = UUID("7870b158-4900-466a-948c-14b462b62f5b")
@@ -66,7 +67,7 @@ async def test_status_activity_not_found(mock_repository):
     mock_repository.find_one.return_value = None
 
     # When & Then
-    with pytest.raises(ReferenceError, match="Activity not found for update"):
+    with pytest.raises(ActivityNotFoundError, match="Activity not found for update"):
         await service.get_activity_status(activity_id=ACTIVITY_ID, participant_id=PARTICIPANT_ID)
 
 
@@ -77,5 +78,5 @@ async def test_status_activity_permission_error(mock_repository, mock_activity):
     mock_repository.find_one.return_value = mock_activity
 
     # When & Then
-    with pytest.raises(PermissionError, match="Only the members cant get the status"):
+    with pytest.raises(PermissionDeniedError, match="Only the members cant get the status"):
         await service.get_activity_status(activity_id=ACTIVITY_ID, participant_id=NON_MEMBER_ID)

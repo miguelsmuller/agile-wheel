@@ -10,6 +10,7 @@ from src.adapters.http.schemas import (
 )
 from src.application.ports.input.get_activity_result_port import GetActivityResultPort
 from src.config.dependencies import get_result_activity_service
+from src.domain.exceptions import ActivityNotFoundError
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -47,7 +48,7 @@ async def get_result(
 
         activity = await activity_service.get_activity_result(activity_id)
 
-    except ReferenceError as error:
+    except ActivityNotFoundError as error:
         raise handle_not_found(error) from error
 
     except Exception as error:
@@ -59,7 +60,7 @@ async def get_result(
         result = activity.result
     )
 
-def handle_not_found(error: ReferenceError) -> HTTPException:
+def handle_not_found(error: ActivityNotFoundError) -> HTTPException:
     """Handle the case when an activity is not found."""
 
     return HTTPException(

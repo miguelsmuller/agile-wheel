@@ -78,7 +78,7 @@ async def post_activity_evaluation(
         evaluation_id=str(evaluation.id),
     )
 
-def handle_not_found(error: ReferenceError) -> HTTPException:
+def handle_not_found(error: ActivityNotFoundError) -> HTTPException:
     """Handle the case when an activity is not found."""
 
     return HTTPException(
