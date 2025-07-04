@@ -4,16 +4,17 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Path, status
 
-from src.adapters.http.schemas import (
+from src.application.ports.input.join_activity_port import JoinActivityPort
+from src.config.dependencies import get_join_activity_service
+from src.domain.entities.participant import Participant
+from src.domain.exceptions import ActivityNotFoundError
+
+from .schemas import (
     ActivityResponse,
     JoinRequest,
     JoinResponse,
     ParticipantResponse,
 )
-from src.application.ports.input.join_activity_port import JoinActivityPort
-from src.config.dependencies import get_join_activity_service
-from src.domain.entities.participant import Participant
-from src.domain.exceptions import ActivityNotFoundError
 
 logger = logging.getLogger(__name__)
 router = APIRouter()

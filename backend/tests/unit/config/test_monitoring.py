@@ -44,7 +44,7 @@ async def test_initialize_monitoring_successfully(
         integrations=[ANY],
     )
 
-    mock_logger_debug.assert_called_with("[init_monitoring] Sentry initialization successful")
+    mock_logger_debug.assert_called_with("[INIT_MONITORING] Sentry initialization successful")
 
 
 @pytest.mark.asyncio
@@ -55,5 +55,5 @@ async def test_initialize_monitoring_fails(mock_sentry_sdk, mock_logger_debug, m
 
     mock_sentry_sdk.init.assert_not_called()
 
-    expected_log = "[init_monitoring] Skipping Sentry initialization"
+    expected_log = "[INIT_MONITORING] Skipping Sentry initialization"
     mock_logger_debug.assert_called_once_with(expected_log)

@@ -4,11 +4,12 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Path, status
 
-from src.adapters.http.schemas import EvaluationRequest, EvaluationResponse
 from src.application.ports.input.evaluation_activity_port import EvaluationActivityPort
 from src.config.dependencies import get_evaluation_activity_service
 from src.domain.entities.evaluation import ParticipantEvaluation, Rating
 from src.domain.exceptions import ActivityNotFoundError
+
+from .schemas import EvaluationRequest, EvaluationResponse
 
 logger = logging.getLogger(__name__)
 router = APIRouter()

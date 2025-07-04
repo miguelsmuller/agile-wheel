@@ -60,6 +60,5 @@ async def test_init_database_failure(mock_dependencies, mock_logger):
     mock_init_beanie.assert_awaited_once()
 
     mock_logger.error.assert_called_once()
-    args, _ = mock_logger.error.call_args
-    assert "[init_database]" in args[0]
-    assert "Database initialization failed" in args[1]
+    log_messages = [call.args[0] for call in mock_logger.error.call_args_list]
+    assert "[INIT_DATABASE] Database initialization failed" in log_messages

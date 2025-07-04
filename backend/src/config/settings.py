@@ -28,10 +28,10 @@ class Settings(BaseSettings):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        logger.debug("[get_settings] Settings initialized")
+        logger.debug("[GET_SETTINGS] Settings initialized")
 
 
 @lru_cache
 def initialize_settings() -> Settings:
-    logger.debug("[get_settings] Initializing settings")
+    logger.debug("[GET_SETTINGS] Initializing settings")
     return Settings()

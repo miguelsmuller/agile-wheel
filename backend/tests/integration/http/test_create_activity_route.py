@@ -1,9 +1,6 @@
 from unittest.mock import patch
 
 import pytest
-from fastapi.testclient import TestClient
-
-from src.main import app
 
 
 @pytest.fixture
@@ -43,15 +40,17 @@ async def test_post_create_activity_returns_201_and_participant_on_success(async
 
 
 @pytest.mark.asyncio
-async def test_post_create_activity_returns_500_on_unexpected_exception(mock_repository_create):
+async def test_post_create_activity_returns_500_on_unexpected_exception(
+    mock_repository_create, sync_client
+):
     """Should return 500 when an unexpected exception occurs during activity creation."""
 
     # Given
-    client = TestClient(app)
+
     mock_repository_create.side_effect = Exception("Database failure")
 
     # When
-    response = client.post("/v1/activity", json={
+    response = sync_client.post("/v1/activity", json={
         "owner": {
             "email": "test@example.com",
             "name": "Test User"

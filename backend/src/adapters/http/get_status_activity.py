@@ -4,10 +4,11 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Path, status
 
-from src.adapters.http.schemas import ActivityResponse, StatusResponse
 from src.application.ports.input.get_activity_status_port import GetActivityStatusPort
 from src.config.dependencies import get_status_activity_service
 from src.domain.exceptions import ActivityNotFoundError, PermissionDeniedError
+
+from .schemas import ActivityResponse, StatusResponse
 
 logger = logging.getLogger(__name__)
 router = APIRouter()

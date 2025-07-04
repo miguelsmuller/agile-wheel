@@ -22,5 +22,5 @@ def test_get_settings_logs_and_return_type(mock_dependencies):
     assert mock_dependencies.debug.call_count >= 2
 
     log_messages = [call.args[0] for call in mock_dependencies.debug.call_args_list]
-    assert "[get_settings] Initializing settings" in log_messages
-    assert "[get_settings] Settings initialized" in log_messages
+    assert "[GET_SETTINGS] Settings initialized" in log_messages
+    assert "[GET_SETTINGS] Initializing settings" in log_messages

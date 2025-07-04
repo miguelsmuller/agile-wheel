@@ -2,7 +2,6 @@ import json
 from uuid import UUID
 
 import pytest
-from fastapi.testclient import TestClient
 
 import src.adapters.websocket.ws_activity_stream as stream_mod
 from src.adapters.websocket.schemas import ActivityStreamType
@@ -34,7 +33,7 @@ def clear_overrides_and_shorten_interval():
         (False, ActivityStreamType.CLOSE.value),
     ],
 )
-def test_stream_activity_status_updates_and_closes(is_opened, expected_type):
+def test_stream_activity_status_updates_and_closes(is_opened, expected_type, sync_client):
     # Given
     activity = Activity(is_opened=is_opened)
     owner = Participant(name="Owner", email="owner@example.com", role="owner")
@@ -46,10 +45,8 @@ def test_stream_activity_status_updates_and_closes(is_opened, expected_type):
 
     app.dependency_overrides[get_status_activity_service] = lambda: DummyService()
 
-    client = TestClient(app)
-
     # When / Then
-    with client.websocket_connect(
+    with sync_client.websocket_connect(
         f"/v1/activities/{ACTIVITY_ID}/stream?participant_id={PARTICIPANT_ID}"
     ) as ws:
         text = ws.receive_text()
@@ -67,7 +64,7 @@ def test_stream_activity_status_updates_and_closes(is_opened, expected_type):
         ws.send_text("close")
 
 
-def test_stream_activity_error_path():
+def test_stream_activity_error_path(sync_client):
     # Given
     class ErrorService:
         async def get_activity_status(self, activity_id, participant_id):
@@ -75,10 +72,8 @@ def test_stream_activity_error_path():
 
     app.dependency_overrides[get_status_activity_service] = lambda: ErrorService()
 
-    client = TestClient(app)
-
     # When / Then
-    with client.websocket_connect(
+    with sync_client.websocket_connect(
         f"/v1/activities/{ACTIVITY_ID}/stream?participant_id={PARTICIPANT_ID}"
     ) as ws:
         text = ws.receive_text()

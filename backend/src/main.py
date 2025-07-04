@@ -5,10 +5,12 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.adapters.http.router_http import router_http
 from src.adapters.websocket.router_ws import router_ws
-from src.config.database import initialize_database
-from src.config.logger import initialize_logger
-from src.config.monitoring import initialize_monitoring
-from src.config.settings import initialize_settings
+from src.config import (
+    initialize_database,
+    initialize_logger,
+    initialize_monitoring,
+    initialize_settings,
+)
 
 initialize_logger()
 settings = initialize_settings()
