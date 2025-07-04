@@ -20,7 +20,6 @@ def test_create_app_initializes_properly(mock_dependencies):
 
     app = create_app()
 
-    # Lifespan será corretamente executado aqui
     with TestClient(app) as client:
         response = client.get("/")
         assert response.status_code in (200, 404)
