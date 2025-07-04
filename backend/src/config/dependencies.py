@@ -6,12 +6,14 @@ from src.adapters.persistence.activity_repository_firestore_adapter import (
     ActivityRepositoryFirestoreAdapter,
 )
 from src.adapters.persistence.activity_repository_mongo_adapter import ActivityRepositoryAdapter
-from src.application.usecase.close_activity_use_case import CloseActivityService
-from src.application.usecase.create_activity_use_case import CreateActivityService
-from src.application.usecase.evaluation_activity_use_case import EvaluationActivityService
-from src.application.usecase.get_activity_result_use_case import GetActivityResultService
-from src.application.usecase.get_activity_status_use_case import GetActivityStatusService
-from src.application.usecase.join_activity_use_case import JoinActivityService
+from src.application.usecase import (
+    CloseActivityService,
+    CreateActivityService,
+    EvaluationActivityService,
+    GetActivityResultService,
+    GetActivityStatusService,
+    JoinActivityService,
+)
 from src.config.settings import initialize_settings
 
 logger = logging.getLogger(__name__)

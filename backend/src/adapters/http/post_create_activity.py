@@ -2,15 +2,16 @@ import logging
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from src.adapters.http.schemas import (
+from src.application.ports.input.create_activity_port import CreateActivityPort
+from src.config.dependencies import get_create_activity_service
+from src.domain.entities.participant import Participant
+
+from .schemas import (
     ActivityResponse,
     CreateActivityRequest,
     CreateActivityResponse,
     ParticipantResponse,
 )
-from src.application.ports.input.create_activity_port import CreateActivityPort
-from src.config.dependencies import get_create_activity_service
-from src.domain.entities.participant import Participant
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
