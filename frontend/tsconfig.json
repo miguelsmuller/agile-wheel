@@ -19,7 +19,7 @@
     "module": "ES2022",
     "baseUrl": "src",
     "paths": {
-      "@client/*": ["app/client/*"],
+      "@client/*": ["adapters/client/*"],
       "@models/*": ["domain/models/*"],
       "@services/*": ["app/services/*"],
       "@use-cases/*": ["app/use-cases/*"],
