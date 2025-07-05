@@ -12,13 +12,14 @@ export class AgileWheelBackEndWS {
   private socket$: WebSocketSubject<unknown> | null = null;
   private currentEndpoint: string | null = null;
   private readonly APIBaseURL = environment.wsAgileWheelUrl;
+  public wsFactory = webSocket;
 
   connect<T>(path: string): Observable<T> {
     const fullEndpoint = `${this.APIBaseURL}${path}`;
 
     if (!this.socket$ || this.socket$.closed || this.currentEndpoint !== fullEndpoint) {
       this.currentEndpoint = fullEndpoint;
-      this.socket$ = webSocket({
+      this.socket$ = this.wsFactory({
         url: fullEndpoint,
         openObserver: { next: () => console.log('[AW-WS] Connected') },
         closeObserver: { next: () => console.log('[AW-WS] Disconnected') },

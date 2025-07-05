@@ -9,6 +9,7 @@
     "build": "npm run prebuild && ng build",
     "watch": "npm run prebuild && ng build --watch --configuration development",
     "test": "ng test --watch=false --browsers ChromeHeadless",
+    "test:ci": "ng test --watch=false --browsers ChromeHeadless --code-coverage",
     "lint": "ng lint --fix"
   },
   "dependencies": {
