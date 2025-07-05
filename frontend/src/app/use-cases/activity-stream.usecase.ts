@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AgileWheelBackEndWS } from '@client/agile-wheel-backend.ws';
+import { AgileWheelBackEndWS } from '@adapters/agile-wheel-backend.ws';
 
 export interface ActivityStreamMessage {
   activity_id: string;
