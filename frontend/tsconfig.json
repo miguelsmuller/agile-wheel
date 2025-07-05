@@ -20,7 +20,7 @@
     "baseUrl": "src",
     "paths": {
       "@client/*": ["app/client/*"],
-      "@models/*": ["app/models/*"],
+      "@models/*": ["domain/models/*"],
       "@services/*": ["app/services/*"],
       "@use-cases/*": ["app/use-cases/*"],
       "@utils/*": ["app/utils/*"],
