@@ -21,7 +21,6 @@
     "paths": {
       "@client/*": ["adapters/client/*"],
       "@models/*": ["domain/models/*"],
-      "@services/*": ["app/services/*"],
       "@use-cases/*": ["app/use-cases/*"],
       "@utils/*": ["app/utils/*"],
       "@env/*": ["environments/*"]
