@@ -46,4 +46,46 @@ describe('AgileWheelBackEndHTTP', () => {
 
     req.flush(dummy);
   });
+
+  it('should perform PUT with correct URL & body & headers', () => {
+    // WHEN
+    service
+      .put('xpto', { x: 2 }, { 'X-Header': 'H-Value' })
+      .subscribe(res => expect(res).toEqual(dummy));
+
+    // THEN
+    const req = httpMock.expectOne(`${environment.apiAgileWheelUrl}/xpto`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual({ x: 2 });
+    expect(req.request.headers.get('X-Header')).toBe('H-Value');
+
+    req.flush(dummy);
+  });
+
+  it('should perform PATCH with correct URL & body & headers', () => {
+    // WHEN
+    service
+      .patch('xpto', { y: 3 }, { 'Y-Header': 'Y-Value' })
+      .subscribe(res => expect(res).toEqual(dummy));
+
+    // THEN
+    const req = httpMock.expectOne(`${environment.apiAgileWheelUrl}/xpto`);
+    expect(req.request.method).toBe('PATCH');
+    expect(req.request.body).toEqual({ y: 3 });
+    expect(req.request.headers.get('Y-Header')).toBe('Y-Value');
+
+    req.flush(dummy);
+  });
+
+  it('should perform DELETE with correct URL & headers', () => {
+    // WHEN
+    service.delete('xpto', { 'D-Header': 'D-Value' }).subscribe(res => expect(res).toEqual(dummy));
+
+    // THEN
+    const req = httpMock.expectOne(`${environment.apiAgileWheelUrl}/xpto`);
+    expect(req.request.method).toBe('DELETE');
+    expect(req.request.headers.get('D-Header')).toBe('D-Value');
+
+    req.flush(dummy);
+  });
 });

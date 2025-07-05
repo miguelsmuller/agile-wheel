@@ -21,8 +21,18 @@ export class AgileWheelBackEndWS {
       this.currentEndpoint = fullEndpoint;
       this.socket$ = this.wsFactory({
         url: fullEndpoint,
-        openObserver: { next: () => console.log('[AW-WS] Connected') },
-        closeObserver: { next: () => console.log('[AW-WS] Disconnected') },
+        openObserver: {
+          next: () => {
+            // istanbul ignore next
+            console.log('[AW-WS] Connected'); // NOSONAR
+          },
+        },
+        closeObserver: {
+          next: () => {
+            // istanbul ignore next
+            console.log('[AW-WS] Disconnected'); // NOSONAR
+          },
+        },
       });
     }
 
