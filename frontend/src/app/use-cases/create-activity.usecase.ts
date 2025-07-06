@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
+import { AgileWheelBackEndHTTP } from '@adapters/agile-wheel-backend.http';
 import { Activity, Participant } from '@models/activity.model';
 import { setActivityToLocalStorage, setParticipantToLocalStorage } from '@utils/utils';
 import { Observable, tap } from 'rxjs';

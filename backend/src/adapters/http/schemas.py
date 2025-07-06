@@ -128,8 +128,12 @@ class JoinResponse(BaseModel):
 
 # ========================
 
-class CloseResponse(BaseModel):
-    activity: ActivityResponse
+class EvaluationRequest(BaseModel):
+    ratings: list[RatingRequest]
+
+class EvaluationResponse(BaseModel):
+    activity_id: str
+    evaluation_id: str
 
 # ========================
 
@@ -138,12 +142,8 @@ class StatusResponse(BaseModel):
 
 # ========================
 
-class EvaluationRequest(BaseModel):
-    ratings: list[RatingRequest]
-
-class EvaluationResponse(BaseModel):
-    activity_id: str
-    evaluation_id: str
+class CloseResponse(BaseModel):
+    activity: ActivityResponse
 
 # ========================
 

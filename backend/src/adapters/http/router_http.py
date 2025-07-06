@@ -19,10 +19,10 @@ def ping():
 
 activity_v1_router = APIRouter(prefix="/v1")
 activity_v1_router.include_router(craeate_activity_endpoint, tags=["activity"])
-activity_v1_router.include_router(status_activity_endpoint, tags=["activity"])
 activity_v1_router.include_router(join_activity_endpoint, tags=["activity"])
-activity_v1_router.include_router(close_activity_endpoint, tags=["activity"])
 activity_v1_router.include_router(evaluation_activity_endpoint, tags=["activity"])
+activity_v1_router.include_router(status_activity_endpoint, tags=["activity"])
+activity_v1_router.include_router(close_activity_endpoint, tags=["activity"])
 activity_v1_router.include_router(result_activity_endpoint, tags=["activity"])
 
 router_http.include_router(activity_v1_router)

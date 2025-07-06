@@ -19,9 +19,8 @@
     "module": "ES2022",
     "baseUrl": "src",
     "paths": {
-      "@client/*": ["app/client/*"],
-      "@models/*": ["app/models/*"],
-      "@services/*": ["app/services/*"],
+      "@adapters/*": ["adapters/*"],
+      "@models/*": ["models/*"],
       "@use-cases/*": ["app/use-cases/*"],
       "@utils/*": ["app/utils/*"],
       "@env/*": ["environments/*"]

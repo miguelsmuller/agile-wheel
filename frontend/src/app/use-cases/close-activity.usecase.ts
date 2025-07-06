@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
+import { AgileWheelBackEndHTTP } from '@adapters/agile-wheel-backend.http';
 import { Activity, Participant } from '@models/activity.model';
 
 export interface CloseActivityResponse {

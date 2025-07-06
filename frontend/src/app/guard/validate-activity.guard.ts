@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
-import { AgileWheelBackEndHTTP } from '@client/agile-wheel-backend.http';
+import { AgileWheelBackEndHTTP } from '@adapters/agile-wheel-backend.http';
 import { Activity } from '@models/activity.model';
 import { getActivityFromLocalStorage, getParticipantFromLocalStorage } from '@utils/utils';
 
