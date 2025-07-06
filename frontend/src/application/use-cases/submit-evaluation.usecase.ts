@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { AgileWheelBackEndHTTP } from 'adapters/agile-wheel-backend.http';
-import { Activity, DimensionWithScores, Participant } from 'domain/model';
+import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
 import {
   SubmitEvaluationRequest,
   SubmitEvaluationResponse,
 } from 'application/dtos/submit-evaluation.dto';
 import { SubmitEvaluationUseCasePort } from 'application/ports/submit-evaluation-use-case-port';
+import { Activity, DimensionWithScores, Participant } from 'domain/model';
 
 /**
  * Service responsible for submitting participant evaluations to the backend.

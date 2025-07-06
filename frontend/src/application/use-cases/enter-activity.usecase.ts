@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { tap } from 'rxjs';
 
+import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
 import {
   setActivityToLocalStorage,
   setParticipantToLocalStorage,
-} from '@adapters/local-storage/utils';
-import { AgileWheelBackEndHTTP } from 'adapters/agile-wheel-backend.http';
+} from 'adapters/local-storage/utils';
 import { EnterActivityRequest, EnterActivityResponse } from 'application/dtos/enter-activity.dto';
 import { EnterActivityUseCasePort } from 'application/ports/enter-activity-use-case-port';
 

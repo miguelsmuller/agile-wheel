@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
-import { ResultComponent } from './pages/result/result.component';
-import { ActivityComponent } from './pages/activity/activity.component';
-import { CreateActivityComponent } from './pages/create-activity/create-activity.component';
-import { EnterActivityComponent } from './pages/enter-activity/enter-activity.component';
-import { InitialStepGuard } from '../application/guards/initial-step.guard';
-import { ValidateActitivityGuard } from '../application/guards/validate-activity.guard';
+
+import { InitialStepGuard } from 'application/guards/initial-step.guard';
+import { ValidateActitivityGuard } from 'application/guards/validate-activity.guard';
+import { ActivityComponent } from 'presentations/pages/activity/activity.component';
+import { CreateActivityComponent } from 'presentations/pages/create-activity/create-activity.component';
+import { EnterActivityComponent } from 'presentations/pages/enter-activity/enter-activity.component';
+import { ResultComponent } from 'presentations/pages/result/result.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'create-activity', pathMatch: 'full' },

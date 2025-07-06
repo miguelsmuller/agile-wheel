@@ -1,4 +1,5 @@
 import { Activity, Participant } from 'domain/model';
+
 import {
   parseJSON,
   getActivityFromLocalStorage,

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { AgileWheelBackEndHTTP } from 'adapters/agile-wheel-backend.http';
-import { Activity, Participant } from 'domain/model';
+import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
 import { CloseActivityResponse } from 'application/dtos/close-activity.dto';
 import { CloseActivityUseCasePort } from 'application/ports/close-activity-use-case-port';
+import { Activity, Participant } from 'domain/model';
 
 /**
  * Service responsible for closing an activity in the backend.

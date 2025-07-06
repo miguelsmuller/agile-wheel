@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { clearDataFromLocalStorage } from '@adapters/local-storage/utils';
-import { Activity, DimensionWithScores, Participant } from 'domain/model';
+import { clearDataFromLocalStorage } from 'adapters/local-storage/utils';
 import { ActivityFlowUseCasePort } from 'application/ports/activity-flow-use-case-port';
+import { Activity, DimensionWithScores, Participant } from 'domain/model';
 
-import { SubmitEvaluationUseCase } from './submit-evaluation.usecase';
 import { CloseActivityUserCase } from './close-activity.usecase';
+import { SubmitEvaluationUseCase } from './submit-evaluation.usecase';
 
 /**
  * Facade service to manage the activity flow, including submitting evaluations

@@ -5,6 +5,7 @@ const angular = require("angular-eslint");
 const eslintConfigPrettier = require("eslint-config-prettier/flat");
 const prettierPlugin = require("eslint-plugin-prettier");
 const sonarjs = require("eslint-plugin-sonarjs");
+const importPlugin = require("eslint-plugin-import");
 
 
 module.exports = tseslint.config(
@@ -27,6 +28,7 @@ module.exports = tseslint.config(
     plugins: {
       prettier: prettierPlugin,
       sonarjs: sonarjs,
+      import: importPlugin,
     },
     processor: angular.processInlineTemplates,
     rules: {
@@ -57,8 +59,46 @@ module.exports = tseslint.config(
       "sonarjs/no-commented-code": "warn",
       ...sonarjs.configs.recommended.rules,
 
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            ["parent", "sibling", "index"]
+          ],
+          pathGroups: [
+            {
+              pattern: "{@angular{,/**},@angular/material{,/**}}",
+              group: "external",
+              position: "before"
+            },
+            {
+              pattern: "rxjs{,/**}",
+              group: "external",
+              position: "after"
+            }
+          ],
+          pathGroupsExcludedImportTypes: ["builtin"],
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true
+          },
+          "newlines-between": "always"
+        }
+      ]
+
     },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: "./tsconfig.json",
+        },
+      },
+    }
   },
+
   {
     files: ["**/*.html"],
     extends: [

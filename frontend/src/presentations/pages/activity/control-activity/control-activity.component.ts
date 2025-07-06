@@ -1,18 +1,18 @@
-import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-
-import { Activity, DimensionWithScores, Participant } from 'domain/model';
+import { Component, Input } from '@angular/core';
 import { Inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
+
 import {
   ActivityFlowUseCasePort,
   ACTIVITY_FLOW_USE_CASE_PORT,
 } from 'application/ports/activity-flow-use-case-port';
+import { Activity, DimensionWithScores, Participant } from 'domain/model';
 
 @Component({
   selector: 'app-control-activity',

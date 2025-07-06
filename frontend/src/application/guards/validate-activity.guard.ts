@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
+
 import { firstValueFrom } from 'rxjs';
 
-import { AgileWheelBackEndHTTP } from '@adapters/agile-wheel-backend.http';
-import { Activity } from 'domain/model';
-import { GetActivityResponse } from 'application/dtos/get-activity-response.dto';
+import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
 import {
   getActivityFromLocalStorage,
   getParticipantFromLocalStorage,
-} from '@adapters/local-storage/utils';
+} from 'adapters/local-storage/utils';
+import { GetActivityResponse } from 'application/dtos/get-activity-response.dto';
+import { Activity } from 'domain/model';
 
 @Injectable({ providedIn: 'root' })
 export class ValidateActitivityGuard implements CanActivate {

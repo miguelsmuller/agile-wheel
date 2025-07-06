@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
-import { getActivityFromLocalStorage } from '@adapters/local-storage/utils';
+import { getActivityFromLocalStorage } from 'adapters/local-storage/utils';
 
 @Injectable({ providedIn: 'root' })
 export class InitialStepGuard implements CanActivate {

@@ -1,4 +1,5 @@
 import { InjectionToken } from '@angular/core';
+
 import { Activity, Participant, DimensionWithScores } from 'domain/model';
 
 /**

@@ -1,32 +1,34 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
-import { distinctUntilChanged, filter, map, Subscription, tap } from 'rxjs';
+import { MatTabsModule } from '@angular/material/tabs';
+import { RouterModule, Router } from '@angular/router';
+
 import { isEqual } from 'lodash';
 
-import { Activity, DimensionWithScores, Participant } from 'domain/model';
-import { Inject } from '@angular/core';
+import { distinctUntilChanged, filter, map, Subscription, tap } from 'rxjs';
+
+import {
+  getActivityFromLocalStorage,
+  getParticipantFromLocalStorage,
+} from 'adapters/local-storage/utils';
 import { ActivityStreamMessage } from 'application/dtos/activity-stream.dto';
 import {
   ActivityStreamUseCasePort,
   ACTIVITY_STREAM_USE_CASE_PORT,
 } from 'application/ports/activity-stream-use-case-port';
-import {
-  getActivityFromLocalStorage,
-  getParticipantFromLocalStorage,
-} from '@adapters/local-storage/utils';
+import { Activity, DimensionWithScores, Participant } from 'domain/model';
 
+import { ControlActivityComponent } from './control-activity/control-activity.component';
 import { EvaluationWrapperComponent } from './evaluation-wrapper/evaluation-wrapper.component';
 import { ListParticipantsComponent } from './list-participants/list-participants.component';
-import { ControlActivityComponent } from './control-activity/control-activity.component';
 
 @Component({
   selector: 'app-activity',

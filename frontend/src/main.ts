@@ -1,30 +1,22 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
 
-
-import { CreateActivityUseCase } from '@use-cases/create-activity.usecase';
-import { CREATE_ACTIVITY_USE_CASE_PORT } from 'application/ports/create-activity-use-case-port';
-
-import { EnterActivityUseCase } from '@use-cases/enter-activity.usecase';
-import { ENTER_ACTIVITY_USE_CASE_PORT } from 'application/ports/enter-activity-use-case-port';
-
-import { SubmitEvaluationUseCase } from '@use-cases/submit-evaluation.usecase';
-import { SUBMIT_EVALUATION_USE_CASE_PORT } from 'application/ports/submit-evaluation-use-case-port';
-
-import { CloseActivityUserCase } from '@use-cases/close-activity.usecase';
-import { CLOSE_ACTIVITY_USE_CASE_PORT } from 'application/ports/close-activity-use-case-port';
-
-import { ActivityStreamUseCase } from '@use-cases/activity-stream.usecase';
-import { ACTIVITY_STREAM_USE_CASE_PORT } from 'application/ports/activity-stream-use-case-port';
-
-import { ActivityFlowFacade } from '@use-cases/activity-flow.facade';
 import { ACTIVITY_FLOW_USE_CASE_PORT } from 'application/ports/activity-flow-use-case-port';
-
-import { routes } from './application/routes/app.routes';
-
-import { AppComponent } from './presentations/app.component';
+import { ACTIVITY_STREAM_USE_CASE_PORT } from 'application/ports/activity-stream-use-case-port';
+import { CLOSE_ACTIVITY_USE_CASE_PORT } from 'application/ports/close-activity-use-case-port';
+import { CREATE_ACTIVITY_USE_CASE_PORT } from 'application/ports/create-activity-use-case-port';
+import { ENTER_ACTIVITY_USE_CASE_PORT } from 'application/ports/enter-activity-use-case-port';
+import { SUBMIT_EVALUATION_USE_CASE_PORT } from 'application/ports/submit-evaluation-use-case-port';
+import { routes } from 'application/routes/app.routes';
+import { ActivityFlowFacade } from 'application/use-cases/activity-flow.facade';
+import { ActivityStreamUseCase } from 'application/use-cases/activity-stream.usecase';
+import { CloseActivityUserCase } from 'application/use-cases/close-activity.usecase';
+import { CreateActivityUseCase } from 'application/use-cases/create-activity.usecase';
+import { EnterActivityUseCase } from 'application/use-cases/enter-activity.usecase';
+import { SubmitEvaluationUseCase } from 'application/use-cases/submit-evaluation.usecase';
+import { AppComponent } from 'presentations/app.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [

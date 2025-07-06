@@ -1,9 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+
+import { environment } from 'environments/environment';
 
 import { AgileWheelBackEndHTTP } from './agile-wheel-backend.http';
-import { environment } from '@env/environment';
 
 describe('AgileWheelBackEndHTTP', () => {
   let service: AgileWheelBackEndHTTP;

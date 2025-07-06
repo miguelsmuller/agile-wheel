@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+
 import { Observable, timer } from 'rxjs';
 import { retry } from 'rxjs/operators';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
-import { environment } from '@env/environment';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',

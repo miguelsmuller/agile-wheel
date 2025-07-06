@@ -1,5 +1,7 @@
 import { InjectionToken } from '@angular/core';
+
 import { Observable } from 'rxjs';
+
 import { EnterActivityRequest, EnterActivityResponse } from 'application/dtos/enter-activity.dto';
 
 /**

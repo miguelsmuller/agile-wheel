@@ -18,14 +18,13 @@
     "target": "ES2022",
     "module": "ES2022",
     "baseUrl": "src",
-    "paths": {
-      "@adapters/*": ["adapters/*"],
-      "@domain/*": ["domain/*"],
-      "@application/*": ["application/*"],
-      "@use-cases/*": ["application/use-cases/*"],
-      "@utils/*": ["presentations/utils/*"],
-      "@env/*": ["environments/*"]
-    }
+    // "paths": {
+    //   "@adapters/*": ["adapters/*"],
+    //   "@application/*": ["application/*"],
+    //   "@domain/*": ["domain/*"],
+    //   "@env/*": ["environments/*"],
+    //   "@presentations/*": ["presentations/*"]
+    // }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,5 +1,7 @@
 import { InjectionToken } from '@angular/core';
+
 import { Observable } from 'rxjs';
+
 import { ActivityStreamMessage } from 'application/dtos/activity-stream.dto';
 
 /**
