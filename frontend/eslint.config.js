@@ -32,7 +32,9 @@ module.exports = tseslint.config(
     },
     processor: angular.processInlineTemplates,
     rules: {
+      // Enforces Prettier formatting rules
       "prettier/prettier": "error",
+      // Requires Angular directive selectors to be attributes with the "app" prefix in camelCase
       "@angular-eslint/directive-selector": [
         "error",
         {
@@ -41,6 +43,7 @@ module.exports = tseslint.config(
           style: "camelCase",
         },
       ],
+      // Requires Angular component selectors to be elements with the "app" prefix in kebab-case
       "@angular-eslint/component-selector": [
         "error",
         {
@@ -49,16 +52,23 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
-      // Força uso de `readonly` em membros não reassinados
+      // Warns to use readonly for properties that are never reassigned
       "@typescript-eslint/prefer-readonly": "warn",
-      // Garante que await só seja usado em promises
+      // Ensures await is only used on thenable objects (promises)
       "@typescript-eslint/await-thenable": "error",
-      // Impede type assertions desnecessárias: `as X` quando não muda o tipo
+      // Warns against unnecessary type assertions (using `as X` with no type change)
       "@typescript-eslint/no-unnecessary-type-assertion": "warn",
-      // Reforça comentários relevantes (se quiser manter isso)
+      // Warns about commented-out code that should be cleaned up
       "sonarjs/no-commented-code": "warn",
+      // Blocks imports that cannot be resolved
+      "import/no-unresolved": "error",
+      // Verifies that imported names actually exist in their modules
+      "import/named": "error",
+      // Forbids dependencies not declared in package.json
+      "import/no-extraneous-dependencies": "error",
+      // Includes SonarJS recommended rules for cognitive complexity and code duplication
       ...sonarjs.configs.recommended.rules,
-
+      // Controls import ordering and grouping
       "import/order": [
         "error",
         {
@@ -106,5 +116,13 @@ module.exports = tseslint.config(
       ...angular.configs.templateAccessibility,
     ],
     rules: {},
+  },
+
+  {
+    files: ["**/*.spec.ts"],
+    rules: {
+      // Allow 'any' in test files to simplify mocks and stubs
+      "@typescript-eslint/no-explicit-any": "off",
+    },
   }
 );
