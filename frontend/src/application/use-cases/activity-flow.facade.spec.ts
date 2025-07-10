@@ -5,7 +5,7 @@ import {
   activityFixture,
   regularParticipantFixture,
   ownerParticipantFixture,
-} from 'testing/fixtures';
+} from '@test/fixtures';
 
 import { ActivityFlowFacade } from './activity-flow.facade';
 import { CloseActivityUserCase } from './close-activity.usecase';

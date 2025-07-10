@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
-import { activityFixture, ownerParticipantFixture, dimensionsFixture } from 'testing/fixtures';
+import { activityFixture, ownerParticipantFixture, dimensionsFixture } from '@test/fixtures';
 
 import { SubmitEvaluationUseCase } from './submit-evaluation.usecase';
 

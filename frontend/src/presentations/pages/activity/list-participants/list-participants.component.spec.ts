@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { listParticipantsFixture } from 'testing/fixtures';
+import { listParticipantsFixture } from '@test/fixtures';
 
 import { ListParticipantsComponent } from './list-participants.component';
 

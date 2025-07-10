@@ -9,7 +9,7 @@ import {
   regularParticipantFixture,
   createRoute,
   mockLocalStorage,
-} from 'testing/fixtures';
+} from '@test/fixtures';
 
 import { ValidateActitivityGuard } from './validate-activity.guard';
 

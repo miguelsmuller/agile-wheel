@@ -13,7 +13,7 @@ import {
   ActivityStreamUseCasePort,
 } from 'application/ports/activity-stream-use-case-port';
 import { Activity, Participant } from 'domain/model';
-import { activityFixture, regularParticipantFixture, dimensionsFixture } from 'testing/fixtures';
+import { activityFixture, regularParticipantFixture, dimensionsFixture } from '@test/fixtures';
 
 import { ActivityComponent } from './activity.component';
 
