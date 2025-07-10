@@ -9,7 +9,7 @@ import {
   CreateActivityRequest,
   CreateActivityResponse,
 } from 'application/dtos/create-activity.dto';
-import { activityFixture, ownerParticipantFixture } from 'testing/fixtures';
+import { activityFixture, ownerParticipantFixture } from '@test/fixtures';
 
 import { CreateActivityUseCase } from './create-activity.usecase';
 

@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
-import { activityFixture, regularParticipantFixture } from 'testing/fixtures';
+import { activityFixture, regularParticipantFixture } from '@test/fixtures';
 
 import { CloseActivityUserCase } from './close-activity.usecase';
 
