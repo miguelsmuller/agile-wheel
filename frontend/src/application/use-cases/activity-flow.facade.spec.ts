@@ -38,7 +38,7 @@ describe('ActivityFlowFacade', () => {
       ],
     });
 
-    facade = TestBed.inject(ActivityFlowFacade); 
+    facade = TestBed.inject(ActivityFlowFacade);
   });
 
   afterEach(() => localStorage.clear());

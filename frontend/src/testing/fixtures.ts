@@ -14,6 +14,12 @@ export const ownerParticipantFixture: Participant = {
   email: 'j@x',
 };
 
+export const listParticipantsFixture: Participant[] = [
+  regularParticipantFixture,
+  ownerParticipantFixture,
+  { id: 'p2', name: 'Second', email: 's@x' },
+];
+
 export const dimensionsFixture: DimensionWithScores[] = [
   {
     id: 'd1',
