@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
 
+import { activityFixture, regularParticipantFixture, dimensionsFixture } from '@test/fixtures';
 import { ActivityStreamMessage } from 'application/dtos/activity-stream.dto';
 import {
   ACTIVITY_FLOW_USE_CASE_PORT,
@@ -13,7 +14,6 @@ import {
   ActivityStreamUseCasePort,
 } from 'application/ports/activity-stream-use-case-port';
 import { Activity, Participant } from 'domain/model';
-import { activityFixture, regularParticipantFixture, dimensionsFixture } from '@test/fixtures';
 
 import { ActivityComponent } from './activity.component';
 

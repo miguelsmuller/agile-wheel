@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 
 import { of } from 'rxjs';
 
+import { activityFixture, regularParticipantFixture } from '@test/fixtures';
 import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
 import { clearDataFromLocalStorage } from 'adapters/local-storage/utils';
 import { EnterActivityRequest, EnterActivityResponse } from 'application/dtos/enter-activity.dto';
-import { activityFixture, regularParticipantFixture } from '@test/fixtures';
 
 import { EnterActivityUseCase } from './enter-activity.usecase';
 

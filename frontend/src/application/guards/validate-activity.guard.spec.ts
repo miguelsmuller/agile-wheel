@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 
 import { of } from 'rxjs';
 
-import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
 import {
   activityFixture,
   regularParticipantFixture,
   createRoute,
   mockLocalStorage,
 } from '@test/fixtures';
+import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
 
 import { ValidateActitivityGuard } from './validate-activity.guard';
 

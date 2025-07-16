@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 
 import { of } from 'rxjs';
 
+import { activityFixture, ownerParticipantFixture } from '@test/fixtures';
 import { AgileWheelBackEndHTTP } from 'adapters/http/agile-wheel-backend.http';
 import { clearDataFromLocalStorage } from 'adapters/local-storage/utils';
 import {
   CreateActivityRequest,
   CreateActivityResponse,
 } from 'application/dtos/create-activity.dto';
-import { activityFixture, ownerParticipantFixture } from '@test/fixtures';
 
 import { CreateActivityUseCase } from './create-activity.usecase';
 

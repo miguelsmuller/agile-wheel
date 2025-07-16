@@ -46,3 +46,21 @@ export interface Activity {
   dimensions: Dimension[];
   evaluations: ParticipantEvaluation[];
 }
+
+export interface PrincipleResult {
+  principle: Principle;
+  average_score: number;
+  total_ratings: number;
+}
+
+export interface DimensionResult {
+  dimension: Dimension;
+  average_score: number;
+  total_ratings: number;
+  principles: PrincipleResult[];
+}
+
+export interface ActivityResult {
+  overall_score: number;
+  dimension_scores: DimensionResult[];
+}
