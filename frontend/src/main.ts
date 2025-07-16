@@ -3,6 +3,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 
+import { echartsProvider } from 'adapters/echarts/echarts.token';
 import { ACTIVITY_FLOW_USE_CASE_PORT } from 'application/ports/activity-flow-use-case-port';
 import { ACTIVITY_STREAM_USE_CASE_PORT } from 'application/ports/activity-stream-use-case-port';
 import { CLOSE_ACTIVITY_USE_CASE_PORT } from 'application/ports/close-activity-use-case-port';
@@ -32,6 +33,7 @@ export const appConfig: ApplicationConfig = {
     { provide: ACTIVITY_STREAM_USE_CASE_PORT, useClass: ActivityStreamUseCase },
     { provide: ACTIVITY_FLOW_USE_CASE_PORT, useClass: ActivityFlowFacade },
     { provide: GET_ACTIVITY_RESULT_USE_CASE_PORT, useClass: GetActivityResultUseCase },
+    echartsProvider,
   ],
 };
 
