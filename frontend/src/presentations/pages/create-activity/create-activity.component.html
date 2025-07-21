@@ -1,6 +1,6 @@
 <div class="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gray-50">
   <div class="mt-10 w-full max-w-md rounded-lg bg-white p-10 ring-1 ring-gray-900/10">
-    
+
     <h2 class="mb-8 text-center text-2xl font-bold tracking-tight text-gray-900">
       Agile Wheel - Criar
     </h2>
@@ -8,59 +8,31 @@
     <form class="space-y-4 mt-4" [formGroup]="createForm" (ngSubmit)="createActivity()">
       <mat-form-field class="w-full">
         <mat-label>Nome</mat-label>
-        <input 
-          matInput 
-          formControlName="name" 
+        <input
+          matInput
+          formControlName="name"
           required />
       </mat-form-field>
 
       <mat-form-field class="w-full">
         <mat-label>E-mail</mat-label>
-        <input 
-          matInput 
-          formControlName="email" 
-          type="email" 
+        <input
+          matInput
+          formControlName="email"
+          type="email"
           required />
       </mat-form-field>
 
-      <button 
-        mat-flat-button 
-        color="primary" 
-        class="w-full" 
-        type="submit" 
+      <button
+        mat-flat-button
+        color="primary"
+        class="w-full"
+        type="submit"
         [disabled]="createForm.invalid || isSubmitting">
         {{ isSubmitting ? 'Criando...' : 'Criar atividade' }}
       </button>
 
     </form>
-
-    <!-- divider -->
-    <div class="my-8 flex items-center">
-      <div class="flex-grow border-t border-gray-200"></div>
-      <span class="mx-4 text-xs text-gray-500">Ou continue com</span>
-      <div class="flex-grow border-t border-gray-200"></div>
-    </div>
-
-    <!-- social buttons -->
-    <div class="grid grid-cols-2 gap-4">
-      <button 
-      mat-flat-button 
-      color="primary"
-      [routerLink]="'/activity'"
-      [disabled]=true>
-        <mat-icon>home</mat-icon>
-        Google
-      </button>
-
-      <button 
-      mat-flat-button 
-      color="primary"
-      [routerLink]="'/activity'"
-      [disabled]=true>
-        <mat-icon>favorite</mat-icon>
-        Github
-      </button>
-    </div>
 
     <!-- footnote -->
     <p class="mt-10 text-center text-sm text-gray-500">
