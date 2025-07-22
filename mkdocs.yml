@@ -2,6 +2,7 @@ site_name: Agile Wheel Documentation
 
 docs_dir: docs
 
+site_url: https://miguelsmuller.github.io/agile-wheel/
 repo_url: https://github.com/miguelsmuller/agile-wheel
 
 nav:
