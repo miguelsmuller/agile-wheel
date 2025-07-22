@@ -5,19 +5,19 @@ docs_dir: docs
 repo_url: https://github.com/miguelsmuller/agile-wheel
 
 nav:
-  - Introdução:
-    - Visão Geral: README.md
-    - Framework Agile Wheel: agile-wheel-framework.md
-    - Automações Úteis: automations.md
-    - Execução Local: local-run.md
+  - Introduction:
+    - Framework Agile Wheel: README.md
+    - Automations: automations.md
+    - Running Locally: local-run.md
+    - Other Topics: others.md
   
   - Architecture:
     - Architecture Overview: 1-architecture/README.md
-    - Modelo de Dados: 1-architecture/data-model.md
+    - Data Model: 1-architecture/data-model.md
 
   - Backend:
     - Backend Overview: 2-backend/README.md
-    - Configuração: 2-backend/configuration.md
+    - Backend Configuration: 2-backend/configuration.md
     - Domain - Activity:
       - Endpoints HTTP:
         - "[post] Activity Close": 2-backend/triggers/http_post_activity_close.md
@@ -25,18 +25,18 @@ nav:
 
   - Frontend:
     - Frontend Overview: 3-frontend/README.md
-    - UI & Temas: 3-frontend/ui-styling-theming.md
-    - Componentes de Páginas:
+    - UI Styling and Theming: 3-frontend/ui-styling-theming.md
+    - Page Components:
       - Create Activity: 3-frontend/component-activity-creation-entry.md
       - Join Activity: 3-frontend/component-activity-creation-join.md
       - Activity: 3-frontend/component-activity.md
       - Result: 3-frontend/component-result.md
-    - Serviços e Fluxo de Dados: 3-frontend/frontend-services-data-flow.md
+    - Frontend Services and Data Flow: 3-frontend/frontend-services-data-flow.md
 
   - Deployment:
     - Deployment Overview: 4-development-deployment/README.md
-    - Configuração Docker: 4-development-deployment/docker-setup.md
-    - Integração Contínua (CI): 4-development-deployment/continuous-integration.md
+    - Docker Setup: 4-development-deployment/docker-setup.md
+    - Continuous Integration (CI): 4-development-deployment/continuous-integration.md
 
 
 theme:
