@@ -147,7 +147,8 @@ jobs:
             ENABLE_PROFILING=${{ vars.ENABLE_PROFILING }}
 
             ALLOWED_ORIGINS=${{ vars.ALLOWED_ORIGINS }}
-            
+            API_TOKEN=${{ secrets.API_TOKEN }}
+
             SENTRY_DNS=${{ vars.SENTRY_DNS }}
           service: 'agile-wheel-backend'
           image: 'docker.io/miguelsmuller/agile-wheel-backend:latest'
