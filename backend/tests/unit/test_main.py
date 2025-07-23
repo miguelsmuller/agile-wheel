@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, patch
 import pytest
 from fastapi.testclient import TestClient
 
-from src.main import create_app
+from src.main import create_app, settings
 
 
 @pytest.fixture
@@ -11,6 +11,7 @@ def mock_dependencies():
     with (
         patch("src.main.initialize_logger") as mock_logger,
         patch("src.main.initialize_database", new_callable=AsyncMock) as mock_init_db,
+        patch.object(settings, "api_token", ""),
     ):
         yield mock_logger, mock_init_db
 

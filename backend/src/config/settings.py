@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     enable_profiling: bool = False
     enable_docs: bool = False
     allowed_origins: str = ""
+    api_token: str = ""
 
     db_type: str = ""
     db_host: str = ""
