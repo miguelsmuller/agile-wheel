@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from src.adapters.http.middleware.api_token_middleware import APITokenMiddleware
 from src.adapters.http.router_http import router_http
 from src.adapters.websocket.router_ws import router_ws
 from src.config import (
@@ -39,6 +40,9 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    app.add_middleware(APITokenMiddleware, token=settings.api_token)
+
 
     app.include_router(router_http)
     app.include_router(router_ws)
